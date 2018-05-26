@@ -4,7 +4,7 @@
 # Info
 
 Se asume...
--phpmyadmin  http://localhost:8080/phpmyadmin/
+-phpmyadmin  http://localhost:8080/phpmyadmin/ 
 -Apache control xampp 
 -Base de datos llamada 'nombre de la base' ya creada.
 -Editor de texto cualquiera.
@@ -108,12 +108,16 @@ reclamos abiertos/cerrados.
 
 # Detalles técnicos:
 --------------------
-° Se utilizará una base de datos MySql para almacenar los datos
+° Se utilizará una base de datos MySql para almacenar los datos.
+
 ° El sistema deberá estar implementado con Lenguaje de programación PHP desde el lado del
 Servidor
+
 ° La interfaz deberá ser construida mediante un framework css a elegir entre Bootstrap, W3CSS o
 Materialize
+
 °  Se deberá Almacenar el versionado del producto en un repositorio GIT
+
 °  Las claves de usuario deben almacenarse con encriptación SHA1 como mínimo en la base de
 datos
 ° El sistema calculara el digito verificador de los CUIL/CUIT ingresados de manera de evitar errores
