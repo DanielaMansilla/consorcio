@@ -14,6 +14,7 @@ Se asume...
 -Editor de texto cualquiera.
 
 -Herramientas de gestión de proyectos: Trello https://trello.com/b/g63JsRvS/consorcio
+
 Tecnicatura en Desarrollo Web - Universidad Nacional de La Matanza (2018)
 
 Grupo de Trabajo:
