@@ -1,0 +1,40 @@
+.indexizq{
+    width: 30rem;
+    display: inline-block;
+    float: left;
+    margin-bottom: 1.5rem;
+}
+
+
+.medioindex{
+    width: 20rem;
+    display: inline-block;
+    float: left; 
+    margin-left: 5em;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.indexder{
+    width: 20rem;
+    display: inline-block;
+    float: left;
+    margin-left: 5.5em;
+    margin-bottom: 1.5rem;
+}
+
+
+.fotoindex{
+    width: 100%;
+}
+
+.fondoindex{
+   background-color: #FAFAFA;
+
+}
+
+.corte{
+    width: 100%;
+    clear: both;
+    height: 9rem;
+}
