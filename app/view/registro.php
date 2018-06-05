@@ -63,7 +63,7 @@
     </main> 
 
 <!--EJEMPLO DE SI ESTA DENTRO DEL APP/WIEV-->
-
+        <div class="corte"></div>
         <?php include('template/footer.php'); ?>
   </body>
 </html>

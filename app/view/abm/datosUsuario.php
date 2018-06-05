@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../../librerias/Conexion.php';
-die("Probando") ;
+/*die("Probando") ;*/
 $conexion = new Conexion();
 
 $email=$_POST["emailUsuario"];
@@ -22,7 +22,7 @@ $filas = $conexion->chequearCampo('usuarios', 'email', '$email');  // si falla s
                     $estado='Pendiente';
                     $rol=1;
                     $email=$_POST["emailUsuario"];
-                    $insertaUsuario = "INSERT INTO usuarios (nombre, apellido, dni, cuil, telefono, email, password, estado, idRol) VALUES ('$nombre','$apellido', '$dni', '$cuilUsuario', '$telUsuario', '$email', '$pass_md5', '$estado', '$rol')";
+                    $insertaUsuario = "INSERT INTO usuarios (nombre, apellido, dni, cuil, telefono, email, pass, estado, idRol) VALUES ('$nombre','$apellido', '$dni', '$cuilUsuario', '$telUsuario', '$email', '$pass_md5', '$estado', '$rol')";
                     
                     mysqli_query('$conexion','$insertaUsuario');
                     
