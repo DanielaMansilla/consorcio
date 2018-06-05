@@ -3,9 +3,11 @@ session_start();
 require_once '../../librerias/Conexion.php';
 /*die("Probando") ;*/
 $conexion = new Conexion();
+echo 'host: '. $conexion->host;
+exit();
 
 $email=$_POST["emailUsuario"];
-$filas = $conexion->chequearCampo('usuarios', 'email', '$email');  // si falla sacar comillas
+$filas = $conexion->chequearCampo('usuarios', 'email', $email);  // si falla sacar comillas
 
             
             if($filas == 0)
@@ -19,12 +21,13 @@ $filas = $conexion->chequearCampo('usuarios', 'email', '$email');  // si falla s
                     $dni=$_POST["dniUsuario"];
                     $cuilUsuario=$_POST["cuilUsuario"];
                     $telUsuario=$_POST["telUsuario"];
-                    $estado='Pendiente';
+                    $estado=1;
                     $rol=1;
                     $email=$_POST["emailUsuario"];
-                    $insertaUsuario = "INSERT INTO usuarios (nombre, apellido, dni, cuil, telefono, email, pass, estado, idRol) VALUES ('$nombre','$apellido', '$dni', '$cuilUsuario', '$telUsuario', '$email', '$pass_md5', '$estado', '$rol')";
-                    
-                    mysqli_query('$conexion','$insertaUsuario');
+                    $insertaUsuario = "INSERT INTO usuarios (nombre, apellido, dni, cuil, telefono, email, pass, estado, idRol) VALUES ($nombre, $apellido, $dni, $cuilUsuario, $telUsuario, $email, $pass_md5, $estado, $rol)";
+                    echo $conexion->$host;
+                    exit();
+                    mysqli_query($conexion,$insertaUsuario);
                     
                 echo "Te has registrado con exito."; 
                 header('location: ../index.php');

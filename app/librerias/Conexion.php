@@ -2,12 +2,20 @@
 //require_once '../config/Configurar.php'; // requiere_once incluye el archivob y si no lo encuentra ROMPE TODO
 
 class Conexion extends mysqli{
+    
+    public $host;
+    public $user;
+    public $pass;
+    public $db;
+
+
+    
     public function __construct(){
-       $host = '127.0.0.1';
-     $user = 'root';
+    $this->host = '127.0.0.1';
+    $user = 'root';
     $pass = '';
     $db = 'consorcio';
-      mysqli_connect($host,$user,$pass,$db);
+     mysqli_connect($this->host,$user,$pass,$db);
     /*mysqli_connect(parent::__construct(Configurar::$host,
      Configurar::$user, Configurar::$pass, Configurar::$db));*/
     if($this->connect_errno){
