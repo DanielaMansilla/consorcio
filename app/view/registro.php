@@ -10,7 +10,7 @@
     <main> 
         <div class="card">
             <h3 class="card-header">Solicitud de Registro de Usuario</h3>
-                    <form class="form-control" action='abm/datosUsuario.php' method='POST' ENCTYPE="application/x-www-form-urlencoded">
+                    <form class="form-control" action='abm/datos.php' method='POST' ENCTYPE="application/x-www-form-urlencoded">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                      <p class="card-text">Nombre: </p> <INPUT class="form-control" name="nombreUsuario" type="text" required><br>
