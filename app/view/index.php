@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-    
+
 <?php 
     include('template/head.php');   
     include ('template/header.php'); ?>  
@@ -36,7 +36,5 @@
         </div>
         <?php include('template/footer.php'); ?>
     </body>
-            
+       
 </html>
-
-
