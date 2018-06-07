@@ -1,18 +1,22 @@
 <?php
-include("../config/configurar.php");
+require_once '../config/Conexion.php'; 
 session_start();
-if(isset($_SESSION['username']))
-{} ?>
+if(isset($_SESSION['username'])){} ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
+<?php include('template/head.php'); ?>
 
-<?php 
-    include('template/head.php');   
-    include ('template/header.php'); ?>  
     <body>
-        <main> 
-        </main> 
-        <?php include('template/footer.php'); ?>
+    <?php 
+        include('template/nav.php');  
+        include('template/header.php'); ?>
+
+        
+
+
+
+    <?php include('template/footer.php'); ?>
     </body>
+
 </html>
