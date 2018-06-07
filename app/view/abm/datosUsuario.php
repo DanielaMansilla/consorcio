@@ -12,8 +12,12 @@ require_once '../../config/Conexion.php';
     $pass=$_POST["passUsuario"];
     $pass_sha1 = sha1($pass); //Guarda el pass hasheado
 
-    $insertarUsuario = "INSERT INTO usuarios(nombre, apellido, cuil, email, dni, telefono,estado,idRol,pass) VALUES ('$nombre', '$apellido', '$cuilUsuario','$email','$dni',  '$telUsuario','$estado', '$rol', '$pass_sha1')";
+    $insertarUsuario = "INSERT INTO usuarios(nombre, apellido, cuil, email, dni, telefono,estado,idRol,pass) VALUES ('$nombre', '$apellido', '$cuilUsuario','$email','$dni', '$telUsuario','$estado', '$rol', '$pass_sha1')";
     
     $resultado=mysqli_query($conexion,$insertarUsuario);
     
-    mysqli_close($conexion); ?>
+    mysqli_close($conexion); 
+
+    //Luego mandar a una vista (te registraste con exito)
+    header('location: ../index.php');
+    ?>
