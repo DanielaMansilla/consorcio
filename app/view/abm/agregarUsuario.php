@@ -1,16 +1,16 @@
 <?php
-require_once '../config/Conexion.php';
+require_once '../../config/Conexion.php';
 session_start();
 if(isset($_SESSION['username'])){} ?>
 
 <!DOCTYPE html>
 <html lang="es">
-<?php include('template/head.php'); ?>
+<?php include('../template/head.php'); ?>
 
     <body>
     <?php 
-        include('template/nav.php');  
-        include('template/header.php'); ?>
+        include('../template/nav.php');  
+        include('../template/header.php'); ?>
 
         <title>Consorcios del Valle - Agregar Usuario</title>
 
@@ -32,8 +32,8 @@ if(isset($_SESSION['username'])){} ?>
 		
 				$cek = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$idUsuarios'");
 				if(mysqli_num_rows($cek) == 0){
-						$insert = mysqli_query($conexion, "INSERT INTO usuarios(idUsuarios, apellido, nombre, cuil, email, dni, telefono, idRol, estado)
-															VALUES('$idUsuarios','$apellido', '$nombre', '$cuil', '$email', '$dni', '$telefono', '$idRol', '$estado')") or die(mysqli_error());
+						$insert = mysqli_query($conexion, "INSERT INTO usuarios(apellido, nombre, cuil, email, dni, telefono, idRol, estado)
+															VALUES('$apellido', '$nombre', '$cuil', '$email', '$dni', '$telefono', '$idRol', '$estado')") or die(mysqli_error());
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
 						}else{
@@ -112,7 +112,7 @@ if(isset($_SESSION['username'])){} ?>
 		</div>
 	</div>
 
-    <?php include('template/footer.php'); ?>
+<!-- Incluir Footer - se superpone contra los botones y no funciona -->
     </body>
 
 </html>

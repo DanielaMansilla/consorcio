@@ -60,6 +60,7 @@ if(isset($_SESSION['username'])){} ?>
                     <th>E-mail</th>
                     <th>Dni</th>
 					<th>Teléfono</th>
+					<th>Rol</th>
 					<th>Estado</th>
                     <th>Acciones</th>
 				</tr>
@@ -79,7 +80,7 @@ if(isset($_SESSION['username'])){} ?>
 						echo '
 						<tr>
 							<td>'.$row['idUsuarios'].'</td>
-                            <td><a href="perfil.php?nik='.$row['idUsuarios'].'"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> '.$row['apellido'].'</a></td>
+                            <td><a href="perfil.php?nik='.$row['idUsuarios'].'"><span class="fas fa-user" aria-hidden="true"></span> '.$row['apellido'].'</a></td>
                             <td>'.$row['nombre'].'</td>
                             <td>'.$row['cuil'].'</td>
                             <td>'.$row['email'].'</td>
@@ -88,20 +89,20 @@ if(isset($_SESSION['username'])){} ?>
                             <td>'.$row['idRol'].'</td>   
 							<td>';
 							if($row['estado'] == 'Activo'){
-								echo '<span class="label label-success">Activo</span>';
+								echo '<span class="badge badge-success">Activo</span>';
 							}
                             else if ($row['estado'] == 'Inactivo' ){
-								echo '<span class="label label-danger">Inactivo</span>';
+								echo '<span class="badge badge-danger">Inactivo</span>';
 							}
                             else if ($row['estado'] == 'Pendiente' ){
-								echo '<span class="label label-warning">Pendiente</span>';
+								echo '<span class="badge badge-warning">Pendiente</span>';
 							}
 						echo '
 							</td>
 							<td>
 
-								<a href="abm/editarUsuario.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-								<a href="listaUsuario.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+								<a href="abm/editarUsuario.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+								<a href="listaUsuario.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';

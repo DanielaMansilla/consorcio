@@ -89,14 +89,14 @@ if(isset($_SESSION['username'])){} ?>
 				</tr>
 			</table>
 			
-			<a href="listaUsuario.php" class="btn btn-sm btn-info"><span class="glyphiconexion glyphiconexion-refresh" aria-hidden="true"></span> Regresar</a>
-			<a href="abm/editarUsuario.php?nik=<?php echo $row['nik']; ?>" class="btn btn-sm btn-success"><span class="glyphiconexion glyphiconexion-edit" aria-hidden="true"></span> Editar datos</a>
-			<a href="perfil.php?aksi=delete&nik=<?php echo $row['nik']; ?>" class="btn btn-sm btn-danger" onclick="return conexionfirm('Esta seguro de borrar los datos <?php echo $row['apellido']; ?>')"><span class="glyphiconexion glyphiconexion-trash" aria-hidden="true"></span> Eliminar</a>
+			<a href="listaUsuario.php" class="btn btn-sm btn-info"><span class="fas fa-arrow-left" aria-hidden="true"></span> Regresar</a>
+			<a href="abm/editarUsuario.php?nik=<?php echo $row['idUsuarios']; ?>" class="btn btn-sm btn-success"><span class="fas fa-edit" aria-hidden="true"></span> Editar datos</a>
+			<a href="perfil.php?aksi=delete&nik=<?php echo $row['idUsuarios']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Esta seguro de borrar los datos <?php echo $row['apellido']; ?>')"><span class="fas fa-trash" aria-hidden="true"></span> Eliminar</a>
 		</div>
 	</div>
 
 
-    <?php include('template/footer.php'); ?>
+    <!-- Incluir Footer - se superpone contra los botones y no funciona -->
     </body>
 
 </html>

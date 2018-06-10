@@ -1,16 +1,16 @@
 <?php
-require_once '../config/Conexion.php'; 
+require_once '../../config/Conexion.php'; 
 session_start();
 if(isset($_SESSION['username'])){} ?>
 
 <!DOCTYPE html>
 <html lang="es">
-<?php include('template/head.php'); ?>
+<?php include('../template/head.php'); ?>
 
     <body>
     <?php 
-        include('template/nav.php');  
-        include('template/header.php'); ?>
+        include('../template/nav.php');  
+        include('../template/header.php'); ?>
 
         <title>Consorcios del Valle - Editar Usuario</title>
 
@@ -22,9 +22,9 @@ if(isset($_SESSION['username'])){} ?>
 			<?php
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
-			$sql = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuario='$nik'");
+			$sql = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$nik'");
 			if(mysqli_num_rows($sql) == 0){
-				header("Location: listaUsuario.php");
+				header("Location: ../listaUsuario.php");
 			}else{
 				$row = mysqli_fetch_assoc($sql);
 			}
@@ -38,7 +38,7 @@ if(isset($_SESSION['username'])){} ?>
 				$idRol          = mysqli_real_escape_string($conexion,(strip_tags($_POST["idRol"],ENT_QUOTES)));//Escanpando caracteres 
 				$estado			 = mysqli_real_escape_string($conexion,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres 
 				
-				$update = mysqli_query($conexion, "UPDATE usuarios SET apellido='$apellido', nombre='$nombre', cuil='$cuil', email='$email', dni='$dni'  telefono='$telefono', idRol='$idRol', estado='$estado' WHERE idUsuario='$nik'") or die(mysqli_error());
+				$update = mysqli_query($conexion, "UPDATE usuarios SET apellido='$apellido', nombre='$nombre', cuil='$cuil', email='$email', dni='$dni'  telefono='$telefono', idRol='$idRol', estado='$estado' WHERE idUsuarios='$nik'") /*or die(mysqli_error())*/;
 				if($update){
 					header("Location: editarUsuario.php?nik=".$nik."&pesan=sukses");
 				}else{
@@ -112,14 +112,14 @@ if(isset($_SESSION['username'])){} ?>
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
 						<input type="submit" name="save" class="btn btn-sm btn-primary" value="Guardar datos">
-						<a href="listaUsuario.php" class="btn btn-sm btn-danger">Cancelar</a>
+						<a href="../listaUsuario.php" class="btn btn-sm btn-danger">Cancelar</a>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
 
-    <?php include('template/footer.php'); ?>
+  <!-- Incluir Footer - se superpone contra los botones y no funciona -->
     </body>
 
 </html>

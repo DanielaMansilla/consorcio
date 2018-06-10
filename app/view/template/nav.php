@@ -7,19 +7,17 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="home.php">Inicio <span class="sr-only"><!-- (current) para que muestre seleccionada --></span></a>
+        <a class="nav-link" href="/consorcio/app/view/home.php">Inicio <span class="sr-only"><!-- (current) para que muestre seleccionada --></span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="listaUsuario.php">Lista de usuarios</a>
+        <a class="nav-link" href="/consorcio/app/view/listaUsuario.php">Lista de usuarios</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="abm/agregarUsuario.php">Agregar usuarios</a>
+        <a class="nav-link" href="/consorcio/app/view/abm/agregarUsuario.php">Agregar usuarios</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="../config/CerrarSession.php">Cerrar sesión</a>
+        <a class="nav-link" href="/consorcio/app/config/CerrarSession.php">Cerrar sesión</a>
       </li>
     </ul>
   </div>
 </nav>
-<!-- Para que funcione el menu responsive, tratar de ponerlo en el footer -->
-<script src="../../public/js/jquery-3.2.1.slim.min.js"></script>
