@@ -117,9 +117,12 @@ if(isset($_SESSION['username'])){} ?>
 				</div>
 			</form>
 		</div>
+
+		
 	</div>
 
-  <!-- Incluir Footer - se superpone contra los botones y no funciona -->
+  	<div class="corte">
+    </div>
+    <?php include('../template/footer.php'); ?>
     </body>
-
 </html>

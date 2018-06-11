@@ -16,6 +16,8 @@ if(isset($_SESSION['username'])){} ?>
 
 
 
+    <div class="corte">
+    </div>
     <?php include('template/footer.php'); ?>
     </body>
 
