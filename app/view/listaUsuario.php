@@ -114,9 +114,8 @@ if(isset($_SESSION['username'])){} ?>
 			</div>
 		</div>
 	</div><center>
-
-
-
+  	<div class="corte">
+    </div>
     <?php include('template/footer.php'); ?>
     </body>
 

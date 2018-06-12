@@ -9,7 +9,7 @@
                     <div class="fondoindex"> 
                         <div class="card-body">  
                             <div class="indexizq">
-                                <form class="form-control"  action='home.php' method='POST' ENCTYPE="application/x-www-form-urlencoded">
+                                <form class="form-control"  action='abm/datosLogin.php' method='POST' ENCTYPE="application/x-www-form-urlencoded">
                                     <p class="card-text">Dirección de Correo Electrónico: </p> <INPUT class="input-group-lg"  name="emailUsuario" type="text"  value="ejemplo@ejemplo.com"><small id="emailHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie.</small>
                                     <br>
                                     <p class="card-text">Contraseña: </p><INPUT class="input-group-lg" name="passUsuario" type="password">

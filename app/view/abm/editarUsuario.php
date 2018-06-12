@@ -29,16 +29,16 @@ if(isset($_SESSION['username'])){} ?>
 				$row = mysqli_fetch_assoc($sql);
 			}
 			if(isset($_POST['save'])){
-                $apellido		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["apellido"],ENT_QUOTES)));//Escanpando caracteres 
+				$apellido		 = mysqli_real_escape_string($conexion,(strip_tags($_POST["apellido"],ENT_QUOTES)));//Escanpando caracteres 
                 $nombre		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
                 $cuil		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["cuil"],ENT_QUOTES)));//Escanpando caracteres     
                 $email		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["email"],ENT_QUOTES)));//Escanpando caracteres     
                 $dni		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["dni"],ENT_QUOTES)));//Escanpando caracteres 
 				$telefono		 = mysqli_real_escape_string($conexion,(strip_tags($_POST["telefono"],ENT_QUOTES)));//Escanpando caracteres 
-				$idRol          = mysqli_real_escape_string($conexion,(strip_tags($_POST["idRol"],ENT_QUOTES)));//Escanpando caracteres 
+				$idRol         	 = mysqli_real_escape_string($conexion,(strip_tags($_POST["idRol"],ENT_QUOTES)));//Escanpando caracteres 
 				$estado			 = mysqli_real_escape_string($conexion,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres 
 				
-				$update = mysqli_query($conexion, "UPDATE usuarios SET apellido='$apellido', nombre='$nombre', cuil='$cuil', email='$email', dni='$dni'  telefono='$telefono', idRol='$idRol', estado='$estado' WHERE idUsuarios='$nik'") /*or die(mysqli_error())*/;
+				$update = mysqli_query($conexion, "UPDATE usuarios SET apellido='$apellido', nombre='$nombre', cuil='$cuil', email='$email', dni='$dni', telefono='$telefono', idRol='$idRol', estado='$estado' WHERE idUsuarios='$nik'") or die(mysqli_error($conexion));
 				if($update){
 					header("Location: editarUsuario.php?nik=".$nik."&pesan=sukses");
 				}else{
@@ -99,7 +99,7 @@ if(isset($_SESSION['username'])){} ?>
 					<label class="col-sm-3 control-label">Estado</label>
 					<div class="col-sm-3">
 						<select name="estado" class="form-control">
-							<option value="">- Selecciona estado -</option>
+							<option disabled="disabled" hidden="hidden" value="">- Selecciona estado -</option>
                             <option value="Activo" <?php if ($row ['estado']=='Activo'){echo "selected";} ?>>Activo</option>
 							<option value="Inactivo" <?php if ($row ['estado']=='Inactivo'){echo "selected";} ?>>Inactivo</option>
 							<option value="Pendiente" <?php if ($row ['estado']=='Pendiente'){echo "selected";} ?>>Pendiente</option>
@@ -117,9 +117,12 @@ if(isset($_SESSION['username'])){} ?>
 				</div>
 			</form>
 		</div>
+
+		
 	</div>
 
-  <!-- Incluir Footer - se superpone contra los botones y no funciona -->
+  	<div class="corte">
+    </div>
+    <?php include('../template/footer.php'); ?>
     </body>
-
 </html>

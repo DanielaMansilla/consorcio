@@ -21,3 +21,4 @@ require_once '../../config/Conexion.php';
     //Luego mandar a una vista (te registraste con exito)
     header('location: ../index.php');
     ?>
+

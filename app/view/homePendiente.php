@@ -13,9 +13,8 @@ if(isset($_SESSION['username'])){} ?>
         include('template/header.php'); ?>
 
         
-
-
-
+    <div class="corte">
+    </div>
     <?php include('template/footer.php'); ?>
     </body>
 
