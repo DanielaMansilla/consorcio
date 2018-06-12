@@ -13,6 +13,12 @@ if(isset($_SESSION['username'])){} ?>
         include('template/header.php'); ?>
 
         
+        
+    <?php
+    //Prueba conexion
+    echo "Hola " . $_SESSION['usuario'];
+ 
+    ?>
 
 
 
