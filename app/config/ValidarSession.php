@@ -19,6 +19,8 @@ if($row = mysqli_fetch_array($result)){
 if($row['pass'] == $pass_sha1){
 session_start();
 $_SESSION['usuario'] = $usuario;
+//COOKIE FUTURA
+//setcookie('cookie',$usuario, time()+3600;
 header("Location: ../view/home.php");
 }else{
 header("Location: ../view/index.php");
@@ -28,7 +30,4 @@ exit();
 header("Location: ../view/index.php");
 exit();
 }
-
-//COOKIE FUTURA
-//setcookie('cookie',$email, time()+3600;
 ?>
