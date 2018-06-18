@@ -38,7 +38,7 @@
                                     <br>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <p class="card-text">Dirección de Correo Electrónico: </p> <INPUT class="form-control"  name="emailUsuario" type="text"  value="ejemplo@ejemplo.com" required><small id="emailHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie.</small>
+                                    <p class="card-text">Dirección de Correo Electrónico: </p> <INPUT class="form-control"  name="emailUsuario" type="text"  placeholder="ejemplo@ejemplo.com" required><small id="emailHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie.</small>
                                     <br>
                                 </div>
                            </div>

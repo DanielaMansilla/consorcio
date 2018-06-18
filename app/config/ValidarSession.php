@@ -1,5 +1,5 @@
 <?php
-session_start();
+//session_start();
 require_once 'Conexion.php'; 
 
 $usuario = $_POST['emailUsuario'];
@@ -13,11 +13,11 @@ header("Location: ../view/index.php");
 exit();
 }
 $sql = "SELECT * from usuarios where email='$usuario'";
-$result = mysql_query($conexion,$sql);
+$result = mysqli_query($conexion,$sql);
 
-if($row = mysql_fetch_array($result)){
+if($row = mysqli_fetch_array($result)){
 if($row['pass'] == $pass_sha1){
-
+session_start();
 $_SESSION['usuario'] = $usuario;
 header("Location: ../view/home.php");
 }else{
@@ -29,4 +29,6 @@ header("Location: ../view/index.php");
 exit();
 }
 
+//COOKIE FUTURA
+//setcookie('cookie',$email, time()+3600;
 ?>
