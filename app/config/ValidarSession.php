@@ -14,12 +14,12 @@ $sql = "SELECT * from usuarios where email='$usuario'";
 $result = mysqli_query($conexion,$sql);
 
 if($row = mysqli_fetch_array($result)){
-if($row['pass'] == $pass_sha1)
+if($row['pass'] == $pass_sha1){
 session_start();
 //COOKIE FUTURA
 //setcookie('cookie',$usuario, time()+3600;
-{
-    //Direccionamiento segun rol.
+    
+//Direccionamiento segun rol.
 
 if($row['idRol'] == 0){
     $_SESSION['sinRol'] = $usuario;

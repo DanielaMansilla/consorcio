@@ -1,7 +1,7 @@
 <?php
 require_once '../../config/Conexion.php';
 session_start();
-if(!isset($_SESSION['usuario'])){
+if(!isset($_SESSION['admin'])){
     header("Location: index.php");} ?>
 
 <!DOCTYPE html>

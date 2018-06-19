@@ -1,8 +1,9 @@
 <?php
 require_once '../config/Conexion.php'; 
 session_start();
-/*if(isset($_SESSION['usuario'])){
-    header("Location: home.php");}*/ ?>
+// poner permiso tambien para operador y propietario
+if(isset($_SESSION['admin'])){
+    header("Location: home.php");} ?>
 <!DOCTYPE html>
 <html>
 <?php 

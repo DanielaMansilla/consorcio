@@ -1,7 +1,8 @@
 <?php
 require_once '../config/Conexion.php';
 session_start();
-if(!isset($_SESSION['usuario'])){
+// poner permiso tambien para operador
+if(!isset($_SESSION['admin'])){
     header("Location: index.php");} ?>
 
 <!DOCTYPE html>

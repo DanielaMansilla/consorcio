@@ -1,8 +1,10 @@
 <?php
 require_once '../config/Conexion.php'; 
 session_start();
-if(isset($_SESSION['usuario'])){
-    header("Location: home.php");} ?>
+//Si tiene session iniciada no muestra el login y te manda al home correspondiente
+//poner depende el rol 
+if(isset($_SESSION['admin'])){
+    header("Location: homeAdmin.php");} ?>
 <!DOCTYPE html>
 <html lang="es">
 <?php include('template/head.php'); ?>
