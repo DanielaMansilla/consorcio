@@ -1,8 +1,8 @@
 <?php
 require_once '../config/Conexion.php'; 
 session_start();
-if(isset($_SESSION['usuario'])){
-    header("Location: home.php");} ?>
+/*if(isset($_SESSION['usuario'])){
+    header("Location: home.php");}*/ ?>
 <!DOCTYPE html>
 <html>
 <?php 
@@ -32,13 +32,13 @@ if(isset($_SESSION['usuario'])){
             $error[] = "Apellido debe tener al menos 3 caracteres, solo alfabeticos";
           }
         //Verificar validaciones de dni, cuil, teléfono.
-        if(!(strlen($cuil) == 11){
+        if(!(strlen($cuilUsuario) == 11)){
             $error[] = "Cuil debe tener 11 digitos sin guiones.";
           }
-        if(!(strlen($dni) == 8){
+        if(!(strlen($dni) == 8)){
             $error[] = "Dni debe tener 8 digitos sin guiones.";
           }
-        if(!(strlen($pass) >= 8 && strlen($pass) <= 10){
+        if(!(strlen($telUsuario) >= 8 && strlen($telUsuario) <= 10)){
             $error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";
           }
         //Separador
