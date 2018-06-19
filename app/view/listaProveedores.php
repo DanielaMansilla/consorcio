@@ -1,9 +1,10 @@
 <?php
-require_once '../config/Configurar.php'; 
+//require_once '../librerias/DataBase.php'; 
+//require_once '../config/Configurar.php'; 
 include '../model/Proveedor.php';
 session_start();
 if(isset($_SESSION['username'])){};
-require_once '../librerias/DataBase.php'; 
+
 $conexion = new DataBase();    
 $proveedores = new Proveedor();
 
