@@ -1,14 +1,11 @@
 <?php
-require_once '../config/Conexion.php'; 
-require_once '../config/Configurar.php'; 
 include '../model/Proveedor.php';
 session_start();
-if(isset($_SESSION['username'])){};
-require_once '../librerias/DataBase.php'; 
-$conexion = new DataBase();    
-$proveedores = new Proveedor();
+if(isset($_SESSION['username'])){};   
+$proveedores3 = new Proveedor();
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -21,24 +18,23 @@ $proveedores = new Proveedor();
         include('template/header.php'); ?>
         
                 
-<title>Consorcios del Valle - Operador</title>
+<title>Consorcios del Valle - Editar Proveedor</title>
 
     <div class="container">
 		<div class="content">
-			<h2>Lista de proveedores</h2>
+			<h2>Datos de Proveedor - Editar</h2>
 			<hr />
-<?php
-$proveedores::listarProveedores();
 
-?>
 		</div>
 	</div>  
+<?php
+$proveedores3::editarProveedores();
+            
 
-        
-        
-        
 
-
+?>
+      
+    <center>
     <div class="corte">
     </div>
     <?php include('template/footer.php'); ?>

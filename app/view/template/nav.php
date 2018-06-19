@@ -7,13 +7,16 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/consorcio/app/view/home.php">Inicio <span class="sr-only"><!-- (current) para que muestre seleccionada --></span></a>
+        <a class="nav-link" href="/consorcio/app/view/homeAdmin.php">Inicio <span class="sr-only"><!-- (current) para que muestre seleccionada --></span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/consorcio/app/view/listaUsuario.php">Lista de usuarios</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/consorcio/app/view/abm/agregarUsuario.php">Agregar usuarios</a>
+      </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/consorcio/app/view/listaUF.php">Unidades Funcionales</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/consorcio/app/config/CerrarSession.php">Cerrar sesión</a>

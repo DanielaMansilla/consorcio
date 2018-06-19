@@ -1,5 +1,4 @@
 <?php
-require_once '../config/Conexion.php'; 
 require_once '../config/Configurar.php'; 
 include '../model/Proveedor.php';
 session_start();
@@ -21,7 +20,7 @@ $proveedores = new Proveedor();
         include('template/header.php'); ?>
         
                 
-<title>Consorcios del Valle - Operador</title>
+<title>Consorcios del Valle - Lista de Proveedores</title>
 
     <div class="container">
 		<div class="content">
@@ -29,6 +28,8 @@ $proveedores = new Proveedor();
 			<hr />
 <?php
 $proveedores::listarProveedores();
+            
+
 
 ?>
 		</div>
@@ -38,10 +39,10 @@ $proveedores::listarProveedores();
         
         
 
-
+    <center>
     <div class="corte">
     </div>
     <?php include('template/footer.php'); ?>
 </body>
 
-</html>
+    </html>

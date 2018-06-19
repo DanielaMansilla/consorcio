@@ -12,11 +12,11 @@ if(isset($_SESSION['username'])){} ?>
         include('../template/nav.php');  
         include('../template/header.php'); ?>
 
-        <title>Consorcios del Valle - Editar Usuario</title>
+        <title>Consorcios del Valle - Unidades Funcionales</title>
 
         <div class="container">
 		<div class="content">
-			<h2>Datos del usuario &raquo; Editar Datos</h2>
+			<h2>Datos de Unidades Funcionales &raquo; Editar Datos</h2>
 			<hr />
             	<?php
 			// escaping, additionally removing everything that could be (html/javascript-) code

@@ -16,7 +16,8 @@ if(isset($_SESSION['username'])){} ?>
 
         <div class="container">
 		<div class="content">
-			<h2>Lista de UF</h2>
+			<h2>Lista de Unidades Funcionales.</h2>
+            <h3>Asignar Unidades Funcionales a Propietarios.</h3>
 			<hr />
 
 

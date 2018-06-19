@@ -20,6 +20,27 @@ if(isset($_SESSION['username'])){} ?>
 		<div class="content">
 			<h2>Lista de usuarios pendientes</h2>
 			<hr />
+            
+            
+            
+            <?php
+			if(isset($_GET['aksi']) == 'delete'){
+				// escaping, additionally removing everything that could be (html/javascript-) code
+				$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
+				$cek = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$nik'");
+				if(mysqli_num_rows($cek) == 0){
+					echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encotraron datos.</div>';
+				}else{
+					$delete = mysqli_query($conexion, "DELETE FROM usuarios WHERE idUsuarios='$nik'");
+                    var_dump($delete);
+					if($delete){
+						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Datos eliminados correctamente.</div>';
+					}else{
+						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar la solicitud.</div>';
+					}
+				}
+			}
+			?>
 
 			<br />
 			<div class="table-responsive">
@@ -56,7 +77,7 @@ if(isset($_SESSION['username'])){} ?>
 							<td>
 
 								<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
-								<a href="homeAdmin.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
+								<a href="homeAdmin.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar solicitud de habilitacion" onclick="return confirm(\'Esta seguro de borrar la solicitud de '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';
