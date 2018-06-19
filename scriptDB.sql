@@ -134,7 +134,7 @@ CREATE TABLE `propiedad` (
   `idUsuarios` int(11) DEFAULT NULL,
   `porcentajeParticipacion` int(11) DEFAULT NULL,
   `piso` int(11) NOT NULL,
-  `deposito` int(11) NOT NULL,
+  `departamento` int(11) NOT NULL,
   `unidadFuncionalLote` varchar(50) NOT NULL,
   `idConsorcio` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

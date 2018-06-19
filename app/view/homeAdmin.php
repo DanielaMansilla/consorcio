@@ -1,7 +1,7 @@
 <?php
 require_once '../config/Conexion.php'; 
 session_start();
-if(!isset($_SESSION['usuario'])){
+if(!isset($_SESSION['admin'])){  // verificar si es admin
     header("Location: index.php");} ?>
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ if(!isset($_SESSION['usuario'])){
         
     <?php
     //Prueba conexion
-    echo "Hola " . $_SESSION['usuario'];
+    echo "Hola " . $_SESSION['admin'];
  
     ?>
 
