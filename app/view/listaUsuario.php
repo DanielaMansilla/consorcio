@@ -1,9 +1,10 @@
 <?php
 require_once '../config/Conexion.php'; 
 session_start();
-// poner permiso tambien para operador
+// Permisos
 if(!isset($_SESSION['admin'])){
-    header("Location: index.php");} ?>
+	if(!isset($_SESSION['operador'])){
+		header("Location: ../index.php");}} ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -98,17 +99,27 @@ if(!isset($_SESSION['admin'])){
 							}
                             else if ($row['estado'] == 'Pendiente' ){
 								echo '<span class="badge badge-warning">Pendiente</span>';
-							}
-						echo '
+							}if(isset($_SESSION['admin'])){
+								echo '
 							</td>
 							<td>
-
 								<a href="abm/editarUsuario.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
 								<a href="listaUsuario.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';
 						//$no++;
+							}if(isset($_SESSION['operador'])){
+								echo '
+							</td>
+							<td>
+								<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+								<a href="listaUsuario.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
+							</td>
+						</tr>
+						';
+						//$no++;
+							}
 					}
 				}
 				?>
@@ -116,9 +127,7 @@ if(!isset($_SESSION['admin'])){
 			</div>
 		</div>
 	</div><center>
-
-
-
+	
     <div class="corte">
     </div>
     <?php include('template/footer.php'); ?>
