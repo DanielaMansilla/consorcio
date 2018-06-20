@@ -34,7 +34,7 @@ if(!isset($_SESSION['admin'])){
 				$idUsuarios		 = mysqli_real_escape_string($conexion,(strip_tags($_POST["idUsuarios"],ENT_QUOTES)));//Escanpando caracteres
 				$update = mysqli_query($conexion, "UPDATE propiedad SET idUsuarios='$idUsuarios' WHERE idPropiedad='$nik'") or die(mysqli_error($conexion));
 				if($update){
-					header("Location: editarUf.php");
+					header("Location: editarUf.php?nik=".$nik."&pesan=sukses");
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
 				}

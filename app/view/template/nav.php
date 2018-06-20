@@ -35,6 +35,7 @@
           <a class="dropdown-item" href="/consorcio/app/view/listaUsuario.php">L. Usuarios</a>
           <a class="dropdown-item" href="/consorcio/app/view/listaProveedor.php">L. Proveedores</a>
           <a class="dropdown-item" href="/consorcio/app/view/listaUf.php">L. Unidad Funcional</a>
+          <a class="dropdown-item" href="/consorcio/app/view/listaConsorcio.php">L. Consorcio</a>
         </div>
       </li>
       <li class="nav-item dropdown">
@@ -45,6 +46,7 @@
           <a class="dropdown-item" href="/consorcio/app/view/abm/agregarUsuario.php">A. Usuarios</a>
           <a class="dropdown-item" href="/consorcio/app/view/abm/agregarProveedor.php">A. Proveedores</a>
           <a class="dropdown-item" href="/consorcio/app/view/abm/agregarUf.php">A. Unidad Funcional</a>
+          <a class="dropdown-item" href="/consorcio/app/view/abm/agregarConsorcio.php">A. Consorcio</a>
         </div>
       </li>
 
@@ -74,9 +76,10 @@
           Listas
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <a class="dropdown-item" href="/consorcio/app/view/listaUsuario.php">L.Usuarios</a>
-          <a class="dropdown-item" href="/consorcio/app/view/listaProveedor.php">Proveedores</a>
-          <a class="dropdown-item" href="/consorcio/app/view/listaUf.php">Unidad Funcional</a>
+        <a class="dropdown-item" href="/consorcio/app/view/listaUsuario.php">L. Usuarios</a>
+          <a class="dropdown-item" href="/consorcio/app/view/listaProveedor.php">L. Proveedores</a>
+          <a class="dropdown-item" href="/consorcio/app/view/listaUf.php">L. Unidad Funcional</a>
+          <a class="dropdown-item" href="/consorcio/app/view/listaConsorcio.php">L. Consorcio</a>
         </div>
         </li>
       <li class="nav-item">

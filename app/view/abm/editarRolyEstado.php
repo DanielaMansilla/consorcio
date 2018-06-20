@@ -39,7 +39,7 @@ if(!isset($_SESSION['admin'])){
             
 			$sql = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$nik'");
 			if(mysqli_num_rows($sql) == 0){
-				header("Location: ../homeAdmin.php");
+				header("Location: ../index.php");
 			}else{
 				$row = mysqli_fetch_assoc($sql);
 			}

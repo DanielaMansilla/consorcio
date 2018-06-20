@@ -31,7 +31,8 @@ if(!isset($_SESSION['admin'])){
 				$idRol          = mysqli_real_escape_string($conexion,(strip_tags($_POST["idRol"],ENT_QUOTES)));//Escanpando caracteres 
 				$estado			 = mysqli_real_escape_string($conexion,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres 
 		
-				$cek = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$idUsuarios'");
+				//Realiza el Insert solo si no existe otro usuario con el mismo DNI
+				$cek = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$dni'");
 				if(mysqli_num_rows($cek) == 0){
 						$insert = mysqli_query($conexion, "INSERT INTO usuarios(apellido, nombre, cuil, email, dni, telefono, idRol, estado)
 															VALUES('$apellido', '$nombre', '$cuil', '$email', '$dni', '$telefono', '$idRol', '$estado')") or die(mysqli_error());
@@ -42,7 +43,7 @@ if(!isset($_SESSION['admin'])){
 						}
 					 
 				}else{
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. código exite!</div>';
+					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El DNI ya exite!</div>';
 				}
 			}
 			?>
