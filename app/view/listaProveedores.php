@@ -1,9 +1,7 @@
 <?php
 include '../model/Proveedor.php';
 session_start();
-if(isset($_SESSION['username'])){};
-
-$conexion = new DataBase();    
+if(isset($_SESSION['username'])){};   
 $proveedores = new Proveedor();
 
 ?>
@@ -25,18 +23,11 @@ $proveedores = new Proveedor();
 		<div class="content">
 			<h2>Lista de proveedores</h2>
 			<hr />
-<?php
-$proveedores::listarProveedores();
-            
-
-
-?>
+        <?php
+        $proveedores::listarProveedores();
+        ?>
 		</div>
 	</div>  
-
-        
-        
-        
 
     <center>
     <div class="corte">

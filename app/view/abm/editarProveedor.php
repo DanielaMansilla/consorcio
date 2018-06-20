@@ -6,7 +6,6 @@ $proveedores3 = new Proveedor();
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="es">
     
@@ -16,7 +15,6 @@ $proveedores3 = new Proveedor();
     <?php 
         include('../template/nav.php');  
         include('../template/header.php'); ?>
-        
                 
 <title>Consorcios del Valle - Editar Proveedor</title>
 
@@ -29,14 +27,9 @@ $proveedores3 = new Proveedor();
 	</div>  
 <?php
 
-
-
 $proveedores3::listarProveedores();
             
-
-
-?>
-      
+?>   
     <center>
     <div class="corte">
     </div>
