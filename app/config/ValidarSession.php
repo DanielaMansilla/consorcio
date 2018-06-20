@@ -1,5 +1,4 @@
 <?php
-//session_start();
 require_once 'Conexion.php'; 
 
 $usuario = $_POST['emailUsuario'];
@@ -42,7 +41,6 @@ exit();
 header("Location: ../view/index.php");
 exit();
 }
-
 /*ROLES
 0 = Sin Rol
 1 = Administrador

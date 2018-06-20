@@ -1,9 +1,14 @@
 <?php
 require_once '../config/Conexion.php'; 
 session_start();
-// poner permiso tambien para operador y propietario
+//Si tiene session iniciada no muestra el formulario de registro y te manda al home correspondiente.
 if(isset($_SESSION['admin'])){
-    header("Location: home.php");} ?>
+    header("Location: homeAdmin.php");} 
+if(isset($_SESSION['operador'])){
+    header("Location: homeOperador.php");} 
+if(isset($_SESSION['propietario'])){
+    header("Location: homePropietario.php");} ?>
+
 <!DOCTYPE html>
 <html>
 <?php 
