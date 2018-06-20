@@ -19,7 +19,7 @@ session_start();
 //setcookie('cookie',$usuario, time()+3600;
     
 //Estado. Solo si es activo pasa.
-if($row['estado'] == 'activo'){
+if($row['estado'] == 'Activo'){
 
 //Direccionamiento segun rol.
 
@@ -37,6 +37,7 @@ if($row['idRol'] == 0){
     header("Location:../view/homePropietario.php");
 }
 }else{
+    $_SESSION['noActivo'] = $usuario;
     header("Location: ../view/estadoNoActivo.php"); // Vista informando que tiene estado inactivo o pendiente.
 }
 }else{
