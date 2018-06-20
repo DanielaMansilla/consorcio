@@ -1,16 +1,12 @@
 <?php
-include '../librerias/DataBase.php'; /*esto rompe solo para el metodo de editar y no para el de listar*/
-
-
+include '../librerias/DataBase.php'; 
 class Proveedor {
 	private $idProveedor;
     private $cuit;
 	private $nombre;
  
-
 	public function __construct() { // asigna valor nulo a la variable $data
 		}
-    
     
    /* public function chequearCampo($tabla, $columna, $valor){
     $query = "SELECT * FROM `$tabla` WHERE `$columna` = '$valor'";
@@ -18,9 +14,6 @@ class Proveedor {
     $filas = $sql->num_rows;
     return $filas;
   }*/
-    
-
-	
     
     public function listarProveedores()
     {
@@ -45,8 +38,7 @@ class Proveedor {
             }
         }
     }
-
-        
+    
         if($filas == 0){
         echo '<tr><td colspan="8">No hay datos.</td></tr>';
 				        }else{
@@ -59,7 +51,6 @@ class Proveedor {
                     <th>Nombre</th>
                     <th>Accion</th>
                 </tr>
-
         ';
         while($row = $resultado->fetch_assoc()){
            echo '  
@@ -73,7 +64,6 @@ class Proveedor {
                         <a href="../view/listaProveedores.php?aksi=delete&nik='.$row['idProveedor'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos del Proveedor '.$row['nombre'].' con CUIT '.$row['cuit'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
                     </td>
                 </tr>';         
-        
             }
         echo    '
             </table>   
@@ -81,8 +71,6 @@ class Proveedor {
           
         }
     }
-    
-    
     
     public function editarProveedores()
     {   
@@ -111,8 +99,7 @@ class Proveedor {
 			if(isset($_GET['pesan']) == 'sukses'){
 				echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
 			}
-        
-        
+            
         echo '<form class="form-horizontal" action="" method="post">
             <div class="form-group">
                 <label class="col-sm-3 control-label">CUIT:</label>
@@ -134,9 +121,6 @@ class Proveedor {
 					</div>
 				</div>
 			</form>';
-
         }
-
 }
-
 ?>

@@ -1,12 +1,11 @@
 <?php
-include '../model/Proveedor.php';
+include '../model/Usuario.php';
 session_start();
-if(isset($_SESSION['username'])){};
-
-$conexion = new DataBase();    
-$proveedores = new Proveedor();
+if(isset($_SESSION['username'])){};   
+$user1 = new Usuario();
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">
@@ -19,29 +18,23 @@ $proveedores = new Proveedor();
         include('template/header.php'); ?>
         
                 
-<title>Consorcios del Valle - Lista de Proveedores</title>
+<title>Consorcios del Valle - Editar Usuario</title>
 
     <div class="container">
 		<div class="content">
-			<h2>Lista de proveedores</h2>
+			<h2>Datos del Usuario - Editar</h2>
 			<hr />
-<?php
-$proveedores::listarProveedores();
-            
 
-
-?>
 		</div>
 	</div>  
-
-        
-        
-        
-
+<?php
+$user1::editarUsuarios();
+            
+?>     
     <center>
     <div class="corte">
     </div>
     <?php include('template/footer.php'); ?>
 </body>
 
-    </html>
+</html>
