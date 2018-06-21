@@ -1,5 +1,11 @@
 <?php
-include '/app/model/Proveedor.php';
+//include 'C:/xampp/htdocs/consorcio/app/model/Proveedor.php';
+
+//include '../../librerias/DataBase.php';
+//echo dirname(__FILE__);
+//echo __FILE__;
+include '../../model/Proveedor.php';
+
 session_start();
 if(isset($_SESSION['username'])){};   
 $proveedores3 = new Proveedor();
@@ -26,8 +32,8 @@ $proveedores3 = new Proveedor();
 		</div>
 	</div>  
 <?php
-
-$proveedores3::listarProveedores();
+$proveedores3::editarProveedores();
+//$proveedores3::listarProveedores();
             
 ?>   
     <center>

@@ -59,7 +59,7 @@ class Proveedor {
                     <td>'.$row['cuit'].'</td>
                     <td>'.$row['nombre'].'</td>
                     <td>
-                       <a href="../view/editar.php?nik='.$row['idProveedor'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+                       <a href="../view/abm/editarProveedor.php?nik='.$row['idProveedor'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
                        
                         <a href="../view/listaProveedores.php?aksi=delete&nik='.$row['idProveedor'].'" title="Eliminar" 
                         onclick="return confirm(\'Esta seguro de borrar los datos del Proveedor '.$row['nombre'].' con CUIT '
