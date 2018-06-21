@@ -48,7 +48,7 @@ if(!isset($_SESSION['admin'])){
 					<th>Id</th>
                     <th>CUIT</th>
                     <th>Nombre</th>
-                    <th>Accion</th>
+                    <th>Acciones</th>
 				</tr>
 				<?php
 					$sql = mysqli_query($conexion, "SELECT * FROM proveedor ORDER BY idProveedor ASC");
