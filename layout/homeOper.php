@@ -1,10 +1,10 @@
 <?php
-require_once '../config/Conexion.php'; 
-require_once '../config/Configurar.php'; 
-include '../model/Proveedor.php';
+require_once '../clases/Conexion.php'; 
+require_once '../clases/Configurar.php'; 
+include '../clases/Proveedor.php';
 session_start();
 if(isset($_SESSION['username'])){};
-require_once '../librerias/DataBase.php'; 
+require_once '../clases/DataBase.php'; 
 $conexion = new DataBase();    
 $proveedores = new Proveedor();
 
@@ -13,12 +13,12 @@ $proveedores = new Proveedor();
 <!DOCTYPE html>
 <html lang="es">
     
-<?php include('template/head.php'); ?>
+<?php include('../template/head.php'); ?>
     
 <body>
     <?php 
-        include('template/nav.php');  
-        include('template/header.php'); ?>
+        include('../template/nav.php');  
+        include('../template/header.php'); ?>
         
                 
 <title>Consorcios del Valle - Operador</title>
@@ -41,7 +41,7 @@ $proveedores::listarProveedores();
 
     <div class="corte">
     </div>
-    <?php include('template/footer.php'); ?>
+    <?php include('../template/footer.php'); ?>
 </body>
 
 </html>

@@ -1,16 +1,16 @@
 <?php
-require_once '../config/Conexion.php'; 
+require_once '../clases/Conexion.php'; 
 session_start();
 if(isset($_SESSION['username'])){} ?>
 
 <!DOCTYPE html>
 <html lang="es">
-<?php include('template/head.php'); ?>
+<?php include('../template/head.php'); ?>
 
     <body>
     <?php 
-        include('template/nav.php');  
-        include('template/header.php'); ?>
+        include('../template/nav.php');  
+        include('../template/header.php'); ?>
 
 		<title>Consorcios del Valle - Lista de usuarios</title>
 
@@ -101,7 +101,7 @@ if(isset($_SESSION['username'])){} ?>
 							</td>
 							<td>
 
-								<a href="abm/editarUsuario.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+								<a href="editarUsuario.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
 								<a href="listaUsuario.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
@@ -116,7 +116,7 @@ if(isset($_SESSION['username'])){} ?>
 	</div><center>
   	<div class="corte">
     </div>
-    <?php include('template/footer.php'); ?>
+    <?php include('../template/footer.php'); ?>
     </body>
 
 </html>

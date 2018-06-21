@@ -1,16 +1,16 @@
 <?php
-require_once '../config/Conexion.php'; 
+require_once '../clases/Conexion.php'; 
 session_start();
 if(isset($_SESSION['username'])){} ?>
 
 <!DOCTYPE html>
 <html lang="es">
-<?php include('template/head.php'); ?>
+<?php include('../template/head.php'); ?>
 
     <body>
     <?php 
-        include('template/nav.php');  
-        include('template/header.php'); ?>
+        include('../template/nav.php');  
+        include('../template/header.php'); ?>
 
 		<title>Consorcios del Valle - Lista de Unidades Funcionales</title>
 
@@ -70,7 +70,7 @@ if(isset($_SESSION['username'])){} ?>
 
 
 
-    <?php include('template/footer.php'); ?>
+    <?php include('../template/footer.php'); ?>
     </body>
 
 </html>

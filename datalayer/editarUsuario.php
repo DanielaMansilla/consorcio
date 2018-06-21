@@ -1,5 +1,5 @@
 <?php
-require_once '../../config/Conexion.php'; 
+require_once '../clases/Conexion.php'; 
 session_start();
 if(isset($_SESSION['username'])){} ?>
 

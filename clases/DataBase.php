@@ -1,5 +1,5 @@
 <?php
-require_once '../config/Configurar.php'; // requiere_once incluye el archivob y si no lo encuentra ROMPE TODO
+require_once 'Configurar.php'; // requiere_once incluye el archivob y si no lo encuentra ROMPE TODO
 
 
 class DataBase extends mysqli{

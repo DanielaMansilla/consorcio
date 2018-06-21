@@ -1,5 +1,5 @@
 <?php
-include '../librerias/DataBase.php'; 
+include 'DataBase.php'; 
 class Proveedor {
 	private $idProveedor;
     private $cuit;
@@ -59,9 +59,9 @@ class Proveedor {
                     <td>'.$row['cuit'].'</td>
                     <td>'.$row['nombre'].'</td>
                     <td>
-                       <a href="../view/abm/editarProveedor.php?nik='.$row['idProveedor'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+                       <a href="../datalayer/editarProveedor.php?nik='.$row['idProveedor'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
                        
-                        <a href="../view/listaProveedores.php?aksi=delete&nik='.$row['idProveedor'].'" title="Eliminar" 
+                        <a href="../datalayer/listaProveedores.php?aksi=delete&nik='.$row['idProveedor'].'" title="Eliminar" 
                         onclick="return confirm(\'Esta seguro de borrar los datos del Proveedor '.$row['nombre'].' con CUIT '
                             .$row['cuit'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
                     </td>
@@ -82,7 +82,7 @@ class Proveedor {
 			$nik = $mysqli2->real_escape_string(strip_tags($_GET["nik"],ENT_QUOTES));
 			$sql = $mysqli2->query("SELECT * FROM proveedor WHERE idProveedor='$nik'");
 			if($sql->num_rows == 0){
-				header("Location: ../view/listaProveedores.php");
+				header("Location: ../datalayer/listaProveedores.php");
 			}else{
 				$row = $sql->fetch_assoc();
 			}
@@ -92,7 +92,7 @@ class Proveedor {
 				
 				$update = $mysqli2->query("UPDATE proveedor SET cuit='$cuit', nombre='$nombre' WHERE idProveedor='$nik'") or die($mysqli2->connect_errno);
 				if($update){
-					header("Location: ../view/editar.php?nik=".$nik."&pesan=sukses");
+					header("Location: ../datalayer/editarProveedor.php?nik=".$nik."&pesan=sukses");
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
 				}

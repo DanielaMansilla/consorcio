@@ -3,14 +3,14 @@
 <html>
 <?php 
    session_start();
-    include('template/head.php');   
-    include ('template/header.php');
+    include('../template/head.php');   
+    include ('../template/header.php');
     ?>   
   <body>   
     <main> 
         <div class="card">
             <h3 class="card-header">Solicitud de Registro de Usuario</h3>
-                    <form class="form-control" action='abm/datosUsuario.php' method='POST' ENCTYPE="application/x-www-form-urlencoded">
+                    <form class="form-control" action='../datalayer/datosUsuario.php' method='POST' ENCTYPE="application/x-www-form-urlencoded">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                      <p class="card-text">Nombre: </p> <INPUT class="form-control" name="nombreUsuario" type="text" required><br>
@@ -55,7 +55,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                <input class="btn btn-outline-dark" type="submit" value="Enviar Solicitud">
-                                <input class="btn btn-dark" type="button" value="Ya estoy registrado" onClick="window.location = 'index.php';">  
+                                <input class="btn btn-dark" type="button" value="Ya estoy registrado" onClick="window.location = '../index.php';">  
                             </div>
                         </div>  
                 </form>
@@ -64,6 +64,6 @@
 
 <!--EJEMPLO DE SI ESTA DENTRO DEL APP/WIEV-->
         <div class="corte"></div>
-        <?php include('template/footer.php'); ?>
+        <?php include('../template/footer.php'); ?>
   </body>
 </html>

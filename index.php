@@ -9,13 +9,13 @@
                     <div class="fondoindex"> 
                         <div class="card-body">  
                             <div class="indexizq">
-                                <form class="form-control"  action='abm/datosLogin.php' method='POST' ENCTYPE="application/x-www-form-urlencoded">
+                                <form class="form-control"  action='datalayer/datosLogin.php' method='POST' ENCTYPE="application/x-www-form-urlencoded">
                                     <p class="card-text">Dirección de Correo Electrónico: </p> <INPUT class="input-group-lg"  name="emailUsuario" type="text"  value="ejemplo@ejemplo.com"><small id="emailHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie.</small>
                                     <br>
                                     <p class="card-text">Contraseña: </p><INPUT class="input-group-lg" name="passUsuario" type="password">
                                     <br><br>
                                     <input class="btn btn-outline-dark" type="submit" value="Iniciar Sesión">
-                                    <input class="btn btn-dark" type="button" value="Registrarme" onClick="window.location = 'registro.php';">      
+                                    <input class="btn btn-dark" type="button" value="Registrarme" onClick="window.location = 'layout/registro.php';">      
                                 </form>
                             </div>
                             <div class="medioindex">
@@ -24,7 +24,7 @@
                                 </div>
                             </div>
                             <div class="indexder">
-                              <img class="fotoindex" src="../../public/img/logo.jpg">
+                              <img class="fotoindex" src="img/logo.jpg">
                             </div>  
                         </div>          
                     </div>

@@ -1,18 +1,18 @@
 <?php
-require_once '../config/Conexion.php'; 
+require_once '../clases/Conexion.php'; 
 session_start();
 if(isset($_SESSION['username'])){} ?>
 
 <!DOCTYPE html>
 <html lang="es">
-<?php include('template/head.php'); ?>
+<?php include('../template/head.php'); ?>
     
 
 
     <body>
     <?php 
-        include('template/nav.php');  
-        include('template/header.php'); ?>
+        include('../template/nav.php');  
+        include('../template/header.php'); ?>
         
  		<title>Consorcios del Valle - Administrador</title>
 
@@ -76,7 +76,7 @@ if(isset($_SESSION['username'])){} ?>
                             <td>'.$row['idRol'].'</td> 
 							<td>
 
-								<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+								<a href="../datalayer/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
 								<a href="homeAdmin.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar solicitud de habilitacion" onclick="return confirm(\'Esta seguro de borrar la solicitud de '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
@@ -91,7 +91,7 @@ if(isset($_SESSION['username'])){} ?>
 	</div>         
     <div class="corte">
     </div>
-    <?php include('template/footer.php'); ?>
+    <?php include('../template/footer.php'); ?>
     </body>
 </html>
 

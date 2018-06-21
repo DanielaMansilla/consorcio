@@ -1,5 +1,5 @@
 <?php
-require_once '../../config/Conexion.php';
+require_once '../clases/Conexion.php';
 session_start();
 
 $email=$_POST["emailUsuario"];
@@ -26,15 +26,15 @@ $rolUsuario=mysqli_query($conexion, $busquedaRol);
 $row = mysqli_fetch_array($rolUsuario);
 
     if ($row["idRol"] == 2) {
-        header("Location:../homeAdmin.php"); 
+        header("Location:../layout/homeAdmin.php"); 
     }
     elseif ($row["idRol"] == 3) {
-        header("Location:../homeOper.php"); 
+        header("Location:../layout/homeOper.php"); 
     }
     elseif ($row["idRol"] == 4) {
-        header("Location:../homeProp.php"); 
+        header("Location:../layout/homeProp.php"); 
     }else{
-        header("Location:../homePendiente.php"); 
+        header("Location:../layout/homePendiente.php"); 
     }
 }
             
