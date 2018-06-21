@@ -1,5 +1,5 @@
 <?php
-include '../librerias/DataBase.php'; 
+include 'DataBase.php'; 
 class Usuario {
 	private $idUsuarios;
     private $nombre;
@@ -77,9 +77,9 @@ class Usuario {
                     <td>'.$row['estado'].'</td>
                     <td>'.$row['idRol'].'</td>
                     <td>
-                       <a href="../view/editarUsuarios.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+                       <a href="../datalayer/editarUsuarios.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
                        
-                        <a href="../view/listaUsuarios.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos del Usuario '.$row['nombre'].' con CUIL '.$row['cuil'].' con Apellido '.$row['apellido']. ' con Email '.$row['email']. ' DNI '. $row['dni']. ' con Teléfono ' .$row['telefono'] . 'con estado ' .$row['estado'] . 'con Id rol ' .$row['idRol'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
+                        <a href="../datalayer/listaUsuarios.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos del Usuario '.$row['nombre'].' con CUIL '.$row['cuil'].' con Apellido '.$row['apellido']. ' con Email '.$row['email']. ' DNI '. $row['dni']. ' con Teléfono ' .$row['telefono'] . 'con estado ' .$row['estado'] . 'con Id rol ' .$row['idRol'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
                     </td>
                 </tr>';         
             }
@@ -98,7 +98,7 @@ class Usuario {
 			$nik = $mysqli2->real_escape_string(strip_tags($_GET["nik"],ENT_QUOTES));
 			$sql = $mysqli2->query("SELECT * FROM usuarios WHERE idUsuarios='$nik'");
 			if($sql->num_rows == 0){
-				header("Location: ../view/listaUsuarios.php");
+				header("Location: ../datalayer/listaUsuarios.php");
 			}else{
 				$row = $sql->fetch_assoc();
 			}
@@ -115,7 +115,7 @@ class Usuario {
 
 				$update = $mysqli2->query("UPDATE usuarios SET  nombre='$nombre',apellido='$apellido', cuil='$cuil', email='$email' , dni='$dni', telefono='$telefono', estado='$estado', idRol='$idRol' WHERE idUsuarios='$nik'") or die($mysqli2->connect_errno);
 				if($update){
-					header("Location: ../view/editarUsuarios.php?nik=".$nik."&pesan=sukses");
+					header("Location: ../datalayer/editarUsuarios.php?nik=".$nik."&pesan=sukses");
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
 				}
@@ -184,7 +184,7 @@ class Usuario {
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
 						<input type="submit" name="save" class="btn btn-sm btn-primary" value="Guardar datos">
-						<a href="../view/listaProveedor.php" class="btn btn-sm btn-danger">Cancelar</a>
+						<a href="../datalayer/listaUsuarios.php" class="btn btn-sm btn-danger">Cancelar</a>
 					</div>
 				</div>
 			</form>';

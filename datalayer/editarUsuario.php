@@ -1,7 +1,8 @@
 <?php
 require_once '../clases/Conexion.php'; 
 session_start();
-if(isset($_SESSION['username'])){} ?>
+if(!isset($_SESSION['admin'])){
+    header("Location: ../index.php");} ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -125,4 +126,8 @@ if(isset($_SESSION['username'])){} ?>
     </div>
     <?php include('../template/footer.php'); ?>
     </body>
+<<<<<<< HEAD:datalayer/editarUsuario.php
 </html>
+=======
+</html>
+>>>>>>> 9ae29dddb35df8f0255befed6accd4900e845c79:app/view/abm/editarUsuario.php

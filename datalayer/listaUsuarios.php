@@ -1,5 +1,5 @@
 <?php
-include '../model/Usuario.php';
+include '../clases/Usuario.php';
 session_start();
 if(isset($_SESSION['username'])){};
 
@@ -9,11 +9,11 @@ $users = new Usuario();
 ?>
 <!DOCTYPE html>
 <html lang="es">  
-    <?php include('template/head.php'); ?>  
+    <?php include('../template/head.php'); ?>  
     <body>
         <?php 
-            include('template/nav.php');  
-            include('template/header.php'); ?>
+            include('../template/nav.php');  
+            include('../template/header.php'); ?>
                        
     <title>Consorcios del Valle - Lista de Usuarios</title>
 
@@ -29,6 +29,6 @@ $users = new Usuario();
         <center>
         <div class="corte">
         </div>
-        <?php include('template/footer.php'); ?>
+        <?php include('../template/footer.php'); ?>
     </body>
  </html>

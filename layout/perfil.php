@@ -1,7 +1,10 @@
 <?php
 require_once '../clases/Conexion.php';
 session_start();
-if(isset($_SESSION['username'])){} ?>
+// poner permiso tambien para operador
+if(!isset($_SESSION['admin'])){
+	if(!isset($_SESSION['operador'])){
+		header("Location: ../index.php");}} ?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -89,14 +92,32 @@ if(isset($_SESSION['username'])){} ?>
 				</tr>
 			</table>
 			
+<<<<<<< HEAD:layout/perfil.php
 			<a href="../datalayer/listaUsuario.php" class="btn btn-sm btn-info"><span class="fas fa-arrow-left" aria-hidden="true"></span> Regresar</a>
 			<a href="../datalayer/editarUsuario.php?nik=<?php echo $row['idUsuarios']; ?>" class="btn btn-sm btn-success"><span class="fas fa-edit" aria-hidden="true"></span> Editar datos</a>
 			<a href="perfil.php?aksi=delete&nik=<?php echo $row['idUsuarios']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Esta seguro de borrar los datos <?php echo $row['apellido']; ?>')"><span class="fas fa-trash" aria-hidden="true"></span> Eliminar</a>
+=======
+			<a href="listaUsuario.php" class="btn btn-sm btn-info"><span class="fas fa-arrow-left" aria-hidden="true"></span> Regresar</a>
+
+			<?php
+				if(isset($_SESSION['admin'])){	
+			?>
+				<a href="abm/editarUsuario.php?nik=<?php echo $row['idUsuarios']; ?>" class="btn btn-sm btn-success"><span class="fas fa-edit" aria-hidden="true"></span> Editar datos</a>
+				<a href="perfil.php?aksi=delete&nik=<?php echo $row['idUsuarios']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Esta seguro de borrar los datos <?php echo $row['apellido']; ?>')"><span class="fas fa-trash" aria-hidden="true"></span> Eliminar</a>
+			<?php }?>
+
+			<?php
+			if(isset($_SESSION['operador'])){	
+			?>
+				<a href="abm/editarRolyEstado.php?nik=<?php echo $row['idUsuarios']; ?>" class="btn btn-sm btn-success"><span class="fas fa-edit" aria-hidden="true"></span> Editar estado</a>
+			<?php }?>
+>>>>>>> 9ae29dddb35df8f0255befed6accd4900e845c79:app/view/perfil.php
 		</div>
 	</div>
 
-
-    <!-- Incluir Footer - se superpone contra los botones y no funciona -->
+    <div class="corte">
+    </div>
+    <?php include('template/footer.php'); ?>
     </body>
 
 </html>
