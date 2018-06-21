@@ -72,7 +72,7 @@ if(!isset($_SESSION['operador'])){  // verificar si es admin
                             <td>'.$row['idRol'].'</td> 
 							<td>
 
-								<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+								<a href="../datalayer/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
 								<a href="homeAdmin.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar solicitud de habilitacion" onclick="return confirm(\'Esta seguro de borrar la solicitud de: '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>

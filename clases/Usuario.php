@@ -14,6 +14,61 @@ class Usuario {
  
 	public function __construct() { // asigna valor nulo a la variable $data
 		}
+
+    public function mostrarRol(){
+
+        $mysqli=new DataBase();
+        $consulta = "SELECT u.idUsuarios,u.nombre, u.apellido,u.cuit, u.email, u.dni,u.telefono,u.estado,r.descripcion FROM usuarios as u join roles as r on u.idRol=r.idRoles";  
+      //  $consulta="SELECT idRoles, descripcion  FROM roles";
+        $resultado=$mysqli->query($consulta);
+        $filas=$resultado->num_rows;
+    
+     if($filas == 0){
+        echo '<tr><td colspan="8">No hay datos.</td></tr>';
+                        }else{
+        echo '
+           <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <tr>
+                <th>Id</th>
+                    <th>CUIL</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>DNI</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th>Id rol</th>
+                    <th>Id</th>
+                    <th>Descripción</th>
+                </tr>
+        ';
+        while($row = $resultado->fetch_assoc()){
+           echo '  
+                <tr>
+                 <td>'.$row['idUsuarios'].'</td>
+                    <td>'.$row['cuil'].'</td>
+                    <td>'.$row['nombre'].'</td>
+                    <td>'.$row['apellido'].'</td>
+                    <td>'.$row['email'].'</td>
+                    <td>'.$row['dni'].'</td>
+                    <td>'.$row['telefono'].'</td>
+                    <td>'.$row['estado'].'</td>
+                    <td>'.$row['idRol'].'</td>
+                    <td>'.$row['idRoles'].'</td>
+                    <td>'.$row['descripcion'].'</td>
+                    <td>
+                       
+    
+                    </td>
+                </tr>';         
+            }
+        echo    '
+            </table>   
+        </div>';
+          
+        }
+    }
     
    /* public function chequearCampo($tabla, $columna, $valor){
     $query = "SELECT * FROM `$tabla` WHERE `$columna` = '$valor'";

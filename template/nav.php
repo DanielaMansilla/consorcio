@@ -26,7 +26,7 @@
 
       <li class="nav-item active">
 
-        <a class="nav-link" href="/consorcio/app/view/homeAdmin.php">Inicio <span class="sr-only"><!-- (current) para que muestre seleccionada --></span></a>
+        <a class="nav-link" href="/consorcio/layout/homeAdmin.php">Inicio <span class="sr-only"><!-- (current) para que muestre seleccionada --></span></a>
       </li>
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -34,6 +34,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/consorcio/datalayer/listaUsuarios.php">L. Usuarios</a>
+           <a class="dropdown-item" href="/consorcio/datalayer/listaRoles.php">L. Roles</a>
           <a class="dropdown-item" href="/consorcio/datalayer/listaProveedores.php">L. Proveedores</a>
           <a class="dropdown-item" href="/consorcio/datalayer/listaUF.php">L. Unidad Funcional</a>
           <a class="dropdown-item" href="/consorcio/datalayer/listaConsorcio.php">L. Consorcio</a>
@@ -78,6 +79,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="/consorcio/datalayer/listaUsuarios.php">L. Usuarios</a>
+         <a class="dropdown-item" href="/consorcio/datalayer/listaRoles.php">L. Roles</a>
           <a class="dropdown-item" href="/consorcio/datalayer/listaProveedores.php">L. Proveedores</a>
           <a class="dropdown-item" href="/consorcio/datalayer/listaUF.php">L. Unidad Funcional</a>
           <a class="dropdown-item" href="/consorcio/datalayer/listaConsorcio.php">L. Consorcio</a>
