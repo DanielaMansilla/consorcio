@@ -23,7 +23,7 @@ if(!isset($_SESSION['admin'])){
 			<?php
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
-			$sql = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$nik'");
+			$sql = mysqli_query($conexion, "SELECT * FROM usuarios JOIN roles ON usuarios.idRol=roles.idRoles WHERE idUsuarios='$nik'");
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: ../listaUsuario.php");
 			}else{
@@ -89,10 +89,16 @@ if(!isset($_SESSION['admin'])){
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">idRol</label>
+					<label class="col-sm-3 control-label">Rol Actual: "<?php echo $row ['descripcion']; ?>"</label>
 					<div class="col-sm-3">
-						
-						<input type="text" name="idRol" value="<?php echo $row ['idRol']; ?>" class="form-control" placeholder="idRol" required>
+						<select name="idRol" class="form-control">
+                            <?php  $datos = mysqli_query($conexion, "SELECT * FROM roles"); //muestra todos los roles
+                             while ($row2 = mysqli_fetch_assoc($datos)) { ?>
+                            <option value="<?php echo $row2['idRoles']; ?>">
+                                <?php echo $row2['descripcion']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
 					</div>
                     
 				</div>

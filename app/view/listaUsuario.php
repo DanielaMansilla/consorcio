@@ -69,9 +69,9 @@ if(!isset($_SESSION['admin'])){
 				</tr>
 				<?php
 				if($filter){
-					$sql = mysqli_query($conexion, "SELECT * FROM usuarios WHERE estado='$filter' ORDER BY idUsuarios ASC");
+					$sql = mysqli_query($conexion, "SELECT * FROM usuarios JOIN roles ON usuarios.idRol=roles.idRoles WHERE estado='$filter' ORDER BY idUsuarios ASC");
 				}else{
-					$sql = mysqli_query($conexion, "SELECT * FROM usuarios ORDER BY idUsuarios ASC");
+					$sql = mysqli_query($conexion, "SELECT * FROM usuarios JOIN roles ON usuarios.idRol=roles.idRoles ORDER BY idUsuarios ASC");
 				}
 				if(mysqli_num_rows($sql) == 0){
 					echo '<tr><td colspan="8">No hay datos.</td></tr>';
@@ -89,7 +89,7 @@ if(!isset($_SESSION['admin'])){
                             <td>'.$row['email'].'</td>
                             <td>'.$row['dni'].'</td>
 							<td>'.$row['telefono'].'</td>
-                            <td>'.$row['idRol'].'</td>   
+                            <td>'.$row['descripcion'].'</td>   
 							<td>';
 							if($row['estado'] == 'Activo'){
 								echo '<span class="badge badge-success">Activo</span>';

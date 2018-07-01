@@ -26,7 +26,7 @@ if(!isset($_SESSION['admin'])){
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
 			
-			$sql = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$nik'");
+			$sql = mysqli_query($conexion, "SELECT * FROM usuarios JOIN roles ON usuarios.idRol=roles.idRoles WHERE idUsuarios='$nik'");
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: listaUsuario.php");
 			}else{
@@ -34,7 +34,7 @@ if(!isset($_SESSION['admin'])){
 			}
 			
 			if(isset($_GET['aksi']) == 'delete'){
-				$delete = mysqli_query($conexion, "DELETE FROM usuarios WHERE idUsuarios='$nik'");
+				$delete = mysqli_query($conexion, "DELETE FROM usuarios JOIN roles ON usuarios.idRol=roles.idRoles WHERE idUsuarios='$nik'");
 				if($delete){
 					echo '<div class="alert alert-danger alert-dismissable">><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Data berhasil dihapus.</div>';
 				}else{
@@ -74,7 +74,7 @@ if(!isset($_SESSION['admin'])){
 				</tr>
 				<tr>
 					<th>Tipo de Rol</th>
-					<td><?php echo $row['idRol']; ?></td>
+					<td><?php echo $row['descripcion']; ?></td>
 				</tr>
 				<tr>
 					<th>Estado</th>

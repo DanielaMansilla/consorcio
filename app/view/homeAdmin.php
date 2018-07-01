@@ -53,13 +53,11 @@ if(!isset($_SESSION['admin'])){  // verificar si es admin
                     <th>Acciones</th>
 				</tr>
 				<?php
-					$sql = mysqli_query($conexion, "SELECT * FROM usuarios WHERE estado='Pendiente' ORDER BY idUsuarios ASC");
+					$sql = mysqli_query($conexion, "SELECT * FROM usuarios JOIN roles ON usuarios.idRol=roles.idRoles WHERE estado='Pendiente' ORDER BY idUsuarios ASC");
 				if(mysqli_num_rows($sql) == 0){
 					echo '<tr><td colspan="8">No hay usuarios pendientes de habilitación.</td></tr>';
 				}else{
-					//$no = 1;
 					while($row = mysqli_fetch_assoc($sql)){
-                        /* <td>'.$no.'</td> encima del $row */
                         /* Falta linkear unir las tablas idRol para que muestre nombre del rol */
 						echo '
 						<tr>
@@ -69,7 +67,7 @@ if(!isset($_SESSION['admin'])){  // verificar si es admin
                             <td>'.$row['email'].'</td>
                             <td>'.$row['dni'].'</td>
 							<td>'.$row['telefono'].'</td>  
-                            <td>'.$row['idRol'].'</td> 
+                            <td>'.$row['descripcion'].'</td> 
 							<td>
 
 								<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
@@ -77,7 +75,6 @@ if(!isset($_SESSION['admin'])){  // verificar si es admin
 							</td>
 						</tr>
 						';
-						//$no++;
 					}
 				}
 				?>

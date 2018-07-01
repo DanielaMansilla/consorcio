@@ -86,19 +86,25 @@ if(!isset($_SESSION['admin'])){
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">idRol</label>
+					<label class="col-sm-3 control-label">Rol</label>
 					<div class="col-sm-3">
-						<input type="text" name="idRol" class="form-control" placeholder="idRol" required>
+					<select name="idRol" class="form-control">
+                            <?php  $datos = mysqli_query($conexion, "SELECT * FROM roles"); //muestra todos los roles
+                             while ($row2 = mysqli_fetch_assoc($datos)) { ?>
+                            <option value="<?php echo $row2['idRoles']; ?>">
+                                <?php echo $row2['descripcion']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Estado</label>
 					<div class="col-sm-3">
 						<select name="estado" class="form-control">
-							<option value=""> ----- </option>
+							<option value="Pendiente">Pendiente</option>
                             <option value="Activo">Activo</option>
 							<option value="Inactivo">Inactivo</option>
-							<option value="Pendiente">Pendiente</option>
 						</select>
 					</div>
 				</div>

@@ -56,7 +56,7 @@ if(!isset($_SESSION['admin'])){
                     <th>Acciones</th>
 				</tr>
 				<?php
-					$sql = mysqli_query($conexion, "SELECT * FROM propiedad ORDER BY idPropiedad ASC");
+					$sql = mysqli_query($conexion, "SELECT * FROM propiedad JOIN consorcio ON propiedad.idConsorcio=consorcio.idConsorcio ORDER BY idPropiedad ASC");
 				if(mysqli_num_rows($sql) == 0){
 					echo '<tr><td colspan="8">No hay datos.</td></tr>';
 				}else{
@@ -72,7 +72,7 @@ if(!isset($_SESSION['admin'])){
                             <td>'.$row['piso'].'</td>
                             <td>'.$row['departamento'].'</td>
                             <td>'.$row['unidadFuncionalLote'].'</td>
-							<td>'.$row['idConsorcio'].'</td>   
+							<td>'.$row['nombre'].'</td>   
 							<td>
 
 								<a href="abm/editarUf.php?nik='.$row['idPropiedad'].'" title="Editar Usuario Asignado" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
