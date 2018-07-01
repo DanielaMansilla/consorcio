@@ -425,3 +425,19 @@ ALTER TABLE `usuarios`
 
 -- Agregada 1 columna para vericar si entro por primera vez
 ALTER TABLE `usuarios` ADD `primeraVez` TINYINT(1) NOT NULL AFTER `pass`;
+
+
+-- Cambiados los valores maximos
+ALTER TABLE `usuarios` CHANGE `telefono` `telefono` INT(12) NOT NULL;
+
+ALTER TABLE `usuarios` CHANGE `dni` `dni` INT(9) NOT NULL;
+
+ALTER TABLE `usuarios` CHANGE `cuil` `cuil` INT(12) NOT NULL;
+
+ALTER TABLE `proveedor` CHANGE `cuit` `cuit` VARCHAR(12) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+
+ALTER TABLE `propiedad` CHANGE `departamento` `departamento` VARCHAR(1) NOT NULL;
+
+ALTER TABLE `consorcio` CHANGE `codigoPostal` `codigoPostal` INT(5) NOT NULL;
+
+ALTER TABLE `consorcio` CHANGE `cuit` `cuit` VARCHAR(12) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
