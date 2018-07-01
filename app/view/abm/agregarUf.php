@@ -28,21 +28,6 @@ if(!isset($_SESSION['admin'])){
                 $departamento = mysqli_real_escape_string($conexion,(strip_tags($_POST["departamento"],ENT_QUOTES)));//Escanpando caracteres 
                 $unidadFuncionalLote = mysqli_real_escape_string($conexion,(strip_tags($_POST["unidadFuncionalLote"],ENT_QUOTES)));//Escanpando caracteres 
                 $idConsorcio = mysqli_real_escape_string($conexion,(strip_tags($_POST["idConsorcio"],ENT_QUOTES)));//Escanpando caracteres 
-				$error = array();
-				//Validacion
-				if(!($unidadFuncionalLote <= 100 && $unidadFuncionalLote >= 1)){
-					$error[] = "Unidad Funcional (Lote): debe ser mayor a 0 y menor a 100";
-				  }
-				  
-				  if(!(ctype_alpha($departamento) && strlen($departamento) == 1)){
-					$error[] = "Departamento: Debe contener solo 1 Letra";
-				  }
-				  if(!($piso <= 100 && $piso >= 1)){
-					$error[] = "Pisos: debe ser mayor a 0 y menor a 100";
-				  }
-				  if(!($porcentajeParticipacion <= 100 && $porcentajeParticipacion > 0)){
-					$error[] = "Porcentaje: debe ser mayor a 0% y menor o igual a 100%";
-				  }if(sizeof($error) == 0){
 
                 //Realiza el Insert solo si no existe otro Unidad Funcional con el mismo N° unidadFuncionalLote.
 				$cek = mysqli_query($conexion, "SELECT * FROM propiedad WHERE unidadFuncionalLote='$unidadFuncionalLote'");
@@ -58,13 +43,7 @@ if(!isset($_SESSION['admin'])){
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. código de Unidad Funcional exite!</div>';
 				}
-			}else{
-                echo "Ocurrio un error en los siguientes campos: ";
-                foreach($error as $er){
-                    echo "</br><strong>$er</strong>";
-                  }
-				}
-		}
+			}
 			?>
 
 			<form class="form-horizontal" action="" method="post">

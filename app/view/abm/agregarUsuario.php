@@ -34,38 +34,6 @@ if(!isset($_SESSION['admin'])){
 				$pass		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["dni"],ENT_QUOTES)));//Escanpando caracteres 
 				$pass_sha1 = sha1($pass);
 				$primeraVez = 1;
-				$error = array();
-				//Validaciones
-				if(!(ctype_alpha($nombre) && strlen($nombre) >= 3 && strlen($nombre) <= 20)){
-					$error[] = "Nombre debe tener al menos 3 caracteres, solo alfabeticos";
-				  }        
-				
-				if(!(ctype_alpha($apellido) && strlen($apellido) >= 3 && strlen($apellido) <= 20)){
-					$error[] = "Apellido debe tener al menos 3 caracteres, solo alfabeticos";
-				  }
-				//Verificar validaciones de dni, cuil, teléfono.
-				if(!(strlen($cuil) == 11)){
-					$error[] = "Cuil debe tener 11 digitos sin guiones.";
-				  }
-				if(!(strlen($dni) == 8)){
-					$error[] = "Dni debe tener 8 digitos sin guiones.";
-				  }
-				if(!(strlen($telefono) >= 8 && strlen($telefono) <= 10)){
-					$error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";
-				  }
-				if(!(filter_var($email, FILTER_VALIDATE_EMAIL))){
-					$error[] = "Email incorrecto";
-				  }else{
-					$sql = "SELECT * from usuarios where email='$email'";
-					$result = mysqli_query($conexion,$sql);
-		
-					if($row = mysqli_fetch_array($result)){
-						if($row['email'] == $email){
-					  $error[] = "El email de '$email' se encuentra en uso";
-					}
-				  }
-				}if(sizeof($error) == 0){
-
 				//Realiza el Insert solo si no existe otro usuario con el mismo DNI
 				$cek = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$dni'");
 				if(mysqli_num_rows($cek) == 0){
@@ -80,13 +48,7 @@ if(!isset($_SESSION['admin'])){
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El DNI ya exite!</div>';
 				}
-			}else{
-                echo "Ocurrio un error en los siguientes campos: ";
-                foreach($error as $er){
-                    echo "</br><strong>$er</strong>";
-                  }
-				}
-		}
+			}
 			?>
 
 			<form class="form-horizontal" action="" method="post">
