@@ -17,7 +17,9 @@ if($row['pass'] == $pass_sha1){
 session_start();
 //COOKIE FUTURA
 //setcookie('cookie',$usuario, time()+3600;
-    
+
+$_SESSION['idUsuario'] = $row['idUsuarios'];
+
 //Estado. Solo si es activo pasa.
 if($row['estado'] == 'Activo'){
 
