@@ -59,7 +59,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/consorcio/app/view/abm/agregarReclamo.php">Iniciar Nuevo Reclamo</a>
-          <a class="dropdown-item" href="#">Ver Listado</a>
+          <a class="dropdown-item" href="/consorcio/app/view/listaReclamos.php">Ver Listado</a>
         </div>
       </li>
       <li class="nav-item">
