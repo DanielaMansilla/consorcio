@@ -421,3 +421,7 @@ ALTER TABLE `reclamo`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `FK_idRolesUsuario` FOREIGN KEY (`idRol`) REFERENCES `roles` (`idRoles`);
+
+
+-- Agregada 1 columna para vericar si entro por primera vez
+ALTER TABLE `usuarios` ADD `primeraVez` TINYINT(1) NOT NULL AFTER `pass`;

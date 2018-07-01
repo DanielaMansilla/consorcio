@@ -25,6 +25,7 @@ if(isset($_SESSION['propietario'])){
         $telUsuario=$_POST["telUsuario"];
         $estado = "Pendiente";
         $rol=0;
+        $primeraVez=0;
         $pass=$_POST["passUsuario"];
         $pass2=$_POST["passUsuario2"];
         $pass_sha1 = sha1($pass); //Guarda el pass hasheado
@@ -65,7 +66,7 @@ if(isset($_SESSION['propietario'])){
           }
 
           if(sizeof($error) == 0){
-            $insertarUsuario = "INSERT INTO usuarios(nombre, apellido, cuil, email, dni, telefono,estado,idRol,pass) VALUES ('$nombre', '$apellido', '$cuilUsuario','$email','$dni', '$telUsuario','$estado', '$rol', '$pass_sha1')";
+            $insertarUsuario = "INSERT INTO usuarios(nombre, apellido, cuil, email, dni, telefono, estado, idRol, pass, primeraVez) VALUES ('$nombre', '$apellido', '$cuilUsuario','$email','$dni', '$telUsuario','$estado', '$rol', '$pass_sha1', '$primeraVez')";
     
             $resultado=mysqli_query($conexion,$insertarUsuario);
             

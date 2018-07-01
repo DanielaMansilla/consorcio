@@ -26,7 +26,12 @@ if($row['estado'] == 'Activo'){
 if($row['idRol'] == 0){
     $_SESSION['sinRol'] = $usuario;
     header("Location:../view/sinRol.php");  // Vista informando que no tiene Rol.  // se puede poner todo junto en un 404.php y con if() de rol y estado poner distintos mensajes
-}elseif($row['idRol'] == 1){
+}
+elseif($row['primeraVez'] == 1){
+    $_SESSION['primeraVez'] = $usuario;
+    header("Location:../view/abm/cambiarPass.php");
+}
+elseif($row['idRol'] == 1){
     $_SESSION['admin'] = $usuario;
     header("Location:../view/homeAdmin.php");
 }elseif($row['idRol'] == 2){
