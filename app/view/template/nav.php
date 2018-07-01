@@ -91,8 +91,14 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Pagos</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Reclamos</a>
+      <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Reclamos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/consorcio/app/view/abm/agregarReclamo.php">Iniciar Nuevo Reclamo</a>
+          <a class="dropdown-item" href="/consorcio/app/view/listaReclamos.php">Ver Listado</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Estadística</a>
@@ -116,8 +122,14 @@
       <li class="nav-item">
         <a class="nav-link" href="#">Informe Mensual</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Hacer Reclamo</a>
+      <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Reclamos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/consorcio/app/view/abm/agregarReclamo.php">Iniciar Nuevo Reclamo</a>
+          <a class="dropdown-item" href="/consorcio/app/view/listaReclamos.php">Ver Listado</a>
+        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/consorcio/app/config/CerrarSession.php">Cerrar sesión</a>
