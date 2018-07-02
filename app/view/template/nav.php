@@ -50,8 +50,14 @@
         </div>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pagos</a>
+      <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Pagos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/consorcio/app/view/abm/agregarLiquidacion.php">Agregar Nueva Liquidación</a>
+          <a class="dropdown-item" href="/consorcio/app/view/listaLiquidacion.php">Ver Liquidaciones</a>
+        </div>
       </li>
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -97,8 +103,14 @@
           <a class="dropdown-item" href="/consorcio/app/view/listaConsorcio.php">L. Consorcio</a>
         </div>
         </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pagos</a>
+        <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Pagos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/consorcio/app/view/abm/agregarLiquidacion.php">Agregar Nueva Liquidación</a>
+          <a class="dropdown-item" href="/consorcio/app/view/listaLiquidacion.php">Ver Liquidaciones</a>
+        </div>
       </li>
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
