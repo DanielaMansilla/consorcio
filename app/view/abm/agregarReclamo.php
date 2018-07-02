@@ -83,7 +83,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 				<div class="form-group">
 					<div class="col-sm-6">
 					<!-- TODO: Al tocar en cancelar ir al listado de reclamos o al home -->
-						<a href="#" class="btn btn-sm btn-danger">Cancelar</a>
+						<a href="../listaReclamos.php" class="btn btn-sm btn-danger">Cancelar</a>
 						<input type="submit" name="add" class="btn btn-sm btn-primary" value="Enviar Reclamo">
 					</div>
 				</div>
