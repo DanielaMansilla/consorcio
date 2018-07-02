@@ -100,7 +100,7 @@ if(!isset($_SESSION['admin'])){
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
 						<input type="submit" name="add" class="btn btn-sm btn-primary" value="Guardar datos">
-						<a href="listaConsorcio.php" class="btn btn-sm btn-danger">Cancelar</a>
+						<a href="../listaConsorcio.php" class="btn btn-sm btn-danger">Cancelar</a>
 					</div>
 				</div>
 			</form>
