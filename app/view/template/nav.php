@@ -109,6 +109,15 @@
           <a class="dropdown-item" href="/consorcio/app/view/listaReclamos.php">Ver Listado</a>
         </div>
       </li>
+      <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Gastos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/consorcio/app/view/abm/agregarGasto.php">Agregar Nuevo Gasto</a>
+          <a class="dropdown-item" href="/consorcio/app/view/listaGastos.php">Ver Listado</a>
+        </div>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Estadística</a>
       </li>
