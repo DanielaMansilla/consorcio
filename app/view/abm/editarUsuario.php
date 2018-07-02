@@ -76,6 +76,7 @@ if(!isset($_SESSION['admin'])){
 				$update = mysqli_query($conexion, "UPDATE usuarios SET apellido='$apellido', nombre='$nombre', cuil='$cuil', email='$email', dni='$dni', telefono='$telefono', idRol='$idRol', estado='$estado' WHERE idUsuarios='$nik'") or die(mysqli_error($conexion));
 				if($update){
 					//header("Location: editarUsuario.php?nik=".$nik."&pesan=sukses");
+					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido modificados con éxito.</div>';
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
 				}
