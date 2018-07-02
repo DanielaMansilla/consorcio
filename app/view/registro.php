@@ -71,6 +71,8 @@ if(isset($_SESSION['propietario'])){
             $resultado=mysqli_query($conexion,$insertarUsuario);
             
             mysqli_close($conexion); 
+
+            header("Location: index.php");
             }else{
                 echo "Ocurrio un error en los siguientes campos: ";
                 foreach($error as $er){

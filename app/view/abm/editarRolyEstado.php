@@ -49,9 +49,9 @@ if(!isset($_SESSION['admin'])){
                 
                $update = mysqli_query($conexion, "UPDATE usuarios SET idRol='$idRol', estado='$estado' WHERE idUsuarios='$nik'") or die(mysqli_error($conexion));
 				if($update){
-					header("Location: editarRolyEstado.php?nik=".$nik."&pesan=sukses");
+					//header("Location: editarRolyEstado.php?nik=".$nik."&pesan=sukses");
                 if($idRol==3){//propietario
-                    header("Location: ../listaUf.php");
+                    //header("Location: ../listaUf.php");
                 }
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
@@ -69,7 +69,14 @@ if(!isset($_SESSION['admin'])){
 				<label class="col-sm-3 control-label">Rol:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="idRol" value="<?php echo $row ['idRol']; ?>" class="form-control" placeholder="idRol" required>
+					<select name="idRol" class="form-control">
+                            <?php  $datos = mysqli_query($conexion, "SELECT * FROM roles"); //muestra todos los roles
+                             while ($row2 = mysqli_fetch_assoc($datos)) { ?>
+                            <option value="<?php echo $row2['idRoles']; ?>">
+                                <?php echo $row2['descripcion']; ?>
+                                </option>
+                            <?php } ?>
+                        </select>
 				</div>
 			</div>
 			<div class="form-group">

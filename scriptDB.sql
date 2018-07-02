@@ -425,3 +425,11 @@ ALTER TABLE `usuarios`
 
 -- Agregada 1 columna para vericar si entro por primera vez
 ALTER TABLE `usuarios` ADD `primeraVez` TINYINT(1) NOT NULL AFTER `pass`;
+
+-- Cambios de valores maximos
+
+ALTER TABLE `propiedad` CHANGE `departamento` `departamento` VARCHAR(1) NOT NULL;
+
+ALTER TABLE `consorcio` CHANGE `codigoPostal` `codigoPostal` INT(4) NOT NULL;
+
+ALTER TABLE `usuarios` CHANGE `cuil` `cuil` VARCHAR(11) NOT NULL;

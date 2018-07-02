@@ -42,7 +42,7 @@ if(!isset($_SESSION['admin'])){ //verificar si el operador necesita editar.
                 
                $update = mysqli_query($conexion, "UPDATE consorcio SET nombre='$nombre', cuit='$cuit', codigoPostal='$codigoPostal', telefono='$telefono', correo='$correo', direccion='$direccion', googlexy='$googlexy' WHERE idConsorcio='$nik'") or die(mysqli_error($conexion));
 				if($update){
-					header("Location: editarConsorcio.php?nik=".$nik."&pesan=sukses");
+					//header("Location: editarConsorcio.php?nik=".$nik."&pesan=sukses");
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
 				}

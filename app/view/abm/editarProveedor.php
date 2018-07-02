@@ -37,7 +37,8 @@ if(!isset($_SESSION['admin'])){
                 
                $update = mysqli_query($conexion, "UPDATE proveedor SET cuit='$cuit', nombre='$nombre' WHERE idProveedor='$nik'") or die(mysqli_error($conexion));
 				if($update){
-					header("Location: editarProveedor.php?nik=".$nik."&pesan=sukses");
+					//header("Location: editarProveedor.php?nik=".$nik."&pesan=sukses");
+					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido modificados con éxito.</div>';
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
 				}

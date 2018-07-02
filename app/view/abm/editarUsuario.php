@@ -23,7 +23,7 @@ if(!isset($_SESSION['admin'])){
 			<?php
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
-			$sql = mysqli_query($conexion, "SELECT * FROM usuarios JOIN roles ON usuarios.idRol=roles.idRoles WHERE idUsuarios='$nik'");
+			$sql = mysqli_query($conexion, "SELECT * FROM usuarios JOIN roles ON usuarios.idRol=roles.idRoles  WHERE idUsuarios='$nik'");
 			if(mysqli_num_rows($sql) == 0){
 				header("Location: ../listaUsuario.php");
 			}else{
@@ -39,13 +39,53 @@ if(!isset($_SESSION['admin'])){
 				$idRol         	 = mysqli_real_escape_string($conexion,(strip_tags($_POST["idRol"],ENT_QUOTES)));//Escanpando caracteres 
 				$estado			 = mysqli_real_escape_string($conexion,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres 
 				
+				$error = array();
+				//Validacion
+				if(!(ctype_alpha($nombre) && strlen($nombre) >= 3 && strlen($nombre) <= 20)){
+					$error[] = "Nombre debe tener al menos 3 caracteres, solo alfabeticos";
+				  }        
+				
+				if(!(ctype_alpha($apellido) && strlen($apellido) >= 3 && strlen($apellido) <= 20)){
+					$error[] = "Apellido debe tener al menos 3 caracteres, solo alfabeticos";
+				  }
+				//Verificar validaciones de dni, cuil, teléfono.
+				if(!(strlen($cuil) == 11)){
+					$error[] = "Cuil debe tener 11 digitos sin guiones.";
+				  }
+				if(!(strlen($dni) == 8)){
+					$error[] = "Dni debe tener 8 digitos sin guiones.";
+				  }
+				if(!(strlen($telefono) >= 8 && strlen($telefono) <= 10)){
+					$error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";
+				  }
+				if(!(filter_var($email, FILTER_VALIDATE_EMAIL))){
+					$error[] = "Email incorrecto";
+				}
+				//VERIFICAR PARA QUE ROMPA si no cambio el mail
+				/*else{
+					$sql = "SELECT * from usuarios where email='$email'";
+					$result = mysqli_query($conexion,$sql);
+		
+					if($row = mysqli_fetch_array($result)){
+						if($row['email'] == $email){
+					  $error[] = "El email de '$email' se encuentra en uso";
+					}
+				  }
+				  }*/if(sizeof($error) == 0){
+
 				$update = mysqli_query($conexion, "UPDATE usuarios SET apellido='$apellido', nombre='$nombre', cuil='$cuil', email='$email', dni='$dni', telefono='$telefono', idRol='$idRol', estado='$estado' WHERE idUsuarios='$nik'") or die(mysqli_error($conexion));
 				if($update){
-					header("Location: editarUsuario.php?nik=".$nik."&pesan=sukses");
+					//header("Location: editarUsuario.php?nik=".$nik."&pesan=sukses");
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
 				}
-			}
+			}else{
+                echo "Ocurrio un error en los siguientes campos: ";
+                foreach($error as $er){
+                    echo "</br><strong>$er</strong>";
+                  }
+				}
+		}
 			
 			if(isset($_GET['pesan']) == 'sukses'){
 				echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
@@ -89,9 +129,9 @@ if(!isset($_SESSION['admin'])){
 					</div>
 				</div>
 				<div class="form-group">
-					<label class="col-sm-3 control-label">Rol Actual: "<?php echo $row ['descripcion']; ?>"</label>
+				<label class="col-sm-3 control-label">Rol Actual: <?php echo $row['descripcion']; ?></label>
 					<div class="col-sm-3">
-						<select name="idRol" class="form-control">
+					<select name="idRol" class="form-control">
                             <?php  $datos = mysqli_query($conexion, "SELECT * FROM roles"); //muestra todos los roles
                              while ($row2 = mysqli_fetch_assoc($datos)) { ?>
                             <option value="<?php echo $row2['idRoles']; ?>">
