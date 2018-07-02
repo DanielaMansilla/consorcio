@@ -53,7 +53,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 						
 						echo '
 						<!-- Modal -->
-						<div class="modal fade" id="modal-'.$row['idReclamo'].'" role="dialog">
+						<div class="modal fade" id="modal-reclamo-'.$row['idReclamo'].'" role="dialog">
 							<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -74,7 +74,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 							</div>
 						</div>
 
-						<div class="modal fade" id="modal-'.$row['idProveedor'].'" role="dialog">
+						<div class="modal fade" id="modal-proveedor-'.$row['idProveedor'].'" role="dialog">
 						<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -95,11 +95,11 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 						<tr>
 							<td>'.$row['idGasto'].'</td>
 							<td>'.$row['fechaGasto'].'</td>
-							<td><a href="#" data-toggle="modal" data-target="#modal-'.$row['idReclamo'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> '.$row['idReclamo'].'</a></td>
+							<td><a href="#" data-toggle="modal" data-target="#modal-reclamo-'.$row['idReclamo'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> '.$row['idReclamo'].'</a></td>
 							<td>'.$row['concepto'].'</td>
 							<td>$ '.$row['importe'].'</td>
 							<td>'.$row['nroFactura'].'</td>
-							<td><a href="#" data-toggle="modal" data-target="#modal-'.$row['idProveedor'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> '.$row['nombre'].'</a></td>
+							<td><a href="#" data-toggle="modal" data-target="#modal-proveedor-'.$row['idProveedor'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> '.$row['nombre'].'</a></td>
 							<td>';
 							
 							$estado = $row['estadoGasto'];
