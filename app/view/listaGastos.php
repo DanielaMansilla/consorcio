@@ -2,7 +2,7 @@
 require_once '../config/Conexion.php'; 
 session_start();
 // Permisos
-if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSION['propietario'])) {
+if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 	header("Location: index.php");
 } 
 ?>
