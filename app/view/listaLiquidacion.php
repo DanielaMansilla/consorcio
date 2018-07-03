@@ -16,11 +16,11 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
         include('template/nav.php');  
         include('template/header.php'); ?>
 
-		<title>Consorcios del Valle - Lista de Reclamos</title>
+		<title>Consorcios del Valle - Lista de Liquidaciones</title>
 
         <div class="container">
 		<div class="content">
-			<h2>Lista de Reclamos</h2>
+			<h2>Lista de Liquidaciones</h2>
 			<hr />
 
 			<br/>
@@ -28,40 +28,28 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 			<table class="table table-striped table-hover">
 				<tr>
 					<th>Id</th>
+					<th>Periodo</th>
 					<th>Fecha</th>
-					<th>Propiedad</th>
-                    <th>Descripción</th>
-                    <th>Estado</th>
                     <th>Acciones</th>
 				</tr>
 				<?php
 
-				$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad ORDER BY reclamo.idReclamo DESC");
+				$sql = mysqli_query($conexion, "SELECT * FROM liquidacion");
 
 				if (mysqli_num_rows($sql) == 0) {
-					echo '<tr><td colspan="8">No hay reclamos a listar.</td></tr>';
+					echo '<tr><td colspan="8">No hay liquidaciones a listar.</td></tr>';
 				} else {
 					while ($row = mysqli_fetch_assoc($sql)) {
 						echo '
 						<tr>
-							<td>'.$row['idReclamo'].'</td>
+							<td>'.$row['idLiquidacion'].'</td>
+							<td>'.$row['periodo'].'</td>
 							<td>'.$row['fecha'].'</td>
-							<td>Piso: '.$row['piso'].' - Dpto: '.$row['departamento'].'</td>
-							<td>'.$row['descripcion'].'</td>
 							<td>';
-							
-							$estado = $row['estado'];
-							switch ($estado) {
-								case "Activo":
-									$badgeColor = "success";
-									break;
-								case "Resuelto":
-									$badgeColor = "info";
-									break;
-							}
-							echo '<span class="badge badge-'.$badgeColor.'">'.$estado.'</span></td>';
-							
-							echo '<td></td>';
+                            
+                            
+
+                            //<a href="listaLiquidacion.php?nik='.$row['idLiquidacion'].'" title="Visualizar datos" class="btn btn-primary btn-sm"><span class="fas fa-search" aria-hidden="true"></span></a>
 
 							// if(isset($_SESSION['admin'])){
 							// 	echo '

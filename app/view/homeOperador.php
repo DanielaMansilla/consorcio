@@ -1,7 +1,7 @@
 <?php
 require_once '../config/Conexion.php'; 
 session_start();
-if(!isset($_SESSION['operador'])){  // verificar si es admin
+if(!isset($_SESSION['operador'])){  // verificar si es operador
     header("Location: index.php");} ?>
 
 <!DOCTYPE html>
@@ -53,13 +53,11 @@ if(!isset($_SESSION['operador'])){  // verificar si es admin
                     <th>Acciones</th>
 				</tr>
 				<?php
-					$sql = mysqli_query($conexion, "SELECT * FROM usuarios WHERE estado='Pendiente' ORDER BY idUsuarios ASC");
+					$sql = mysqli_query($conexion, "SELECT * FROM usuarios JOIN roles ON usuarios.idRol=roles.idRoles WHERE estado='Pendiente' ORDER BY idUsuarios ASC");
 				if(mysqli_num_rows($sql) == 0){
 					echo '<tr><td colspan="8">No hay usuarios pendientes de habilitación.</td></tr>';
 				}else{
-					//$no = 1;
 					while($row = mysqli_fetch_assoc($sql)){
-                        /* <td>'.$no.'</td> encima del $row */
                         /* Falta linkear unir las tablas idRol para que muestre nombre del rol */
 						echo '
 						<tr>
@@ -69,15 +67,14 @@ if(!isset($_SESSION['operador'])){  // verificar si es admin
                             <td>'.$row['email'].'</td>
                             <td>'.$row['dni'].'</td>
 							<td>'.$row['telefono'].'</td>  
-                            <td>'.$row['idRol'].'</td> 
+                            <td>'.$row['descripcion'].'</td> 
 							<td>
 
 								<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
-								<a href="homeAdmin.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar solicitud de habilitacion" onclick="return confirm(\'Esta seguro de borrar la solicitud de: '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
+								<a href="homeOperador.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar solicitud de habilitacion" onclick="return confirm(\'Esta seguro de borrar la solicitud de: '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';
-						//$no++;
 					}
 				}
 				?>
