@@ -40,8 +40,15 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				"INSERT INTO gasto(idReclamo, idProveedor, nroFactura, fecha, importe, concepto, estado) 
 				VALUES('$idReclamo', '$idProveedor', '$nroFactura', '$fecha', '$importe', '$concepto', '$estado')") or die(mysqli_error());
 				
-				if ($insert){
-					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha guardado el gasto satisfactoriamente.</div>';
+				if ($insert) {
+					$estadoReclamo = "Resuelto";
+					// Luego de generar el gasto, ponemos el Reclamo como Resuelto
+					$updateReclamo = mysqli_query($conexion, "UPDATE reclamo SET estado='$estadoReclamo' WHERE idReclamo='$idReclamo'") or die(mysqli_error());
+					if ($updateReclamo) {
+						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha guardado el gasto satisfactoriamente.</div>';
+					} else {
+						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido actualizar el estado del reclamo seleccionado!</div>';
+					}
 				} else {
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido enviar el gasto ingresado!</div>';
 				}
@@ -56,9 +63,9 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 						<select name="idReclamo" class="form-control">
 							<option disabled selected>Seleccione un reclamo...</option>
 							<?php
-								// TODO: Mostrar reclamos no resueltos unicamente???
-								$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad ORDER BY reclamo.idReclamo DESC");
+								$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad WHERE reclamo.estado <> 'Resuelto' ORDER BY reclamo.idReclamo DESC");
 
+								//TODO: Debe estar la posibilidad de generar un gasto sin un reclamo asociado??
 								// if (mysqli_num_rows($sql) == 0){
 								// 	echo '<span>No hay reclamos disponibles.</span>';
 								// }
@@ -126,7 +133,6 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				
 				<div class="form-group">
 					<div class="col-sm-6">
-					<!-- TODO: Al tocar en cancelar ir al listado de reclamos o al home -->
 						<a href="../listaGastos.php" class="btn btn-sm btn-danger">Cancelar</a>
 						<input type="submit" name="add" class="btn btn-sm btn-primary" value="Guardar Gasto">
 					</div>
