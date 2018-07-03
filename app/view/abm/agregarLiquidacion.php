@@ -2,7 +2,7 @@
 require_once '../../config/Conexion.php'; 
 session_start();
 // Permisos
-if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
+if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 	header("Location: index.php");
 } 
 ?>
@@ -25,28 +25,48 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 			<br/>
 
 			<?php
-			if(isset($_POST['add'])){
-				$idPropiedad	= mysqli_real_escape_string($conexion, (strip_tags($_POST["idPropiedad"], ENT_QUOTES)));
-				$descripcion	= mysqli_real_escape_string($conexion, (strip_tags($_POST["descripcion"], ENT_QUOTES)));
-				$estado			= mysqli_real_escape_string($conexion, (strip_tags("Activo", ENT_QUOTES)));
+			if (isset($_POST['add'])) {
+				// TODO: Validar que se hayan ingresado la fecha y el Mes...
+				$yearLiquidacion = $_POST["yearLiquidacion"];
+				$mesLiquidacion = $_POST["mesLiquidacion"];
+				$periodo = "$yearLiquidacion-$mesLiquidacion-01";
 				
-				// La fecha se setea desde MySQL a través de la funcion now()
-				$insert = mysqli_query($conexion, "INSERT INTO reclamo(idPropiedad, descripcion, estado, fecha) VALUES('$idPropiedad', '$descripcion', '$estado', now())") or die(mysqli_error());
-				
-				if ($insert){
-					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha enviado el reclamo satisfactoriamente.</div>';
+				if (isset($_POST['gastosLiquidacion']) && !empty($_POST['gastosLiquidacion'])) {
+					// La fecha se setea desde MySQL a través de la funcion now()
+					$insertLiquidacion = mysqli_query($conexion, "INSERT INTO liquidacion(periodo, fecha) 
+					VALUES('$periodo', now())") or die(mysqli_error());
+
+					if ($insertLiquidacion) {
+						$idLiquidacion = mysqli_insert_id($conexion);
+						$gastosLiquidacion = $_POST['gastosLiquidacion'];
+						foreach ($gastosLiquidacion as $idGasto) {
+							$insertGasto = mysqli_query($conexion, "INSERT INTO liquidaciongasto(idLiquidacion, idGasto) 
+							VALUES('$idLiquidacion', '$idGasto')") or die(mysqli_error());
+
+							if(!$insertGasto) {
+								echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido crear una nueva liquidación!</div>';
+							}
+							// TODO: Despues de eso, hay que generar las expensas para cada uno de los inquilinos...
+						}
+		
+						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha creado una nueva liquidación satisfactoriamente.</div>';
+					} else {
+						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido crear una nueva liquidación!</div>';
+					}
 				} else {
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido enviar el reclamo ingresado!</div>';
+					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: Debe seleccionar por lo menos un gasto para asociar a la liquidación!</div>';
 				}
+
 			}
 			?>
+			<form class="form-horizontal" action="" method="post" id="reclamoForm">
 
-			<form class="form-horizontal" action="" method="post">
+				<label class="col-sm-3 control-label"><b>Periodo de Liquidación:</b></label>
 
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Año</label>
 					<div class="col-sm-4">
-						<select id='mesLiquidacion' class="form-control">
+						<select name="yearLiquidacion" class="form-control">
 							<option disabled selected>Seleccione un año...</option>
 							<option value='2018'>2018</option>
 							<option value='2019'>2019</option>
@@ -63,17 +83,17 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Mes</label>
 					<div class="col-sm-4">
-						<select id='mesLiquidacion' class="form-control">
+						<select name="mesLiquidacion" class="form-control">
 							<option disabled selected>Seleccione un mes...</option>
-							<option value='1'>Enero</option>
-							<option value='2'>Febrero</option>
-							<option value='3'>Marzo</option>
-							<option value='4'>Abril</option>
-							<option value='5'>Mayo</option>
-							<option value='6'>Junio</option>
-							<option value='7'>Julio</option>
-							<option value='8'>Agosto</option>
-							<option value='9'>Septiembre</option>
+							<option value='01'>Enero</option>
+							<option value='02'>Febrero</option>
+							<option value='03'>Marzo</option>
+							<option value='04'>Abril</option>
+							<option value='05'>Mayo</option>
+							<option value='06'>Junio</option>
+							<option value='07'>Julio</option>
+							<option value='08'>Agosto</option>
+							<option value='09'>Septiembre</option>
 							<option value='10'>Octubre</option>
 							<option value='11'>Noviembre</option>
 							<option value='12'>Diciembre</option>
@@ -81,7 +101,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 					</div>
 				</div>
 
-				<label class="col-sm-3 control-label">Seleccione los gastos a liquidar:</label>
+				<label class="col control-label">Seleccione los gastos a liquidar:</label>
 				<div class="table-responsive">
 				<table class="table table-striped table-hover">
 					<tr>
@@ -106,11 +126,9 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 					ORDER BY gasto.idGasto DESC");
 
 					if (mysqli_num_rows($sql) == 0) {
-						echo '<tr><td colspan="8">No hay reclamos a listar.</td></tr>';
+						echo '<tr><td colspan="8">No hay reclamos para listar.</td></tr>';
 					} else {
 						while ($row = mysqli_fetch_assoc($sql)) {
-							// echo "<script>console.log( 'Debug Objects: " . json_encode($row) . "' );</script>";
-							
 							echo '
 							<!-- Modal -->
 							<div class="modal fade" id="modal-reclamo-'.$row['idReclamo'].'" role="dialog">
@@ -172,9 +190,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 										break;
 								}
 								echo '<span class="badge badge-'.$badgeColor.'">'.$estado.'</span></td>';
-								echo '<td><input class="form-check-input" type="checkbox" value="'.$row['idGasto'].'" style="margin-left: 1.5rem;" id="gastosLiquidacion"></td>';
-
-								// TODO: Primero crear una nueva liquidacion, luego crear la relacion entre la liquidacion y los gastos seleccionados
+								echo '<td><input class="form-check-input" type="checkbox" value="'.$row['idGasto'].'" style="margin-left: 1.5rem;" name="gastosLiquidacion[]"></td>';
 						}
 					}
 					?>
