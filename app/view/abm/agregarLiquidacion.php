@@ -46,7 +46,55 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 							if(!$insertGasto) {
 								echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido crear una nueva liquidación!</div>';
 							}
-							// TODO: Despues de eso, hay que generar las expensas para cada uno de los inquilinos...
+						}
+						
+						$queryGastoTotalLiquidacion = mysqli_query($conexion, 
+						"SELECT SUM(gasto.importe) as gastoTotal 
+						FROM liquidaciongasto 
+						JOIN gasto ON liquidaciongasto.idGasto = gasto.idGasto 
+						WHERE liquidaciongasto.idLiquidacion = '$idLiquidacion';") or die(mysqli_error());
+						
+						$gastoTotalLiquidacion = (float) mysqli_fetch_assoc($queryGastoTotalLiquidacion)["gastoTotal"];
+						echo "<script>console.log( 'gastoTotalLiquidacion: " . json_encode($gastoTotalLiquidacion) . "' );</script>";
+						
+						if (!$gastoTotalLiquidacion) {
+							die(mysqli_error());
+						}
+
+						// TODO: El importe debe ser un float
+						// Se le agrega un 20% de comisión al gasto total
+						$gastoTotalFinal = $gastoTotalLiquidacion * 1.20;
+						echo "<script>console.log( 'gastoTotalFinal: " . json_encode($gastoTotalFinal) . "' );</script>";
+
+						$gastoTotalFinalRedondeado = number_format((float)$gastoTotalFinal, 2, '.', '') ;
+						echo "<script>console.log( 'Gasto Redondeado: " . json_encode($gastoTotalFinalRedondeado) . "' );</script>";
+
+						$queryPropietarios = mysqli_query($conexion, 
+						"SELECT idPropiedad, idUsuarios, porcentajeParticipacion FROM propiedad;") or die(mysqli_error());
+
+						if (!$queryPropietarios) {
+							die(mysqli_error());
+						}
+
+						while ($propietario = mysqli_fetch_assoc($queryPropietarios)) {
+							$idPropiedad = $propietario['idPropiedad'];
+							$idUsuario = $propietario['idUsuarios'];
+							$porcentajeParticipacion = (int) $propietario['porcentajeParticipacion'];
+							$importe = $gastoTotalFinal * ($porcentajeParticipacion / 100);
+							
+							// TODO: Ver si este estado esta bien
+							$estado = "Impago";
+
+							// TODO: Ver que vencimiento poner!
+							$vencimiento = date("Y-m-d");
+
+							$insertExpensaPropietario = mysqli_query($conexion, 
+							"INSERT INTO expensa(idLiquidacion, idPropiedad, importe, fecha, vencimiento, estado) 
+							VALUES('$idLiquidacion', '$idPropiedad', '$importe', now(), '$vencimiento', '$estado')") or die(mysqli_error());
+
+							if (!$insertExpensaPropietario) {
+								die(mysqli_error());
+							}
 						}
 		
 						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha creado una nueva liquidación satisfactoriamente.</div>';
