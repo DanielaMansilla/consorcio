@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-06-2018 a las 03:05:44
+-- Tiempo de generación: 04-07-2018 a las 07:13:26
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.2.3
 
@@ -18,14 +18,14 @@
 --
 
 CREATE TABLE `consorcio` (
-  `idConsorcio` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `cuit` varchar(13) NOT NULL,
-  `codigoPostal` int(11) NOT NULL,
+  `idConsorcio` int(11) UNSIGNED NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `cuit` varchar(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `codigoPostal` int(4) NOT NULL,
   `telefono` int(11) NOT NULL,
-  `correo` varchar(50) NOT NULL,
-  `direccion` varchar(70) NOT NULL,
-  `googlexy` varchar(100) NOT NULL
+  `correo` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `direccion` varchar(70) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `googlexy` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -35,13 +35,13 @@ CREATE TABLE `consorcio` (
 --
 
 CREATE TABLE `expensa` (
-  `idExpensa` int(11) NOT NULL,
-  `idLiquidacion` int(11) DEFAULT NULL,
-  `idPropiedad` int(11) DEFAULT NULL,
-  `importe` int(11) NOT NULL,
+  `idExpensa` int(11) UNSIGNED NOT NULL,
+  `idLiquidacion` int(11) UNSIGNED DEFAULT NULL,
+  `idPropiedad` int(11) UNSIGNED DEFAULT NULL,
+  `importe` decimal(12,2) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
   `vencimiento` date DEFAULT NULL,
-  `estado` varchar(50) DEFAULT NULL
+  `estado` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -51,8 +51,8 @@ CREATE TABLE `expensa` (
 --
 
 CREATE TABLE `formasdepago` (
-  `idFormaPago` int(11) NOT NULL,
-  `descripcion` varchar(50) NOT NULL
+  `idFormaPago` int(11) UNSIGNED NOT NULL,
+  `descripcion` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -62,14 +62,14 @@ CREATE TABLE `formasdepago` (
 --
 
 CREATE TABLE `gasto` (
-  `idGasto` int(11) NOT NULL,
+  `idGasto` int(11) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
-  `importe` int(11) NOT NULL,
-  `concepto` varchar(100) NOT NULL,
-  `estado` varchar(50) NOT NULL,
-  `idReclamo` int(11) DEFAULT NULL,
-  `nroFactura` int(11) NOT NULL,
-  `idProveedor` int(11) DEFAULT NULL
+  `importe` decimal(12,2) UNSIGNED NOT NULL,
+  `concepto` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `estado` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `idReclamo` int(11) UNSIGNED DEFAULT NULL,
+  `nroFactura` int(11) UNSIGNED DEFAULT NULL,
+  `idProveedor` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -79,7 +79,7 @@ CREATE TABLE `gasto` (
 --
 
 CREATE TABLE `liquidacion` (
-  `idLiquidacion` int(11) NOT NULL,
+  `idLiquidacion` int(11) UNSIGNED NOT NULL,
   `periodo` date NOT NULL,
   `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -91,8 +91,8 @@ CREATE TABLE `liquidacion` (
 --
 
 CREATE TABLE `liquidaciongasto` (
-  `idLiquidacion` int(11) DEFAULT NULL,
-  `idGasto` int(11) DEFAULT NULL
+  `idLiquidacion` int(11) UNSIGNED DEFAULT NULL,
+  `idGasto` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -102,11 +102,11 @@ CREATE TABLE `liquidaciongasto` (
 --
 
 CREATE TABLE `ordenpago` (
-  `idOperacion` int(11) NOT NULL,
-  `idGasto` int(11) DEFAULT NULL,
-  `importe` int(11) NOT NULL,
+  `idOperacion` int(11) UNSIGNED NOT NULL,
+  `idExpensa` int(11) UNSIGNED NOT NULL,
+  `importe` decimal(12,2) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
-  `idFormaPago` int(11) DEFAULT NULL
+  `idFormaPago` int(11) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -116,11 +116,11 @@ CREATE TABLE `ordenpago` (
 --
 
 CREATE TABLE `pago` (
-  `idPago` int(11) NOT NULL,
-  `idPropiedad` int(11) DEFAULT NULL,
-  `importe` int(11) NOT NULL,
+  `idPago` int(11) UNSIGNED NOT NULL,
+  `idPropiedad` int(11) UNSIGNED DEFAULT NULL,
+  `importe` decimal(12,2) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
-  `idLiquidacion` int(11) DEFAULT NULL
+  `idLiquidacion` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -130,13 +130,13 @@ CREATE TABLE `pago` (
 --
 
 CREATE TABLE `propiedad` (
-  `idPropiedad` int(11) NOT NULL,
-  `idUsuarios` int(11) DEFAULT NULL,
-  `porcentajeParticipacion` int(11) DEFAULT NULL,
-  `piso` int(11) NOT NULL,
-  `departamento` int(11) NOT NULL,
-  `unidadFuncionalLote` varchar(50) NOT NULL,
-  `idConsorcio` int(11) DEFAULT NULL
+  `idPropiedad` int(11) UNSIGNED NOT NULL,
+  `idUsuarios` int(11) UNSIGNED DEFAULT NULL,
+  `porcentajeParticipacion` int(3) UNSIGNED NOT NULL,
+  `piso` int(3) NOT NULL,
+  `departamento` varchar(1) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `unidadFuncionalLote` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `idConsorcio` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -146,9 +146,9 @@ CREATE TABLE `propiedad` (
 --
 
 CREATE TABLE `proveedor` (
-  `idProveedor` int(11) NOT NULL,
-  `cuit` varchar(13) NOT NULL,
-  `nombre` varchar(50) NOT NULL
+  `idProveedor` int(11) UNSIGNED NOT NULL,
+  `cuit` varchar(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -158,11 +158,11 @@ CREATE TABLE `proveedor` (
 --
 
 CREATE TABLE `reclamo` (
-  `idReclamo` int(11) NOT NULL,
+  `idReclamo` int(11) UNSIGNED NOT NULL,
   `fecha` date NOT NULL,
-  `descripcion` varchar(100) NOT NULL,
-  `estado` varchar(50) NOT NULL,
-  `idPropiedad` int(11) DEFAULT NULL
+  `descripcion` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `estado` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `idPropiedad` int(11) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -172,8 +172,8 @@ CREATE TABLE `reclamo` (
 --
 
 CREATE TABLE `roles` (
-  `idRoles` int(11) NOT NULL,
-  `descripcion` varchar(50) NOT NULL
+  `idRoles` int(11) UNSIGNED NOT NULL,
+  `descripcion` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -183,16 +183,17 @@ CREATE TABLE `roles` (
 --
 
 CREATE TABLE `usuarios` (
-  `idUsuarios` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `apellido` varchar(50) NOT NULL,
-  `cuil` int(11) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `dni` int(11) NOT NULL,
-  `telefono` int(11) NOT NULL,
-  `estado` varchar(50) NOT NULL,
-  `idRol` int(11) DEFAULT NULL,
-  `pass` varchar(50) NOT NULL
+  `idUsuarios` int(11) UNSIGNED NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `apellido` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `cuil` varchar(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `dni` int(8) UNSIGNED NOT NULL,
+  `telefono` int(11) UNSIGNED NOT NULL,
+  `estado` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `idRol` int(11) UNSIGNED NOT NULL,
+  `pass` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `primeraVez` tinyint(1) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -245,23 +246,24 @@ ALTER TABLE `liquidaciongasto`
 --
 ALTER TABLE `ordenpago`
   ADD PRIMARY KEY (`idOperacion`),
-  ADD KEY `FK_idGasto` (`idGasto`),
-  ADD KEY `FK_idFormaPago` (`idFormaPago`);
+  ADD KEY `FK_idFormaPago` (`idFormaPago`),
+  ADD KEY `FK_idExpensa` (`idExpensa`);
 
 --
 -- Indices de la tabla `pago`
 --
 ALTER TABLE `pago`
   ADD PRIMARY KEY (`idPago`),
-  ADD KEY `FK_idPropiedadPago` (`idPropiedad`),
-  ADD KEY `FK_idLiquidacionPago` (`idLiquidacion`);
+  ADD KEY `FK_idLiquidacionPago` (`idLiquidacion`),
+  ADD KEY `FK_idPropiedadPago` (`idPropiedad`);
 
 --
 -- Indices de la tabla `propiedad`
 --
 ALTER TABLE `propiedad`
   ADD PRIMARY KEY (`idPropiedad`),
-  ADD KEY `FK_idUsuariosPropiedad` (`idUsuarios`);
+  ADD KEY `FK_idUsuariosPropiedad` (`idUsuarios`),
+  ADD KEY `FK_idConsorcio` (`idConsorcio`);
 
 --
 -- Indices de la tabla `proveedor`
@@ -297,73 +299,73 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `consorcio`
 --
 ALTER TABLE `consorcio`
-  MODIFY `idConsorcio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idConsorcio` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `expensa`
 --
 ALTER TABLE `expensa`
-  MODIFY `idExpensa` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idExpensa` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `formasdepago`
 --
 ALTER TABLE `formasdepago`
-  MODIFY `idFormaPago` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idFormaPago` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `gasto`
 --
 ALTER TABLE `gasto`
-  MODIFY `idGasto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idGasto` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `liquidacion`
 --
 ALTER TABLE `liquidacion`
-  MODIFY `idLiquidacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idLiquidacion` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `ordenpago`
 --
 ALTER TABLE `ordenpago`
-  MODIFY `idOperacion` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idOperacion` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pago`
 --
 ALTER TABLE `pago`
-  MODIFY `idPago` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPago` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `propiedad`
 --
 ALTER TABLE `propiedad`
-  MODIFY `idPropiedad` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPropiedad` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  MODIFY `idProveedor` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idProveedor` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `reclamo`
 --
 ALTER TABLE `reclamo`
-  MODIFY `idReclamo` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idReclamo` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `idRoles` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idRoles` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `idUsuarios` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idUsuarios` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- Restricciones para tablas volcadas
@@ -394,8 +396,8 @@ ALTER TABLE `liquidaciongasto`
 -- Filtros para la tabla `ordenpago`
 --
 ALTER TABLE `ordenpago`
-  ADD CONSTRAINT `FK_idFormaPago` FOREIGN KEY (`idFormaPago`) REFERENCES `formasdepago` (`idFormaPago`),
-  ADD CONSTRAINT `FK_idGasto` FOREIGN KEY (`idGasto`) REFERENCES `gasto` (`idGasto`);
+  ADD CONSTRAINT `FK_idExpensa` FOREIGN KEY (`idExpensa`) REFERENCES `expensa` (`idExpensa`),
+  ADD CONSTRAINT `FK_idFormaPago` FOREIGN KEY (`idFormaPago`) REFERENCES `formasdepago` (`idFormaPago`);
 
 --
 -- Filtros para la tabla `pago`
@@ -408,6 +410,7 @@ ALTER TABLE `pago`
 -- Filtros para la tabla `propiedad`
 --
 ALTER TABLE `propiedad`
+  ADD CONSTRAINT `FK_idConsorcio` FOREIGN KEY (`idConsorcio`) REFERENCES `consorcio` (`idConsorcio`),
   ADD CONSTRAINT `FK_idUsuariosPropiedad` FOREIGN KEY (`idUsuarios`) REFERENCES `usuarios` (`idUsuarios`);
 
 --
@@ -421,15 +424,3 @@ ALTER TABLE `reclamo`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `FK_idRolesUsuario` FOREIGN KEY (`idRol`) REFERENCES `roles` (`idRoles`);
-
-
--- Agregada 1 columna para vericar si entro por primera vez
-ALTER TABLE `usuarios` ADD `primeraVez` TINYINT(1) NOT NULL AFTER `pass`;
-
--- Cambios de valores maximos
-
-ALTER TABLE `propiedad` CHANGE `departamento` `departamento` VARCHAR(1) NOT NULL;
-
-ALTER TABLE `consorcio` CHANGE `codigoPostal` `codigoPostal` INT(4) NOT NULL;
-
-ALTER TABLE `usuarios` CHANGE `cuil` `cuil` VARCHAR(11) NOT NULL;
