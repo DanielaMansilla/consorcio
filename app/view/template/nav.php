@@ -78,7 +78,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/view/listaReclamos.php">Expensas</a>
+        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php">Expensas</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Estadística</a>
@@ -134,7 +134,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/view/listaReclamos.php">Expensas</a>
+        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php">Expensas</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Estadística</a>
@@ -159,7 +159,7 @@
         <a class="nav-link" href="#">Informe Mensual</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/view/listaReclamos.php">Expensas</a>
+        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php">Expensas</a>
       </li>
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
