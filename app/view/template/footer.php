@@ -1,4 +1,4 @@
-<footer class="fixed-bottom">
+<footer class="fixed-bottom" style="background-color: white;">
     <footer class="modal-footer">
         <p>&copy; 2018 - UNLAM - Taller Web 2</p>
     </footer>
