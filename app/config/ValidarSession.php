@@ -25,7 +25,7 @@ if($row['estado'] == 'Activo'){
 
 //Direccionamiento segun rol.
 
-if($row['idRol'] == 0){
+if($row['idRol'] == 4){
     $_SESSION['sinRol'] = $usuario;
     header("Location:../view/sinRol.php");  // Vista informando que no tiene Rol.  // se puede poner todo junto en un 404.php y con if() de rol y estado poner distintos mensajes
 }
@@ -56,9 +56,9 @@ header("Location: ../view/index.php");
 exit();
 }
 /*ROLES
-0 = Sin Rol
 1 = Administrador
 2 = Operador
 3 = Propietario
+4 = Sin Rol
 */ 
 ?>
