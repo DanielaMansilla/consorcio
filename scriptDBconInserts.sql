@@ -78,7 +78,7 @@ CREATE TABLE `formasdepago` (
 
 INSERT INTO `formasdepago` (`idFormaPago`, `descripcion`) VALUES
 (1, 'Efectivo'),
-(2, 'Tarjeta de Crédito');
+(2, 'Tarjeta de CrÃ©dito');
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,7 @@ CREATE TABLE `gasto` (
 --
 
 INSERT INTO `gasto` (`idGasto`, `fecha`, `importe`, `concepto`, `estado`, `idReclamo`, `nroFactura`, `idProveedor`) VALUES
-(5, '2018-01-02', '850.00', 'Arreglo de caÃ±erÃ­a', 'Pago', 1, 1, 1);
+(5, '2018-07-02', '850.00', 'Arreglo de caÃ±erÃ­a', 'Pago', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -121,7 +121,7 @@ CREATE TABLE `liquidacion` (
 --
 
 INSERT INTO `liquidacion` (`idLiquidacion`, `periodo`, `fecha`) VALUES
-(2, '2018-01-01', '2018-02-01');
+(2, '2018-07-01', '2018-08-01');
 
 -- --------------------------------------------------------
 
