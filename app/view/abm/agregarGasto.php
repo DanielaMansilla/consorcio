@@ -38,12 +38,12 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				
 				$insert = mysqli_query($conexion, 
 				"INSERT INTO gasto(idReclamo, idProveedor, nroFactura, fecha, importe, concepto, estado) 
-				VALUES('$idReclamo', '$idProveedor', '$nroFactura', '$fecha', '$importe', '$concepto', '$estado')") or die(mysqli_error());
+				VALUES('$idReclamo', '$idProveedor', '$nroFactura', '$fecha', '$importe', '$concepto', '$estado')") or die(mysqli_error($conexion));
 				
 				if ($insert) {
 					$estadoReclamo = "Resuelto";
 					// Luego de generar el gasto, ponemos el Reclamo como Resuelto
-					$updateReclamo = mysqli_query($conexion, "UPDATE reclamo SET estado='$estadoReclamo' WHERE idReclamo='$idReclamo'") or die(mysqli_error());
+					$updateReclamo = mysqli_query($conexion, "UPDATE reclamo SET estado='$estadoReclamo' WHERE idReclamo='$idReclamo'") or die(mysqli_error($conexion));
 					if ($updateReclamo) {
 						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha guardado el gasto satisfactoriamente.</div>';
 					} else {

@@ -34,14 +34,14 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				if (isset($_POST['gastosLiquidacion']) && !empty($_POST['gastosLiquidacion'])) {
 					// La fecha se setea desde MySQL a través de la funcion now()
 					$insertLiquidacion = mysqli_query($conexion, "INSERT INTO liquidacion(periodo, fecha) 
-					VALUES('$periodo', now())") or die(mysqli_error());
+					VALUES('$periodo', now())") or die(mysqli_error($conexion));
 
 					if ($insertLiquidacion) {
 						$idLiquidacion = mysqli_insert_id($conexion);
 						$gastosLiquidacion = $_POST['gastosLiquidacion'];
 						foreach ($gastosLiquidacion as $idGasto) {
 							$insertGasto = mysqli_query($conexion, "INSERT INTO liquidaciongasto(idLiquidacion, idGasto) 
-							VALUES('$idLiquidacion', '$idGasto')") or die(mysqli_error());
+							VALUES('$idLiquidacion', '$idGasto')") or die(mysqli_error($conexion));
 
 							if(!$insertGasto) {
 								echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido crear una nueva liquidación!</div>';
@@ -52,13 +52,13 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 						"SELECT SUM(gasto.importe) as gastoTotal 
 						FROM liquidaciongasto 
 						JOIN gasto ON liquidaciongasto.idGasto = gasto.idGasto 
-						WHERE liquidaciongasto.idLiquidacion = '$idLiquidacion';") or die(mysqli_error());
+						WHERE liquidaciongasto.idLiquidacion = '$idLiquidacion';") or die(mysqli_error($conexion));
 						
 						$gastoTotalLiquidacion = (float) mysqli_fetch_assoc($queryGastoTotalLiquidacion)["gastoTotal"];
 						echo "<script>console.log( 'gastoTotalLiquidacion: " . json_encode($gastoTotalLiquidacion) . "' );</script>";
 						
 						if (!$gastoTotalLiquidacion) {
-							die(mysqli_error());
+							die(mysqli_error($conexion));
 						}
 
 						// TODO: El importe debe ser un float
@@ -70,10 +70,10 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 						echo "<script>console.log( 'Gasto Redondeado: " . json_encode($gastoTotalFinalRedondeado) . "' );</script>";
 
 						$queryPropietarios = mysqli_query($conexion, 
-						"SELECT idPropiedad, idUsuarios, porcentajeParticipacion FROM propiedad;") or die(mysqli_error());
+						"SELECT idPropiedad, idUsuarios, porcentajeParticipacion FROM propiedad;") or die(mysqli_error($conexion));
 
 						if (!$queryPropietarios) {
-							die(mysqli_error());
+							die(mysqli_error($conexion));
 						}
 
 						while ($propietario = mysqli_fetch_assoc($queryPropietarios)) {
@@ -90,10 +90,10 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 
 							$insertExpensaPropietario = mysqli_query($conexion, 
 							"INSERT INTO expensa(idLiquidacion, idPropiedad, importe, fecha, vencimiento, estado) 
-							VALUES('$idLiquidacion', '$idPropiedad', '$importe', now(), '$vencimiento', '$estado')") or die(mysqli_error());
+							VALUES('$idLiquidacion', '$idPropiedad', '$importe', now(), '$vencimiento', '$estado')") or die(mysqli_error($conexion));
 
 							if (!$insertExpensaPropietario) {
-								die(mysqli_error());
+								die(mysqli_error($conexion));
 							}
 						}
 		

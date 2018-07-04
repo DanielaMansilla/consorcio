@@ -49,7 +49,7 @@ if(!isset($_SESSION['admin'])){
 				$cek = mysqli_query($conexion, "SELECT * FROM propiedad WHERE unidadFuncionalLote='$unidadFuncionalLote'");
 				if(mysqli_num_rows($cek) == 0){
 						$insert = mysqli_query($conexion, "INSERT INTO propiedad(porcentajeParticipacion, piso, departamento, unidadFuncionalLote, idConsorcio)
-															VALUES('$porcentajeParticipacion', '$piso', '$departamento', '$unidadFuncionalLote', '$idConsorcio')") or die(mysqli_error());
+															VALUES('$porcentajeParticipacion', '$piso', '$departamento', '$unidadFuncionalLote', '$idConsorcio')") or die(mysqli_error($conexion));
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
 						}else{

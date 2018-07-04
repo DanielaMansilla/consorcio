@@ -32,7 +32,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 				$estado			= mysqli_real_escape_string($conexion, (strip_tags("Activo", ENT_QUOTES)));
 				
 				// La fecha se setea desde MySQL a través de la funcion now()
-				$insert = mysqli_query($conexion, "INSERT INTO reclamo(idPropiedad, descripcion, estado, fecha) VALUES('$idPropiedad', '$descripcion', '$estado', now())") or die(mysqli_error());
+				$insert = mysqli_query($conexion, "INSERT INTO reclamo(idPropiedad, descripcion, estado, fecha) VALUES('$idPropiedad', '$descripcion', '$estado', now())") or die(mysqli_error($conexion));
 				
 				if ($insert){
 					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha enviado el reclamo satisfactoriamente.</div>';

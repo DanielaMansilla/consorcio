@@ -71,7 +71,7 @@ if(!isset($_SESSION['admin'])){
 				$cek = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$dni'");
 				if(mysqli_num_rows($cek) == 0){
 						$insert = mysqli_query($conexion, "INSERT INTO usuarios(apellido, nombre, cuil, email, dni, telefono, idRol, estado, pass, primeraVez)
-															VALUES('$apellido', '$nombre', '$cuil', '$email', '$dni', '$telefono', '$idRol', '$estado', '$pass_sha1', '$primeraVez')") or die(mysqli_error());
+															VALUES('$apellido', '$nombre', '$cuil', '$email', '$dni', '$telefono', '$idRol', '$estado', '$pass_sha1', '$primeraVez')") or die(mysqli_error($conexion));
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
 						}else{
