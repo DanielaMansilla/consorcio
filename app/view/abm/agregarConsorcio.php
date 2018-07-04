@@ -36,7 +36,7 @@ if(!isset($_SESSION['admin'])){
 				$cek = mysqli_query($conexion, "SELECT * FROM consorcio WHERE idConsorcio='$cuit'");
 				if(mysqli_num_rows($cek) == 0){
 						$insert = mysqli_query($conexion, "INSERT INTO consorcio(nombre, cuit, codigoPostal, telefono, correo, direccion, googlexy)
-															VALUES('$nombre', '$cuit', '$codigoPostal', '$telefono', '$correo', '$direccion', '$googlexy')") or die(mysqli_error());
+															VALUES('$nombre', '$cuit', '$codigoPostal', '$telefono', '$correo', '$direccion', '$googlexy')") or die(mysqli_error($conexion));
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
 						}else{
