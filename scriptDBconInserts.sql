@@ -102,7 +102,7 @@ CREATE TABLE `gasto` (
 --
 
 INSERT INTO `gasto` (`idGasto`, `fecha`, `importe`, `concepto`, `estado`, `idReclamo`, `nroFactura`, `idProveedor`) VALUES
-(5, '2018-01-02', '850.00', 'Arreglo de cañería', 'Pago', 1, 1, 1);
+(5, '2018-01-02', '850.00', 'Arreglo de caÃ±erÃ­a', 'Pago', 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -236,7 +236,7 @@ CREATE TABLE `reclamo` (
 --
 
 INSERT INTO `reclamo` (`idReclamo`, `fecha`, `descripcion`, `estado`, `idPropiedad`) VALUES
-(1, '2018-07-01', 'Rotura de caño', 'Resuelto', 1),
+(1, '2018-07-01', 'Rotura de caÃ±o', 'Resuelto', 1),
 (2, '2018-07-03', 'Rotura de cerradura', 'Activo', 3);
 
 -- --------------------------------------------------------
