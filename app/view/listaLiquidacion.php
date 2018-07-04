@@ -28,11 +28,16 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 			<table class="table table-striped table-hover">
 				<tr>
 					<th>Id</th>
-					<th>Periodo</th>
+					<th>Año</th>
+					<th>Mes</th>
 					<th>Fecha</th>
-                    <th>Acciones</th>
+                  
 				</tr>
 				<?php
+				//TODO: Por cada liquidacion mostrar lista de gastos. (no tan importante)
+				
+				//$sql = mysqli_query($conexion, "SELECT * FROM liquidacion JOIN liquidaciongasto on liquidacion.idLiquidacion=liquidaciongasto.idLiquidacion
+				//JOIN gasto on liquidaciongasto.idGasto=gasto.idGasto ORDER BY gasto.fecha DESC");
 
 				$sql = mysqli_query($conexion, "SELECT * FROM liquidacion");
 
@@ -41,14 +46,14 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				} else {
 					while ($row = mysqli_fetch_assoc($sql)) {
 						echo '
+
 						<tr>
 							<td>'.$row['idLiquidacion'].'</td>
-							<td>'.$row['periodo'].'</td>
+							<td>'.date("Y", strtotime($row['periodo'])).'</td>
+							<td>'.date("F", strtotime($row['periodo'])).'</td>
 							<td>'.$row['fecha'].'</td>
-							<td>';
-                            
-                            
-
+							';
+                    
                             //<a href="listaLiquidacion.php?nik='.$row['idLiquidacion'].'" title="Visualizar datos" class="btn btn-primary btn-sm"><span class="fas fa-search" aria-hidden="true"></span></a>
 
 							// if(isset($_SESSION['admin'])){
