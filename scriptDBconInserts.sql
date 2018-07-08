@@ -24,7 +24,7 @@ CREATE TABLE `consorcio` (
   `codigoPostal` int(4) NOT NULL,
   `telefono` int(11) NOT NULL,
   `correo` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `direccion` varchar(70) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `direccion` varchar(70) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
