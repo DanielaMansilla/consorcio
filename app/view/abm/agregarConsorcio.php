@@ -27,16 +27,13 @@ if(!isset($_SESSION['admin'])){
                 $codigoPostal   = mysqli_real_escape_string($conexion,(strip_tags($_POST["codigoPostal"],ENT_QUOTES)));//Escanpando caracteres 
                 $telefono   = mysqli_real_escape_string($conexion,(strip_tags($_POST["telefono"],ENT_QUOTES)));//Escanpando caracteres 
                 $correo   = mysqli_real_escape_string($conexion,(strip_tags($_POST["correo"],ENT_QUOTES)));//Escanpando caracteres 
-                $direccion   = mysqli_real_escape_string($conexion,(strip_tags($_POST["direccion"],ENT_QUOTES)));//Escanpando caracteres 
-
-                $googlexy   = mysqli_real_escape_string($conexion,(strip_tags($_POST["googlexy"],ENT_QUOTES)));//CODIGO DE GOOGLE MAPS
-
-
+				$direccion   = mysqli_real_escape_string($conexion,(strip_tags($_POST["direccion"],ENT_QUOTES)));//Escanpando caracteres 
+				
                 //Realiza el Insert solo si no existe otro consorcio con el mismo CUIT
 				$cek = mysqli_query($conexion, "SELECT * FROM consorcio WHERE idConsorcio='$cuit'");
 				if(mysqli_num_rows($cek) == 0){
-						$insert = mysqli_query($conexion, "INSERT INTO consorcio(nombre, cuit, codigoPostal, telefono, correo, direccion, googlexy)
-															VALUES('$nombre', '$cuit', '$codigoPostal', '$telefono', '$correo', '$direccion', '$googlexy')") or die(mysqli_error($conexion));
+						$insert = mysqli_query($conexion, "INSERT INTO consorcio(nombre, cuit, codigoPostal, telefono, correo, direccion)
+															VALUES('$nombre', '$cuit', '$codigoPostal', '$telefono', '$correo', '$direccion')") or die(mysqli_error($conexion));
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
 						}else{

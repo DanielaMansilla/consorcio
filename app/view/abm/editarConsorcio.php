@@ -36,10 +36,8 @@ if(!isset($_SESSION['admin'])){ //verificar si el operador necesita editar.
                 $codigoPostal   = mysqli_real_escape_string($conexion,(strip_tags($_POST["codigoPostal"],ENT_QUOTES)));//Escanpando caracteres 
                 $telefono   = mysqli_real_escape_string($conexion,(strip_tags($_POST["telefono"],ENT_QUOTES)));//Escanpando caracteres 
                 $correo   = mysqli_real_escape_string($conexion,(strip_tags($_POST["correo"],ENT_QUOTES)));//Escanpando caracteres 
-                $direccion   = mysqli_real_escape_string($conexion,(strip_tags($_POST["direccion"],ENT_QUOTES)));//Escanpando caracteres 
-
-                $googlexy   = mysqli_real_escape_string($conexion,(strip_tags($_POST["googlexy"],ENT_QUOTES)));//CODIGO DE GOOGLE MAPS
-                
+				$direccion   = mysqli_real_escape_string($conexion,(strip_tags($_POST["direccion"],ENT_QUOTES)));//Escanpando caracteres 
+				
                $update = mysqli_query($conexion, "UPDATE consorcio SET nombre='$nombre', cuit='$cuit', codigoPostal='$codigoPostal', telefono='$telefono', correo='$correo', direccion='$direccion', googlexy='$googlexy' WHERE idConsorcio='$nik'") or die(mysqli_error($conexion));
 				if($update){
 					//header("Location: editarConsorcio.php?nik=".$nik."&pesan=sukses");
@@ -94,16 +92,6 @@ if(!isset($_SESSION['admin'])){ //verificar si el operador necesita editar.
 					<input type="text" name="direccion" value="<?php echo $row ['direccion']; ?>" class="form-control" placeholder="Dirección" required>
 				</div>
 			</div>
-
-            <!--  GOOGLE MAPS falta-->
-            <!--
-            <div class="form-group">
-				<label class="col-sm-3 control-label">CUIT:</label>
-				<div class="col-sm-3">
-
-					<input type="text" name="googlexy" value="<?php// echo $row ['googlexy']; ?>" class="form-control" placeholder="GOOGLE MAPS" required>
-				</div>
-			</div>-->
 				
 			<div class="form-group">
 				<label class="col-sm-3 control-label">&nbsp;</label>
