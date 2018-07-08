@@ -84,15 +84,6 @@ if(!isset($_SESSION['admin'])){
 					</div>
 				</div>
 
-                <!--  GOOGLE MAPS falta-->
-                <!--
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Ubicacion Google Maps</label>
-					<div class="col-sm-4">
-						<input type="text" name="googlexy" class="form-control" placeholder="GOOGLE MAPS" required>
-					</div>
-				</div>-->
-
 				<div class="form-group">
 					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
