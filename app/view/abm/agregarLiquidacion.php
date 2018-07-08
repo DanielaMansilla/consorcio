@@ -168,13 +168,13 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 					// Obtengo los gastos que no estan asociados a ninguna liquidación
 					$sql = mysqli_query($conexion, "SELECT *, reclamo.fecha as fechaReclamo, gasto.fecha as fechaGasto, reclamo.estado as estadoReclamo, gasto.estado as estadoGasto
 					FROM gasto JOIN proveedor ON gasto.idProveedor=proveedor.idProveedor 
-					JOIN reclamo ON reclamo.idReclamo=gasto.idReclamo 
-					JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad 
+					LEFT JOIN reclamo ON reclamo.idReclamo=gasto.idReclamo 
+					LEFT JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad 
 					WHERE gasto.idGasto NOT IN (SELECT idGasto FROM liquidaciongasto)
 					ORDER BY gasto.idGasto DESC");
 
 					if (mysqli_num_rows($sql) == 0) {
-						echo '<tr><td colspan="8">No hay reclamos para listar.</td></tr>';
+						echo '<tr><td colspan="8">No hay gastos para listar.</td></tr>';
 					} else {
 						while ($row = mysqli_fetch_assoc($sql)) {
 							echo '
