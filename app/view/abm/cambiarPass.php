@@ -25,19 +25,16 @@ if(!isset($_SESSION['primeraVez'])){
 
     if(!(strlen($pass) >= 6 && strlen($pass) <= 32 && $pass == $pass2)){
             echo "Password debe tener al menos 6 caracteres y coincidir entre sí.";
-          }
-
-    $usuario = $_SESSION['primeraVez'];
-    $cambiarPassUsuario = "UPDATE usuarios SET primeraVez=$primeraVez WHERE email='$usuario'";
-    $cambiarPassUsuario2 = "UPDATE usuarios SET pass='$pass_sha1' WHERE email='$usuario'";
-
-    $resultado=mysqli_query($conexion,$cambiarPassUsuario);
-    $resultado=mysqli_query($conexion,$cambiarPassUsuario2);
+          }else{
+            $usuario = $_SESSION['primeraVez'];
+            $cambiarPassUsuario = "UPDATE usuarios SET primeraVez=$primeraVez WHERE email='$usuario'";
+            $cambiarPassUsuario2 = "UPDATE usuarios SET pass='$pass_sha1' WHERE email='$usuario'";
+            $resultado=mysqli_query($conexion,$cambiarPassUsuario);
+            $resultado=mysqli_query($conexion,$cambiarPassUsuario2);
+            mysqli_close($conexion);
             
-    mysqli_close($conexion);
-    
-    header("Location: ../index.php");
-    
+            header("Location: ../index.php");
+          }
     }?> 
 
     <form class="form-control" action='' method='POST' ENCTYPE="application/x-www-form-urlencoded">
