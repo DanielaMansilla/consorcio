@@ -24,15 +24,15 @@ if(!isset($_SESSION['admin'])){
 			<br />
 			<div class="table-responsive">
 			<table class="table table-bordered table-hover">
-                <tr class="table-active">
-                    <th rowspan="2" style="text-align:center;">ID</th>
-                    <th rowspan="2" style="text-align:center;">Consorcio</th>
-                    <th rowspan="2" style="text-align:center;">N° Unidades Funcionales</th>
-                    <th colspan="2" style="text-align:center;">Cobranzas</th>
-                    <th colspan="2" style="text-align:center;">Reclamos</th>
+                <tr class="table-active" style="text-align:center;">
+                    <th rowspan="2">ID</th>
+                    <th rowspan="2"><a href="listaConsorcio.php">Consorcios</a></th>
+                    <th rowspan="2"><a href="listaUf.php">N° Unidades Funcionales</a></th>
+                    <th colspan="2"><a href="listaExpensas.php">Cobranzas</a></th>
+                    <th colspan="2"><a href="listaReclamos.php">Reclamos</a></th>
                 </tr>
 
-				<tr>
+				<tr style="text-align:center;">
                     <td class="table-active">Realizadas</td>
                     <td class="table-active">Faltantes</td>
                     <td class="table-active">Abiertos</td>

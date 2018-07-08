@@ -24,7 +24,6 @@ if(!isset($_SESSION['admin'])){
 
 			<?php
 			if(isset($_GET['aksi']) == 'delete'){
-				// escaping, additionally removing everything that could be (html/javascript-) code
 				$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
 				$cek = mysqli_query($conexion, "SELECT * FROM consorcio WHERE idConsorcio='$nik'");
 				if(mysqli_num_rows($cek) == 0){
@@ -52,7 +51,6 @@ if(!isset($_SESSION['admin'])){
                     <th>Correo Electrónico</th>
                     <th>Dirección</th>
                     <th>Acciones</th>
-                    <!--<th>FALTA MAPA DE GOOGLE MAPS</th> -->
 				</tr>
 				<?php
 					$sql = mysqli_query($conexion, "SELECT * FROM consorcio ORDER BY idConsorcio ASC");
@@ -70,7 +68,7 @@ if(!isset($_SESSION['admin'])){
                             <td>'.$row['telefono'].'</td>
                             <td>'.$row['correo'].'</td>
                             <td>'.$row['direccion'].'</td>
-                            ';// FALTA AGREGAR LO DE GOOGLE MAPS
+                            ';
                             
                             if(isset($_SESSION['admin'])){
 								echo '
@@ -78,14 +76,16 @@ if(!isset($_SESSION['admin'])){
 							<td>
 								<a href="abm/editarConsorcio.php?nik='.$row['idConsorcio'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
 								<a href="listaConsorcio.php?aksi=delete&nik='.$row['idConsorcio'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar el consorcio: '.$row['nombre'].' con CUIT '.$row['cuit'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
+								<a href="mapaConsorcio.php?nik='.$row['idConsorcio'].'" title="Ver Ubicación" class="btn btn-success btn-sm"><span class="fas fa-map-marker-alt" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';
-							}if(isset($_SESSION['operador'])){//verificar si el operador necesita este permiso.
+							}if(isset($_SESSION['operador'])){
 								echo '
 							</td>
 							<td>
 								<a href="abm/editarConsorcio.php?nik='.$row['idConsorcio'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+								<a href="mapaConsorcio.php?nik='.$row['idConsorcio'].'" title="Ver Ubicación" class="btn btn-success btn-sm"><span class="fas fa-map-marker-alt" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';

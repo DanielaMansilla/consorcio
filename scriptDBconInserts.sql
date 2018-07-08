@@ -286,9 +286,9 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`idUsuarios`, `nombre`, `apellido`, `cuil`, `email`, `dni`, `telefono`, `estado`, `idRol`, `pass`, `primeraVez`) VALUES
 (1, 'Palermo', 'Martin', '21392378942', 'admin@hotmail.com', 39237894, 46842345, 'Activo', 1, '7c4a8d09ca3762af61e59520943dc26494f8941b', 0),
-(2, 'Gerardo', 'Benitez', '21409485932', 'operador@hotmail.com', 40948593, 49784395, 'Activo', 2, '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 0),
-(3, 'Yerry', 'Mina', '21547634261', 'propietario@hotmail.com', 54763426, 48372594, 'Activo', 3, 'd4fc3dbc817626b9db0c73cefd86129df782519e', 1),
-(4, 'Murillo', 'Gabriel', '21395643262', 'propietario2@hotmail.com', 39564326, 54392543, 'Activo', 3, '267abacdbf078bc74c37c314376ac7c1ea887226', 1);
+(2, 'Gerardo', 'Benitez', '21409485932', 'operador@hotmail.com', 40948593, 49784395, 'Activo', 2, '7c4a8d09ca3762af61e59520943dc26494f8941b', 0),
+(3, 'Yerry', 'Mina', '21547634261', 'propietario@hotmail.com', 54763426, 48372594, 'Activo', 3, '7c4a8d09ca3762af61e59520943dc26494f8941b', 1),
+(4, 'Murillo', 'Gabriel', '21395643262', 'propietario2@hotmail.com', 39564326, 54392543, 'Activo', 3, '7c4a8d09ca3762af61e59520943dc26494f8941b', 1);
 
 --
 -- Índices para tablas volcadas
