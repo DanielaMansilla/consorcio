@@ -42,7 +42,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				$sql = mysqli_query($conexion, "SELECT *, reclamo.fecha as fechaReclamo, gasto.fecha as fechaGasto, reclamo.estado as estadoReclamo, gasto.estado as estadoGasto
 				FROM gasto JOIN proveedor ON gasto.idProveedor=proveedor.idProveedor 
 				JOIN reclamo ON reclamo.idReclamo=gasto.idReclamo 
-				JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad 
+				LEFT JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad 
 				ORDER BY gasto.idGasto DESC");
 
 				if (mysqli_num_rows($sql) == 0) {

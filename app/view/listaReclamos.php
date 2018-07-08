@@ -36,7 +36,10 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				</tr>
 				<?php
 
-				$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad ORDER BY reclamo.idReclamo DESC");
+				// Filtra el Reclamo 1 por defecto.
+				$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad
+				 WHERE idReclamo <> 1
+				 ORDER BY reclamo.idReclamo DESC");
 
 				if (mysqli_num_rows($sql) == 0) {
 					echo '<tr><td colspan="8">No hay reclamos a listar.</td></tr>';

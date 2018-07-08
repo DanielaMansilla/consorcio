@@ -25,15 +25,14 @@ CREATE TABLE `consorcio` (
   `telefono` int(11) NOT NULL,
   `correo` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `direccion` varchar(70) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `googlexy` varchar(100) CHARACTER SET utf8 COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `consorcio`
 --
 
-INSERT INTO `consorcio` (`idConsorcio`, `nombre`, `cuit`, `codigoPostal`, `telefono`, `correo`, `direccion`, `googlexy`) VALUES
-(1, 'AdministraciÃ³n Montello', '33423578969', 1064, 43435455, 'admMontello@hotmail.com', 'Balcarce 226, Capital Federal', '');
+INSERT INTO `consorcio` (`idConsorcio`, `nombre`, `cuit`, `codigoPostal`, `telefono`, `correo`, `direccion`) VALUES
+(1, 'AdministraciÃ³n Montello', '33423578969', 1064, 43435455, 'admMontello@hotmail.com', 'Balcarce 226, Capital Federal');
 
 -- --------------------------------------------------------
 
@@ -78,7 +77,7 @@ CREATE TABLE `formasdepago` (
 
 INSERT INTO `formasdepago` (`idFormaPago`, `descripcion`) VALUES
 (1, 'Efectivo'),
-(2, 'Tarjeta de CrÃ©dito');
+(2, 'MercadoPago');
 
 -- --------------------------------------------------------
 
@@ -102,7 +101,7 @@ CREATE TABLE `gasto` (
 --
 
 INSERT INTO `gasto` (`idGasto`, `fecha`, `importe`, `concepto`, `estado`, `idReclamo`, `nroFactura`, `idProveedor`) VALUES
-(5, '2018-07-02', '850.00', 'Arreglo de caÃ±erÃ­a', 'Pago', 1, 1, 1);
+(5, '2018-07-02', '850.00', 'Arreglo de caÃ±erÃ­a', 'Pago', 2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -236,8 +235,9 @@ CREATE TABLE `reclamo` (
 --
 
 INSERT INTO `reclamo` (`idReclamo`, `fecha`, `descripcion`, `estado`, `idPropiedad`) VALUES
-(1, '2018-07-01', 'Rotura de caÃ±o', 'Resuelto', 1),
-(2, '2018-07-03', 'Rotura de cerradura', 'Activo', 3);
+(1, '2018-01-01', 'Sin Reclamo', 'Activo', NULL),
+(2, '2018-07-01', 'Rotura de caÃ±o', 'Resuelto', 1),
+(3, '2018-07-03', 'Rotura de cerradura', 'Activo', 3);
 
 -- --------------------------------------------------------
 

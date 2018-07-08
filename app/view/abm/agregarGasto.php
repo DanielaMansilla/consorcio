@@ -42,8 +42,8 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				
 				if ($insert) {
 					$estadoReclamo = "Resuelto";
-					// Luego de generar el gasto, ponemos el Reclamo como Resuelto
-					$updateReclamo = mysqli_query($conexion, "UPDATE reclamo SET estado='$estadoReclamo' WHERE idReclamo='$idReclamo'") or die(mysqli_error($conexion));
+					// Luego de generar el gasto, ponemos el Reclamo como Resuelto -- Si es el reclamo con ID 1 (Sin Reclamo) no se actualiza el estado
+					$updateReclamo = mysqli_query($conexion, "UPDATE reclamo SET estado='$estadoReclamo' WHERE idReclamo='$idReclamo' AND idReclamo <> 1") or die(mysqli_error($conexion));
 					if ($updateReclamo) {
 						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha guardado el gasto satisfactoriamente.</div>';
 					} else {
@@ -63,7 +63,11 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 						<select name="idReclamo" class="form-control">
 							<option disabled selected>Seleccione un reclamo...</option>
 							<?php
-								$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad WHERE reclamo.estado <> 'Resuelto' ORDER BY reclamo.idReclamo DESC");
+								$sql = mysqli_query($conexion, "SELECT * 
+								FROM reclamo 
+								LEFT JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad 
+								WHERE reclamo.estado <> 'Resuelto' 
+								ORDER BY reclamo.idReclamo DESC");
 
 								//TODO: Debe estar la posibilidad de generar un gasto sin un reclamo asociado??
 								// if (mysqli_num_rows($sql) == 0){
@@ -105,7 +109,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 					<div class="col-sm-3">
 						<!-- TODO: Modificar tipo de dato en importe de gastos, para que sea un float -->
 						<!-- <input type="number" name="importe" step="0.01" class="form-control" placeholder="Importe" required> -->
-						<input type="number" name="importe" step="1" min="0" class="form-control" placeholder="Ingrese el importe..." required>
+						<input type="number" name="importe" min="0.00" step="0.01" class="form-control" placeholder="Ingrese el importe..." required>
 					</div>
 				</div>
 
