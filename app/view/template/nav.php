@@ -78,10 +78,10 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php">Expensas</a>
+        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php">Cobranzas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Estadística</a>
+        <a class="nav-link" href="/consorcio/app/view/estadistica.php">Estadística</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/consorcio/app/config/CerrarSession.php">Cerrar sesión</a>
@@ -134,10 +134,10 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php">Expensas</a>
+        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php">Cobranzas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Estadística</a>
+        <a class="nav-link" href="/consorcio/app/view/estadistica.php">Estadística</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/consorcio/app/config/CerrarSession.php">Cerrar sesión</a>
@@ -153,10 +153,10 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#">Deudas</a>
+        <a class="nav-link" href="/consorcio/app/view/deudasPropietario.php">Deudas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Informe Mensual</a>
+        <a class="nav-link" href="/consorcio/app/view/informePropietario.php">Informe Mensual</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/consorcio/app/view/listaExpensas.php">Expensas</a>
