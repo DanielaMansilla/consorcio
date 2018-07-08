@@ -48,14 +48,13 @@ if(!isset($_SESSION['admin'])){
 						<option value="Activo" <?php if($filter == 'Activo'){ echo 'selected'; } ?>>Activo</option>
 						<option value="Inactivo" <?php if($filter == 'Inactivo'){ echo 'selected'; } ?>>Inactivo</option>
                         <option value="Pendiente" <?php if($filter == 'Pendiente'){ echo 'selected'; } ?>>Pendiente</option>
-					</select>
+					</select><button href="listaUsuario.php" role="button" aria-pressed="true" class="btn btn-secondary btn-sm">Ver Todos</button>
 				</div>
 			</form>
 			<br />
 			<div class="table-responsive">
 			<table class="table table-striped table-hover">
 				<tr>
-                    <!--<th>No</th> -->
 					<th>Id</th>
 					<th>Apellido</th>
                     <th>Nombre</th>
@@ -76,10 +75,7 @@ if(!isset($_SESSION['admin'])){
 				if(mysqli_num_rows($sql) == 0){
 					echo '<tr><td colspan="8">No hay datos.</td></tr>';
 				}else{
-					//$no = 1;
 					while($row = mysqli_fetch_assoc($sql)){
-                        /* <td>'.$no.'</td> encima del $row */
-                        /* Falta linkear unir las tablas idRol para que muestre nombre del rol */
 						echo '
 						<tr>
 							<td>'.$row['idUsuarios'].'</td>
@@ -108,7 +104,6 @@ if(!isset($_SESSION['admin'])){
 							</td>
 						</tr>
 						';
-						//$no++;
 							}if(isset($_SESSION['operador'])){
 								echo '
 							</td>
@@ -117,7 +112,6 @@ if(!isset($_SESSION['admin'])){
 							</td>
 						</tr>
 						';
-						//$no++;
 							}
 					}
 				}
