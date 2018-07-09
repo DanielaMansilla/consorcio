@@ -2,8 +2,9 @@
 require_once '../../config/Conexion.php'; 
 session_start();
 //Si es Admin o Operador puede visualizar la pagina.
-if(!isset($_SESSION['admin'])){ //verificar si el operador necesita editar.
-    header("Location: ../index.php");} ?> 
+if(!isset($_SESSION['admin'])){
+	if(!isset($_SESSION['operador'])){ //verificar si el operador necesita editar.
+		header("Location: ../index.php");}} ?>
 
 <!DOCTYPE html>
 <html lang="es">
