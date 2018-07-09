@@ -20,7 +20,7 @@
 CREATE TABLE `consorcio` (
   `idConsorcio` int(11) UNSIGNED NOT NULL,
   `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `cuit` varchar(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `cuit` bigint(11) UNSIGNED NOT NULL,
   `codigoPostal` int(4) NOT NULL,
   `telefono` int(11) NOT NULL,
   `correo` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
@@ -146,7 +146,7 @@ CREATE TABLE `propiedad` (
 
 CREATE TABLE `proveedor` (
   `idProveedor` int(11) UNSIGNED NOT NULL,
-  `cuit` varchar(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `cuit` bigint(11) NOT NULL,
   `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -185,7 +185,7 @@ CREATE TABLE `usuarios` (
   `idUsuarios` int(11) UNSIGNED NOT NULL,
   `nombre` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `apellido` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
-  `cuil` varchar(11) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `cuil` bigint(11) UNSIGNED NOT NULL,
   `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `dni` int(8) UNSIGNED NOT NULL,
   `telefono` int(11) UNSIGNED NOT NULL,

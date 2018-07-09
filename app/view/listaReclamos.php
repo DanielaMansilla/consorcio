@@ -22,6 +22,17 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 		<div class="content">
 			<h2>Lista de Reclamos</h2>
 			<hr />
+			<!-- Filtro -->
+			<form class="form-inline" method="get">
+				<div class="form-group">
+					<select name="filter" class="form-control" onchange="form.submit()">
+						<option value="0">Filtros de reclamos</option>
+						<?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
+						<option value="Activo" <?php if($filter == 'Activo'){ echo 'selected'; } ?>>Activo</option>
+						<option value="Resuelto" <?php if($filter == 'Resuelto'){ echo 'selected'; } ?>>Resuelto</option>
+					</select><button href="listaReclamos.php" role="button" aria-pressed="true" class="btn btn-secondary btn-sm">Ver Todos</button>
+				</div>
+			</form>
 
 			<br/>
 			<div class="table-responsive">
@@ -35,12 +46,16 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
                     <th>Acciones</th>
 				</tr>
 				<?php
-
-				// Filtra el Reclamo 1 por defecto.
-				$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad
-				 WHERE idReclamo <> 1
-				 ORDER BY reclamo.idReclamo DESC");
-
+				//Filtro
+				if($filter){
+					$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad
+					WHERE idReclamo <> 1 AND estado='$filter'
+					ORDER BY reclamo.idReclamo DESC");
+				}else{
+					$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad
+					WHERE idReclamo <> 1
+					ORDER BY reclamo.idReclamo DESC");
+				}
 				if (mysqli_num_rows($sql) == 0) {
 					echo '<tr><td colspan="8">No hay reclamos a listar.</td></tr>';
 				} else {
@@ -64,28 +79,17 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 							}
 							echo '<span class="badge badge-'.$badgeColor.'">'.$estado.'</span></td>';
 							
-							echo '<td></td>';
+							echo '';
 
-							// if(isset($_SESSION['admin'])){
-							// 	echo '
-							// </td>
-							// <td>
-							// 	<a href="abm/editarUsuario.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
-							// 	<a href="listaUsuario.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos de: '.$row['idReclamo'].' '.$row['idReclamo'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
-							// </td>
-							// </tr>
-							// ';
-							// }
-
-							// if (isset($_SESSION['operador'])) {
-							// 	echo '
-							// </td>
-							// <td>
-							// 	<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
-							// </td>
-							// </tr>
-							// ';
-							// }
+							 if((isset($_SESSION['admin'])) || (isset($_SESSION['operador']))){
+							 	echo '
+							</td>
+							<td>
+							 	<a href="abm/editarReclamo.php?nik='.$row['idReclamo'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+							</td>
+							</tr>
+							 ';
+							 }
 					}
 				}
 				?>

@@ -45,7 +45,6 @@ if(!isset($_SESSION['admin'])){
 			<div class="table-responsive">
 			<table class="table table-striped table-hover">
 				<tr>
-                    <!--<th>No</th> -->
 					<th>Id Propiedad</th>
 					<th>Id Usuario</th>
                     <th>Porcentaje</th>
@@ -60,10 +59,7 @@ if(!isset($_SESSION['admin'])){
 				if(mysqli_num_rows($sql) == 0){
 					echo '<tr><td colspan="8">No hay datos.</td></tr>';
 				}else{
-					//$no = 1;
 					while($row = mysqli_fetch_assoc($sql)){
-                        /* <td>'.$no.'</td> encima del $row */
-                        /* Falta linkear unir las tablas idRol para que muestre nombre del rol */
 						echo '
 						<tr>
 							<td>'.$row['idPropiedad'].'</td>
@@ -80,7 +76,6 @@ if(!isset($_SESSION['admin'])){
 							</td>
 						</tr>
 						';
-						//$no++;
 					}
 				}
 				?>

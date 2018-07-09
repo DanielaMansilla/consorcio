@@ -1,5 +1,6 @@
 <?php
 require_once '../../config/Conexion.php'; 
+require_once '../../clases/Usuario.php';
 session_start();
 if(!isset($_SESSION['admin'])){
     header("Location: ../index.php");} ?>
@@ -40,7 +41,7 @@ if(!isset($_SESSION['admin'])){
 				$estado			 = mysqli_real_escape_string($conexion,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres 
 				
 				$error = array();
-				//Validacion
+				//Validaciones
 				if(!(ctype_alpha($nombre) && strlen($nombre) >= 3 && strlen($nombre) <= 20)){
 					$error[] = "Nombre debe tener al menos 3 caracteres, solo alfabeticos";
 				  }        
@@ -48,30 +49,40 @@ if(!isset($_SESSION['admin'])){
 				if(!(ctype_alpha($apellido) && strlen($apellido) >= 3 && strlen($apellido) <= 20)){
 					$error[] = "Apellido debe tener al menos 3 caracteres, solo alfabeticos";
 				  }
-				//Verificar validaciones de dni, cuil, teléfono.
 				if(!(strlen($cuil) == 11)){
 					$error[] = "Cuil debe tener 11 digitos sin guiones.";
 				  }
+                $usuario = new Usuario();
+				$cuilValido = $usuario::validarCuil($cuil);
+                if(!$cuilValido){
+					$error[] = "Cuil invalido.";
+				  }
+                $cek3 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE cuil='$cuil' and idUsuarios<>'$nik'");
+                    if(!(mysqli_num_rows($cek3) == 0)){
+                        $error[] = "Cuil ya utilizado en otro usuario.";
+                    }
+                
 				if(!(strlen($dni) == 8)){
 					$error[] = "Dni debe tener 8 digitos sin guiones.";
 				  }
+				$cek4 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE dni='$dni' and idUsuarios<>'$nik'");
+                if(!(mysqli_num_rows($cek4) == 0)){
+                    $error[] = "Dni está utilizado en otro usuario.";
+                }
+
 				if(!(strlen($telefono) >= 8 && strlen($telefono) <= 10)){
 					$error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";
 				  }
+
 				if(!(filter_var($email, FILTER_VALIDATE_EMAIL))){
 					$error[] = "Email incorrecto";
 				}
-				//VERIFICAR PARA QUE ROMPA si no cambio el mail
-				/*else{
-					$sql = "SELECT * from usuarios where email='$email'";
-					$result = mysqli_query($conexion,$sql);
-		
-					if($row = mysqli_fetch_array($result)){
-						if($row['email'] == $email){
-					  $error[] = "El email de '$email' se encuentra en uso";
-					}
-				  }
-				  }*/if(sizeof($error) == 0){
+				$cek5 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email='$email' and idUsuarios<>'$nik'");
+                if(!(mysqli_num_rows($cek5) == 0)){
+                    $error[] = "Email está utilizado en otro usuario.";
+				}
+				
+				if(sizeof($error) == 0){
 
 				$update = mysqli_query($conexion, "UPDATE usuarios SET apellido='$apellido', nombre='$nombre', cuil='$cuil', email='$email', dni='$dni', telefono='$telefono', idRol='$idRol', estado='$estado' WHERE idUsuarios='$nik'") or die(mysqli_error($conexion));
 				if($update){
@@ -108,7 +119,7 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Cuil</label>
 					<div class="col-sm-4">
-						<input type="text" name="cuil" value="<?php echo $row ['cuil']; ?>" class="form-control" placeholder="Cuil" required>
+						<input type="text" name="cuil" value="<?php echo $row ['cuil']; ?>" class="form-control" placeholder="Cuil" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 					</div>
 				</div>
                 <div class="form-group">
@@ -120,7 +131,7 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Dni</label>
 					<div class="col-sm-4">
-						<input type="text" name="dni" value="<?php echo $row ['dni']; ?>" class="form-control" placeholder="Dni" required>
+						<input type="text" name="dni" value="<?php echo $row ['dni']; ?>" class="form-control" placeholder="Dni" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 					</div>
 				</div>
 				<div class="form-group">

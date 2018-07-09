@@ -22,6 +22,17 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 		<div class="content">
 			<h2>Lista de Expensas</h2>
 			<hr />
+			<!-- Filtro -->
+			<form class="form-inline" method="get">
+				<div class="form-group">
+					<select name="filter" class="form-control" onchange="form.submit()">
+						<option value="0">Filtros de expensas</option>
+						<?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
+						<option value="Impago" <?php if($filter == 'Impago'){ echo 'selected'; } ?>>Impago</option>
+						<option value="Pago" <?php if($filter == 'Pago'){ echo 'selected'; } ?>>Pago</option>
+					</select><button href="listaExpensas.php" role="button" aria-pressed="true" class="btn btn-secondary btn-sm">Ver Todas</button>
+				</div>
+			</form>
 
 			<br/>
 			<div class="table-responsive">
@@ -44,15 +55,23 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 				WHERE propiedad.idPropiedad='$idUsuario'") or die(mysqli_error($conexion));
 
 				if (isset($_SESSION['admin']) || !isset($_SESSION['operador'])) {
+					if($filter){
+					$sql = mysqli_query($conexion, 
+					"SELECT * 
+					FROM expensa 
+					JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
+					WHERE expensa.estado='$filter'
+					ORDER BY expensa.idExpensa DESC") or die(mysqli_error($conexion));
+				}else{
 					$sql = mysqli_query($conexion, 
 					"SELECT * 
 					FROM expensa 
 					JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
 					ORDER BY expensa.idExpensa DESC") or die(mysqli_error($conexion));
 				}
-
+			}
 				if (mysqli_num_rows($sql) == 0) {
-					echo '<tr><td colspan="8">No hay reclamos a listar.</td></tr>';
+					echo '<tr><td colspan="8">No hay expensas a listar.</td></tr>';
 				} else {
 					while ($row = mysqli_fetch_assoc($sql)) {
 						echo '
