@@ -39,7 +39,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				//$sql = mysqli_query($conexion, "SELECT * FROM liquidacion JOIN liquidaciongasto on liquidacion.idLiquidacion=liquidaciongasto.idLiquidacion
 				//JOIN gasto on liquidaciongasto.idGasto=gasto.idGasto ORDER BY gasto.fecha DESC");
 
-				$sql = mysqli_query($conexion, "SELECT * FROM liquidacion");
+				$sql = mysqli_query($conexion, "SELECT * FROM liquidacion ORDER BY idLiquidacion DESC");
 
 				if (mysqli_num_rows($sql) == 0) {
 					echo '<tr><td colspan="8">No hay liquidaciones a listar.</td></tr>';
