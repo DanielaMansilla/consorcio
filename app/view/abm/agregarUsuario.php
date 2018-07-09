@@ -45,7 +45,6 @@ if(!isset($_SESSION['admin'])){
 				if(!(ctype_alpha($apellido) && strlen($apellido) >= 3 && strlen($apellido) <= 20)){
 					$error[] = "Apellido debe tener al menos 3 caracteres, solo alfabeticos";
 				  }
-				//Verificar validaciones de dni, cuil, teléfono.
 				if(!(strlen($cuil) == 11)){
 					$error[] = "Cuil debe tener 11 digitos sin guiones.";
 				  }
@@ -54,8 +53,7 @@ if(!isset($_SESSION['admin'])){
                 if(!$cuilValido){
 					$error[] = "Cuil invalido.";
 				  }
-                
-                $cek3 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE cuil='$cuil'");
+                $cek3 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE cuil='$cuil' and idUsuarios<>'$nik'");
                     if(!(mysqli_num_rows($cek3) == 0)){
                         $error[] = "Cuil ya utilizado en otro usuario.";
                     }
@@ -63,21 +61,24 @@ if(!isset($_SESSION['admin'])){
 				if(!(strlen($dni) == 8)){
 					$error[] = "Dni debe tener 8 digitos sin guiones.";
 				  }
+				$cek4 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE dni='$dni' and idUsuarios<>'$nik'");
+                if(!(mysqli_num_rows($cek4) == 0)){
+                    $error[] = "Dni está utilizado en otro usuario.";
+                }
+
 				if(!(strlen($telefono) >= 8 && strlen($telefono) <= 10)){
 					$error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";
 				  }
+
 				if(!(filter_var($email, FILTER_VALIDATE_EMAIL))){
 					$error[] = "Email incorrecto";
-				  }else{
-					$sql = "SELECT * from usuarios where email='$email'";
-					$result = mysqli_query($conexion,$sql);
-		
-					if($row = mysqli_fetch_array($result)){
-						if($row['email'] == $email){
-					  $error[] = "El email de '$email' se encuentra en uso";
-					}
-				  }
-				}if(sizeof($error) == 0){
+				}
+				$cek5 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email='$email' and idUsuarios<>'$nik'");
+                if(!(mysqli_num_rows($cek5) == 0)){
+                    $error[] = "Email está utilizado en otro usuario.";
+				}
+				
+				if(sizeof($error) == 0){
 
 				//Realiza el Insert solo si no existe otro usuario con el mismo DNI
 				$cek = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$dni'");

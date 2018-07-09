@@ -211,10 +211,10 @@ CREATE TABLE `proveedor` (
 --
 
 INSERT INTO `proveedor` (`idProveedor`, `cuit`, `nombre`) VALUES
-(1, '33583286749', 'PlomerÃ­a gas service'),
-(2, '33543223459', 'Limpieza Rap'),
-(3, '33653573219', 'Gas Natural'),
-(4, '33535402149', 'Edenor');
+(1, '30714935743 ', 'PlomerÃ­a gas service'),
+(2, '30708069171', 'Limpieza Rap'),
+(3, '30610753686', 'Gas Natural'),
+(4, '30655116202 ', 'Edenor');
 
 -- --------------------------------------------------------
 
@@ -285,10 +285,10 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`idUsuarios`, `nombre`, `apellido`, `cuil`, `email`, `dni`, `telefono`, `estado`, `idRol`, `pass`, `primeraVez`) VALUES
-(1, 'Palermo', 'Martin', '21392378942', 'admin@hotmail.com', 39237894, 46842345, 'Activo', 1, '7c4a8d09ca3762af61e59520943dc26494f8941b', 0),
-(2, 'Gerardo', 'Benitez', '21409485932', 'operador@hotmail.com', 40948593, 49784395, 'Activo', 2, '7c4a8d09ca3762af61e59520943dc26494f8941b', 0),
-(3, 'Yerry', 'Mina', '21547634261', 'propietario@hotmail.com', 54763426, 48372594, 'Activo', 3, '7c4a8d09ca3762af61e59520943dc26494f8941b', 1),
-(4, 'Murillo', 'Gabriel', '21395643262', 'propietario2@hotmail.com', 39564326, 54392543, 'Activo', 3, '7c4a8d09ca3762af61e59520943dc26494f8941b', 1);
+(1, 'Palermo', 'Martin', '20311081323', 'admin@hotmail.com', 39237894, 46842345, 'Activo', 1, '7c4a8d09ca3762af61e59520943dc26494f8941b', 0),
+(2, 'Gerardo', 'Benitez', '20022649931', 'operador@hotmail.com', 40948593, 49784395, 'Activo', 2, '7c4a8d09ca3762af61e59520943dc26494f8941b', 0),
+(3, 'Yerry', 'Mina', '20175477935', 'propietario@hotmail.com', 54763426, 48372594, 'Activo', 3, '7c4a8d09ca3762af61e59520943dc26494f8941b', 1),
+(4, 'Murillo', 'Gabriel', '20330596032', 'propietario2@hotmail.com', 39564326, 54392543, 'Activo', 3, '7c4a8d09ca3762af61e59520943dc26494f8941b', 1);
 
 --
 -- Índices para tablas volcadas
@@ -320,7 +320,7 @@ ALTER TABLE `formasdepago`
 ALTER TABLE `gasto`
   ADD PRIMARY KEY (`idGasto`),
   ADD KEY `FK_idReclamo` (`idReclamo`),
-  ADD KEY `FK_idProvedor` (`idProveedor`);
+  ADD KEY `FK_idProveedor` (`idProveedor`);
 
 --
 -- Indices de la tabla `liquidacion`
@@ -476,7 +476,7 @@ ALTER TABLE `expensa`
 -- Filtros para la tabla `gasto`
 --
 ALTER TABLE `gasto`
-  ADD CONSTRAINT `FK_idProvedor` FOREIGN KEY (`idProveedor`) REFERENCES `proveedor` (`idProveedor`),
+  ADD CONSTRAINT `FK_idProveedor` FOREIGN KEY (`idProveedor`) REFERENCES `proveedor` (`idProveedor`),
   ADD CONSTRAINT `FK_idReclamo` FOREIGN KEY (`idReclamo`) REFERENCES `reclamo` (`idReclamo`);
 
 --

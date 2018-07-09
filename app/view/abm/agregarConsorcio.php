@@ -30,10 +30,25 @@ if(!isset($_SESSION['admin'])){
                 $correo   = mysqli_real_escape_string($conexion,(strip_tags($_POST["correo"],ENT_QUOTES)));//Escanpando caracteres 
 				$direccion   = mysqli_real_escape_string($conexion,(strip_tags($_POST["direccion"],ENT_QUOTES)));//Escanpando caracteres 
 				
-                
+                $error = array();
+				//Validaciones
+				if(!(strlen($cuit) == 11)){
+					$error[] = "Cuit debe tener 11 digitos sin guiones.";
+				  }
                 $proveedor = new Proveedor();
 				$cuitValido = $proveedor::validarCuit($cuit);
-                if($cuitValido){
+				if(!$cuilValido){
+					$error[] = "Cuil invalido.";
+				  }
+
+				if(!(filter_var($correo, FILTER_VALIDATE_EMAIL))){
+					$error[] = "Email incorrecto";
+				}
+				$cek5 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email='$email' and idUsuarios<>'$nik'");
+                if(!(mysqli_num_rows($cek5) == 0)){
+                    $error[] = "Email está utilizado en otro usuario.";
+				}
+                if(sizeof($error) == 0){
                 //Realiza el Insert solo si no existe otro consorcio con el mismo CUIT
 				$cek = mysqli_query($conexion, "SELECT * FROM consorcio WHERE idConsorcio='$cuit'");
 				if(mysqli_num_rows($cek) == 0){

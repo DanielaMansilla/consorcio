@@ -40,11 +40,26 @@ if(!isset($_SESSION['admin'])){
                 $correo   = mysqli_real_escape_string($conexion,(strip_tags($_POST["correo"],ENT_QUOTES)));//Escanpando caracteres 
 				$direccion   = mysqli_real_escape_string($conexion,(strip_tags($_POST["direccion"],ENT_QUOTES)));//Escanpando caracteres 
 				
-                
-                
+				$error = array();
+				//Validaciones
+				if(!(strlen($cuit) == 11)){
+					$error[] = "Cuit debe tener 11 digitos sin guiones.";
+				  }
                 $proveedor = new Proveedor();
-                $cuitValido = $proveedor::validarCuit($cuit);
-                if($cuitValido){
+				$cuitValido = $proveedor::validarCuit($cuit);
+				if(!$cuilValido){
+					$error[] = "Cuil invalido.";
+				  }
+
+				if(!(filter_var($correo, FILTER_VALIDATE_EMAIL))){
+					$error[] = "Email incorrecto";
+				}
+				$cek5 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email='$email' and idUsuarios<>'$nik'");
+                if(!(mysqli_num_rows($cek5) == 0)){
+                    $error[] = "Email está utilizado en otro usuario.";
+				}
+
+                if(sizeof($error) == 0){
                    $update = mysqli_query($conexion, "UPDATE consorcio SET nombre='$nombre', cuit='$cuit', codigoPostal='$codigoPostal', telefono='$telefono', correo='$correo', direccion='$direccion' WHERE idConsorcio='$nik'") or die(mysqli_error($conexion));
                     if($update){
                         //header("Location: editarConsorcio.php?nik=".$nik."&pesan=sukses");
