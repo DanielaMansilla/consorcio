@@ -7,6 +7,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 
 require_once "../../lib/mercadopago.php";
 
+// Configuración de MercadoPago
 $mp = new MP("426543208337217", "QvFA81UyiPK8pKl727ikvN43lraFFbmC");
 $mp->sandbox_mode(TRUE);
 ?>
@@ -86,37 +87,7 @@ $mp->sandbox_mode(TRUE);
 							// "external_reference" => $idExpensa,
 					);
 					$preference = $mp->create_preference($preference_data);
-
 					?>
-
-					<a href="" onclick="pagar()" name="MP-Checkout" class="blue-ar-m-rn-arall">Pagooooo</a>
-					<!-- <a onclick="pagar()" class="blue-ar-m-rn-arall">Pagar</a> -->
-
-					<script type="text/javascript">
-
-function pagar() {
-	$MPC.openCheckout ({
-    url: "<?php echo $preference["response"]["init_point"]; ?>",
-    mode: "modal",
-    onreturn: function(json) {
-		// debugger;
-		// execute_my_onreturn (Sólo modal)
-		console.log(JSON.stringify(json));
-		if (json.collection_status=='approved'){
-        alert ('Pago acreditado');
-    } else if(json.collection_status=='pending'){
-        alert ('El usuario no completó el pago');
-    } else if(json.collection_status=='in_process'){    
-        alert ('El pago está siendo revisado');    
-    } else if(json.collection_status=='rejected'){
-        alert ('El pago fué rechazado, el usuario puede intentar nuevamente el pago');
-    } else if(json.collection_status==null){
-        alert ('El usuario no completó el proceso de pago, no se ha generado ningún pago');
-    }
-    }
-});
-}
-</script>
 				<?php
 				}
 			}
@@ -195,7 +166,7 @@ function pagar() {
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Medio de Pago</label>
 							<div class="col-sm-4">
-								<select required name="idFormaPago" class="form-control">
+								<select required name="idFormaPago" class="form-control" onchange="cambioFormaPago(this);">
 									<option disabled selected>Seleccione un medio de pago...</option>
 									<?php
 										$sql = mysqli_query($conexion, 
@@ -220,15 +191,30 @@ function pagar() {
 					}
 				?>
 
+	<script type="text/javascript">
+	function cambioFormaPago (value) {
+		var botonPagar = document.getElementById("botonPagar");
+		var botonMercadoPago = document.getElementById("botonMercadoPago");
+
+		if (value.options[value.selectedIndex].text === 'MercadoPago') {
+			botonMercadoPago.style.visibility = 'visible';
+			botonPagar.style.visibility = 'collapse';
+		} else {
+			botonMercadoPago.style.visibility = 'collapse';
+			botonPagar.style.visibility = 'visible';
+		}
+	}
+	</script>
+
 				<div class="form-group">
-					<label class="col-sm-3 control-label">&nbsp;</label>
 					<div class="col-sm-6">
 						<a href="../listaExpensas.php" class="btn btn-sm btn-danger">Cancelar</a>
 						<?php 
 							if ($expensa["estado"] != 'Pago') {
-								echo '<input type="submit" name="pagar" class="btn btn-sm btn-primary" value="Pagar">';
+								echo '<input type="submit" style="visibility: collapse;" name="pagar" id="botonPagar" class="btn btn-sm btn-primary" value="Pagar">';
 							}
 						?>
+						<a href="<?php echo $preference["response"]["init_point"]; ?>" style="visibility: collapse;" mp-mode="modal" name="MP-Checkout" id="botonMercadoPago" class="btn btn-sm btn-primary">Pagar</a>
 					</div>
 				</div>
 			</form>
@@ -239,7 +225,7 @@ function pagar() {
   	<div class="corte"></div>
 	<?php include('../template/footer.php'); ?>
 
-	<!-- Pega este código antes de cerrar la etiqueta </body> -->
+	<!-- Cargar library JavaSCript de MercadoPago -->
 	<script type="text/javascript">
 	(function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
 	</script>
