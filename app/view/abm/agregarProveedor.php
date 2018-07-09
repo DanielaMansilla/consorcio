@@ -24,6 +24,10 @@ if(!isset($_SESSION['admin'])){
 			if(isset($_POST['add'])){
                 $cuit		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["cuit"],ENT_QUOTES)));//Escanpando caracteres 
                 $nombre		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
+				
+				//validar cuit - revisar para que funque
+				include('../../config/validarCuit.php');
+				$cek3 = mysqli_query($conexion, "SELECT * FROM proveedor WHERE cuit='$cuit'");
 
                 //Realiza el Insert solo si no existe otro proveedor con el mismo CUIT
 				$cek = mysqli_query($conexion, "SELECT * FROM proveedor WHERE idProveedor='$cuit'");
