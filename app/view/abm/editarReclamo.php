@@ -34,17 +34,14 @@ if(!isset($_SESSION['admin'])){
 				$descripcion		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["descripcion"],ENT_QUOTES)));//Escanpando caracteres 
                 $estado		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres 
 
-                if(mysqli_num_rows($sql) == 0){
-                   $update = mysqli_query($conexion, "UPDATE reclamo SET descripcion='$descripcion', estado='$estado' WHERE idReclamo='$nik'") or die(mysqli_error($conexion));
+                
+                $update = mysqli_query($conexion, "UPDATE reclamo SET descripcion='$descripcion', estado='$estado' WHERE idReclamo='$nik'") or die(mysqli_error($conexion));
                     if($update){
                         //header("Location: editarConsorcio.php?nik=".$nik."&pesan=sukses");
                         echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido modificados con éxito.</div>';
                     }else{
                         echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
                     }
-                 }else{
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El ID del reclamo no es valido.</div>';
-				    }
                 }
                 if(isset($_GET['pesan']) == 'sukses'){
                     echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
