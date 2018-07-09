@@ -95,7 +95,9 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 							echo '<td>';
 							if ($estado != "Pago") {
 								echo '<a href="abm/pagarExpensa.php?id='.$row['idExpensa'].'" title="Pagar" class="btn btn-primary btn-sm"><span class="fas fa-shopping-cart" aria-hidden="true"></span></a>';
-							}
+							}else{
+                                echo '<a href="getPDF.php?id='.$row['idExpensa'].'" title="PDF" class="btn btn-primary btn-sm"><span class="fas fa-download" aria-hidden="true"></span></a>';
+                            }
 							echo '</td>';
 					}
 				}

@@ -4,8 +4,9 @@ session_start();
 // Permisos
 if(!isset($_SESSION['admin'])){
 	if(!isset($_SESSION['operador'])){
-		header("Location: ../index.php");}} ?>
+		header("Location: ../index.php");}} 
 
+?>
 <!DOCTYPE html>
 <html lang="es">
 <?php include('template/head.php'); ?>
