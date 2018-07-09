@@ -82,13 +82,14 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 							echo '';
 
 							 if((isset($_SESSION['admin'])) || (isset($_SESSION['operador']))){
+								 if($row['estado'] == 'Activo'){
 							 	echo '
 							</td>
 							<td>
 							 	<a href="abm/editarReclamo.php?nik='.$row['idReclamo'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
 							</td>
 							</tr>
-							 ';
+							 ';}
 							 }
 					}
 				}
