@@ -1,5 +1,6 @@
 <?php
 require_once '../../config/Conexion.php';
+require_once '../../clases/Usuario.php';
 session_start();
 if(!isset($_SESSION['admin'])){
     header("Location: index.php");} ?>
@@ -48,6 +49,17 @@ if(!isset($_SESSION['admin'])){
 				if(!(strlen($cuil) == 11)){
 					$error[] = "Cuil debe tener 11 digitos sin guiones.";
 				  }
+                $usuario = new Usuario();
+				$cuilValido = $usuario::validarCuil($cuil);
+                if(!$cuilValido){
+					$error[] = "Cuil invalido.";
+				  }
+                
+                $cek3 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE cuil='$cuil'");
+                    if(!(mysqli_num_rows($cek3) == 0)){
+                        $error[] = "Cuil ya utilizado en otro usuario.";
+                    }
+                
 				if(!(strlen($dni) == 8)){
 					$error[] = "Dni debe tener 8 digitos sin guiones.";
 				  }
@@ -106,7 +118,7 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Cuil</label>
 					<div class="col-sm-4">
-						<input type="text" name="cuil" class="form-control" placeholder="Cuil" required>
+						<input type="text" name="cuil" class="form-control" placeholder="Cuil" required><small id="emailHelp" class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales.</small>
 					</div>
 				</div>
                 <div class="form-group">
@@ -118,7 +130,7 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Dni</label>
 					<div class="col-sm-4">
-						<input type="text" name="dni" class="form-control" placeholder="Dni" required>
+						<input type="text" name="dni" class="form-control" placeholder="Dni" required><small id="emailHelp" class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales.</small>
 					</div>
 				</div>
 				<div class="form-group">
