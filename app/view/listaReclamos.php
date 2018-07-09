@@ -79,28 +79,17 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 							}
 							echo '<span class="badge badge-'.$badgeColor.'">'.$estado.'</span></td>';
 							
-							echo '<td></td>';
+							echo '';
 
-							// if(isset($_SESSION['admin'])){
-							// 	echo '
-							// </td>
-							// <td>
-							// 	<a href="abm/editarUsuario.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
-							// 	<a href="listaUsuario.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos de: '.$row['idReclamo'].' '.$row['idReclamo'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
-							// </td>
-							// </tr>
-							// ';
-							// }
-
-							// if (isset($_SESSION['operador'])) {
-							// 	echo '
-							// </td>
-							// <td>
-							// 	<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
-							// </td>
-							// </tr>
-							// ';
-							// }
+							 if((isset($_SESSION['admin'])) || (isset($_SESSION['operador']))){
+							 	echo '
+							</td>
+							<td>
+							 	<a href="abm/editarReclamo.php?nik='.$row['idReclamo'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+							</td>
+							</tr>
+							 ';
+							 }
 					}
 				}
 				?>
