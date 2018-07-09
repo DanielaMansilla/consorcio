@@ -30,7 +30,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 						<?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
 						<option value="Impago" <?php if($filter == 'Impago'){ echo 'selected'; } ?>>Impago</option>
 						<option value="Pago" <?php if($filter == 'Pago'){ echo 'selected'; } ?>>Pago</option>
-					</select><!--<button href="listaExpensas.php" role="button" aria-pressed="true" class="btn btn-secondary btn-sm">Ver Todas</button>  -->
+					</select><button href="listaExpensas.php" role="button" aria-pressed="true" class="btn btn-secondary btn-sm">Ver Todas</button>
 				</div>
 			</form>
 
