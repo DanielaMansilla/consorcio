@@ -1,5 +1,6 @@
 <?php
 require_once '../../config/Conexion.php';
+require_once '../../clases/Proveedor.php';
 session_start();
 if(!isset($_SESSION['admin'])){
     header("Location: index.php");} ?>
@@ -29,6 +30,10 @@ if(!isset($_SESSION['admin'])){
                 $correo   = mysqli_real_escape_string($conexion,(strip_tags($_POST["correo"],ENT_QUOTES)));//Escanpando caracteres 
 				$direccion   = mysqli_real_escape_string($conexion,(strip_tags($_POST["direccion"],ENT_QUOTES)));//Escanpando caracteres 
 				
+                
+                $proveedor = new Proveedor();
+				$cuitValido = $proveedor::validarCuit($cuit);
+                if($cuitValido){
                 //Realiza el Insert solo si no existe otro consorcio con el mismo CUIT
 				$cek = mysqli_query($conexion, "SELECT * FROM consorcio WHERE idConsorcio='$cuit'");
 				if(mysqli_num_rows($cek) == 0){
@@ -42,7 +47,10 @@ if(!isset($_SESSION['admin'])){
                         
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El CUIL del Consorcio ya exite!</div>';
-				}
+                }
+            }else{
+                echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El CUIT del consorcio no es valido.</div>';
+                }
 			}
 			?>
 
@@ -56,7 +64,7 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Cuit</label>
 					<div class="col-sm-4">
-						<input type="text" name="cuit" class="form-control" placeholder="CUIT" required>
+						<input type="text" name="cuit" class="form-control" placeholder="CUIT" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 					</div>
 				</div>
 				<div class="form-group">

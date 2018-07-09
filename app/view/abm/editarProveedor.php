@@ -1,5 +1,6 @@
 <?php
 require_once '../../config/Conexion.php'; 
+require_once '../../clases/Proveedor.php';
 session_start();
 //Si es Admin o Operador puede visualizar la pagina.
 if(!isset($_SESSION['admin'])){
@@ -34,14 +35,26 @@ if(!isset($_SESSION['admin'])){
 			if(isset($_POST['save'])){ 
 				$cuit          = mysqli_real_escape_string($conexion,(strip_tags($_POST["cuit"],ENT_QUOTES)));//Escanpando caracteres 
 				$nombre			 = mysqli_real_escape_string($conexion,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
+               
                 
-               $update = mysqli_query($conexion, "UPDATE proveedor SET cuit='$cuit', nombre='$nombre' WHERE idProveedor='$nik'") or die(mysqli_error($conexion));
+            $proveedor = new Proveedor();
+            $cuitValido = $proveedor::validarCuit($cuit);
+            if($cuitValido){
+              $cek = mysqli_query($conexion, "SELECT * FROM proveedor WHERE cuit='$cuit' and idProveedor<>'$nik'");
+              if(mysqli_num_rows($cek) == 0){
+                $update = mysqli_query($conexion, "UPDATE proveedor SET cuit='$cuit', nombre='$nombre' WHERE idProveedor='$nik'") or die(mysqli_error($conexion));
 				if($update){
 					//header("Location: editarProveedor.php?nik=".$nik."&pesan=sukses");
 					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido modificados con éxito.</div>';
-				}else{
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
-				}
+                    }else{
+                        echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
+                    }
+                }else{
+					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El CUIT del proveedor ya esta registrado.</div>';
+				    }
+              }else{
+					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El CUIT del proveedor no es valido.</div>';
+				    }
 			}
 			
 			if(isset($_GET['pesan']) == 'sukses'){
@@ -53,7 +66,7 @@ if(!isset($_SESSION['admin'])){
 				<label class="col-sm-3 control-label">CUIT:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="cuit" value="<?php echo $row ['cuit']; ?>" class="form-control" placeholder="cuit" required>
+					<input type="text" name="cuit" value="<?php echo $row ['cuit']; ?>" class="form-control" placeholder="cuit" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 				</div>
 			</div>
 			<div class="form-group">
