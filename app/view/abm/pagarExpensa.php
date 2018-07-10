@@ -116,24 +116,28 @@ $mp->sandbox_mode(TRUE);
 				$importeExpensa = $expensa["importe"];
 				if (isset($_POST["idFormaPago"])) {
 					$idFormaPago = mysqli_real_escape_string($conexion, (strip_tags($_POST["idFormaPago"], ENT_QUOTES)));
-
-					// Genero una nueva orden pago con un importe del 100%
-					$insertOrdenPago = mysqli_query($conexion, 
-					"INSERT INTO ordenpago(idExpensa, importe, fecha, idFormaPago) 
-					VALUES('$idExpensa', '$importeExpensa', now(), '$idFormaPago')") or die(mysqli_error($conexion));
-					
-					if ($insertOrdenPago) {
-						$estadoExpensa = "Pago";
+					// Si es en efectivo
+					if ($idFormaPago == "1") {
+						// Genero una nueva orden pago con un importe del 100%
+						$insertOrdenPago = mysqli_query($conexion, 
+						"INSERT INTO ordenpago(idExpensa, importe, fecha, idFormaPago) 
+						VALUES('$idExpensa', '$importeExpensa', now(), '$idFormaPago')") or die(mysqli_error($conexion));
 						
-						// Actualizo el estado de la expensa
-						$updateExpensa = mysqli_query($conexion, "UPDATE expensa SET estado='$estadoExpensa' WHERE idExpensa='$idExpensa'") or die(mysqli_error($conexion));
-						if ($updateExpensa) {
-							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha realizado el pago satisfactoriamente.</div>';
+						if ($insertOrdenPago) {
+							$estadoExpensa = "Pago";
+							
+							// Actualizo el estado de la expensa
+							$updateExpensa = mysqli_query($conexion, "UPDATE expensa SET estado='$estadoExpensa' WHERE idExpensa='$idExpensa'") or die(mysqli_error($conexion));
+							if ($updateExpensa) {
+								echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha realizado el pago satisfactoriamente.</div>';
+							} else {
+								echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido actualizar el estado de la expensa!</div>';
+							}
 						} else {
-							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido actualizar el estado de la expensa!</div>';
+							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido procesar el pago!</div>';
 						}
 					} else {
-						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido procesar el pago!</div>';
+							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido procesar el pago!</div>';
 					}
 				} else {
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha seleccionado ningun Medio de Pago!</div>';
@@ -236,7 +240,34 @@ $mp->sandbox_mode(TRUE);
 						<a href="<?php echo $preference["response"]["init_point"]; ?>" style="visibility: collapse;" mp-mode="modal" name="MP-Checkout" id="botonMercadoPago" class="btn btn-sm btn-primary">Pagar</a>
 					</div>
 				</div>
+				<!-- Pagar con Código QR -->
+				<div class="form-group">
+					<div class="col-sm-6">
+						<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#pagarCodigoQr">Pagar con Código QR</button>
+					</div>
+				</div>
 			</form>
+		</div>
+
+		<!-- Modal Pago con Código QR -->
+		<div class="modal fade" id="pagarCodigoQr" tabindex="-1" role="dialog" aria-labelledby="pagarCodigoQr" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">MercadoPago - Pagar con Código QR</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<!-- <h3 class="text-center">Escaneá y pagá desde tu celular</h3> -->
+				<div class="text-center">
+					<!-- <img class="img-thumbnail" src="https://chart.googleapis.com/chart?chs=350x350&amp;cht=qr&amp;chl=00020101021143630016com.mercadolibre0139https%3A%2F%2Fmpago.la%2Fs%2Fqr%2F334686026%2Fdefault50150011200111111155204970053030325802AR5910XXXXX%20XXXX6004CABA63043B2E&amp;choe=UTF-8" alt="QR de Pago"> -->
+					<img class="img-thumbnail" src="/consorcio/public/img/mercado-pago-qr.png" alt="QR de Pago">
+				</div>
+			</div>
+			</div>
+		</div>
 		</div>
 		
 	</div>
