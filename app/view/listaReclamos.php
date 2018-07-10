@@ -24,13 +24,17 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 			<hr />
 			<!-- Filtro -->
 			<form class="form-inline" method="get">
-				<div class="form-group">
-					<select name="filter" class="form-control" onchange="form.submit()">
+				<div class="input-group">
+					<select name="filter" class="custom-select" onchange="form.submit()">
 						<option value="0">Filtros de reclamos</option>
 						<?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
 						<option value="Activo" <?php if($filter == 'Activo'){ echo 'selected'; } ?>>Activo</option>
 						<option value="Resuelto" <?php if($filter == 'Resuelto'){ echo 'selected'; } ?>>Resuelto</option>
-					</select><button href="listaReclamos.php" role="button" aria-pressed="true" class="btn btn-secondary btn-sm">Ver Todos</button>
+					</select>
+					<div class="input-group-append">
+						<button href="listaReclamos.php" role="button" aria-pressed="true" class="btn btn-outline-secondary" type="button">Ver Todos</button>
+					</div>
+					
 				</div>
 			</form>
 
