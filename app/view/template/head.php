@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/consorcio/public/css/bootstrap-grid.min.css">
 
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="/consorcio/public/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="/consorcio/public/css/all.css">
 
     <!--archivo CSS personalizado -->
     <link rel="stylesheet" href="/consorcio/public/css/estilos.css">
