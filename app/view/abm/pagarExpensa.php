@@ -5,6 +5,30 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 	header("Location: ../index.php");
 }
 
+// MercadoPago:
+// 
+// Tarjetas de Crédito de Prueba: (Argentina)
+// ------------------------------------------
+// Visa: 4509 9535 6623 3704
+// MasterCard: 5031 7557 3453 0604
+// American Express: 3711 803032 57522
+
+// Estados del Pago: (Poner en Nombre y Apellido)
+// ----------------------------------------------
+// APRO : Payment approved.
+// CONT : Pending payment.
+// CALL : Payment declined, call to authorize.
+// FUND : Payment declined due to insufficient funds.
+// SECU : Payment declined by security code.
+// EXPI : Payment declined by expiration date.
+// FORM : Payment declined due to error in form.
+// OTHE : General decline.
+
+// Usuario de Prueba: 
+// usuario: test_user_48440768@testuser.com
+// contraseña: qatest1408
+
+
 require_once "../../lib/mercadopago.php";
 
 // Configuración de MercadoPago
@@ -34,7 +58,6 @@ $mp->sandbox_mode(TRUE);
 			if (!isset($_GET["id"]) || empty($_GET["id"]) ) {
 				echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: La expensa indicada no existe o no tiene acceso a ella.</div>';
 			} else {
-				// escaping, additionally removing everything that could be (html/javascript-) code
 				$idExpensa = mysqli_real_escape_string($conexion,(strip_tags($_GET["id"],ENT_QUOTES)));
 
 				if (isset($_SESSION['admin']) || !isset($_SESSION['operador'])) {
@@ -74,17 +97,13 @@ $mp->sandbox_mode(TRUE);
 							),
 							"back_urls" => array(
 								// Si el pago fue exitoso:
-								"success" => "http://localhost/consorcio/app/view/listaReclamos.php",
+								"success" => "http://localhost/consorcio/app/view/abm/procesarPago.php",
 								// Si el pago falló:
-								// TODO: Redirigir a pagina de error
-								"failure" => "http://localhost/consorcio/app/view/listaReclamos.php",
+								"failure" => "http://localhost/consorcio/app/view/procesarPago.php",
 								// Si el pago esta pendiente:
-								// TODO: Redirigir a pagina de pendiente
-								"pending" => "http://localhost/consorcio/app/view/listaReclamos.php"
-							)
-							// ,
-							// // Ver de setear referencia a la expensa y al usuario
-							// "external_reference" => $idExpensa,
+								"pending" => "http://localhost/consorcio/app/view/procesarPago.php"
+							),
+							"external_reference" => $idExpensa
 					);
 					$preference = $mp->create_preference($preference_data);
 					?>
@@ -107,8 +126,8 @@ $mp->sandbox_mode(TRUE);
 						$estadoExpensa = "Pago";
 						
 						// Actualizo el estado de la expensa
-						$updateReclamo = mysqli_query($conexion, "UPDATE expensa SET estado='$estadoExpensa' WHERE idExpensa='$idExpensa'") or die(mysqli_error($conexion));
-						if ($updateReclamo) {
+						$updateExpensa = mysqli_query($conexion, "UPDATE expensa SET estado='$estadoExpensa' WHERE idExpensa='$idExpensa'") or die(mysqli_error($conexion));
+						if ($updateExpensa) {
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha realizado el pago satisfactoriamente.</div>';
 						} else {
 							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido actualizar el estado de la expensa!</div>';
