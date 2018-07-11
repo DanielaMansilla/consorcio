@@ -32,7 +32,7 @@ $sql = mysqli_query($conexion,
 					FROM expensa 
 					INNER JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
                     INNER JOIN liquidacion ON liquidacion.idLiquidacion = expensa.idLiquidacion 
-                    INNER JOIN pago ON pago.idLiquidacion = liquidacion.idLiquidacion 
+                    INNER JOIN ordenpago ON ordenpago.idExpensa = expensa.idExpensa 
 					WHERE expensa.idExpensa = '$idExpensa';") or die(mysqli_error($conexion));
  $row = mysqli_fetch_assoc($sql);           
           echo '
@@ -42,7 +42,7 @@ $sql = mysqli_query($conexion,
             <div class="col-xs-6">
                 <img alt="logo" width=160px  src="../../public/img/logo.jpg" >
             </div>
-<h1>Comprobante de Pago realizado el '.date("d", strtotime($row['fechaPago'])).'-'.date("m", strtotime($row['fechaPago'])).'-'.date("Y", strtotime($row['fechaPago'])).'</h1>
+<h1>Comprobante de Pago realizado el '.date("d", strtotime($row['fecha'])).'-'.date("m", strtotime($row['fecha'])).'-'.date("Y", strtotime($row['fecha'])).'</h1>
 <h4>Expensa nro. '.$idExpensa.'</h4>
 <div class="panel-body">Numero de Liquidacion : '.$row['idLiquidacion'].'</div>
 </div>
@@ -69,7 +69,7 @@ $sql = mysqli_query($conexion,
 <div class="panel-heading">
 <h1><small>Por un importe de: $'.$row['importe'].'.-</small></h1>
 </div>
-<div class="panel-body"><b>Numero de Control de pago : '.$row['idPago'].'</b></div>
+<div class="panel-body"><b>Numero de Control de pago : '.$row['idOperacion'].'</b></div>
 </div>
 </div>
 </div>
