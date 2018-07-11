@@ -54,22 +54,41 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 				JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
 				WHERE propiedad.idPropiedad='$idUsuario'") or die(mysqli_error($conexion));
 
-				if (isset($_SESSION['admin']) || !isset($_SESSION['operador'])) {
-					if($filter){
-					$sql = mysqli_query($conexion, 
-					"SELECT * 
-					FROM expensa 
-					JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
-					WHERE expensa.estado='$filter'
-					ORDER BY expensa.idExpensa DESC") or die(mysqli_error($conexion));
-				}else{
-					$sql = mysqli_query($conexion, 
-					"SELECT * 
-					FROM expensa 
-					JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
-					ORDER BY expensa.idExpensa DESC") or die(mysqli_error($conexion));
+				// Para los roles admin y operador se muestran todas las expensas
+				if (isset($_SESSION['admin']) || isset($_SESSION['operador'])) {
+					if ($filter) {
+						$sql = mysqli_query($conexion, 
+						"SELECT * 
+						FROM expensa 
+						JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
+						WHERE expensa.estado='$filter'
+						ORDER BY expensa.idExpensa DESC") or die(mysqli_error($conexion));
+					} else {
+						$sql = mysqli_query($conexion, 
+						"SELECT * 
+						FROM expensa
+						JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
+						ORDER BY expensa.idExpensa DESC") or die(mysqli_error($conexion));
+					}
+				} else { // Si es propietario
+					if ($filter) {
+						$sql = mysqli_query($conexion, 
+						"SELECT * 
+						FROM expensa
+						JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
+						WHERE propiedad.idUsuarios = '$idUsuario'
+						AND expensa.estado = '$filter'
+						ORDER BY expensa.idExpensa DESC") or die(mysqli_error($conexion));
+					} else {
+						$sql = mysqli_query($conexion, 
+						"SELECT * 
+						FROM expensa
+						JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
+						WHERE propiedad.idUsuarios = '$idUsuario'
+						ORDER BY expensa.idExpensa DESC") or die(mysqli_error($conexion));
+					}
 				}
-			}
+
 				if (mysqli_num_rows($sql) == 0) {
 					echo '<tr><td colspan="8">No hay expensas a listar.</td></tr>';
 				} else {
