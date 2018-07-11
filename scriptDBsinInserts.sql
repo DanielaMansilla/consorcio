@@ -111,20 +111,6 @@ CREATE TABLE `ordenpago` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pago`
---
-
-CREATE TABLE `pago` (
-  `idPago` int(11) UNSIGNED NOT NULL,
-  `idPropiedad` int(11) UNSIGNED DEFAULT NULL,
-  `importe` decimal(12,2) UNSIGNED NOT NULL,
-  `fecha` date NOT NULL,
-  `idLiquidacion` int(11) UNSIGNED DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `propiedad`
 --
 
@@ -249,14 +235,6 @@ ALTER TABLE `ordenpago`
   ADD KEY `FK_idExpensa` (`idExpensa`);
 
 --
--- Indices de la tabla `pago`
---
-ALTER TABLE `pago`
-  ADD PRIMARY KEY (`idPago`),
-  ADD KEY `FK_idLiquidacionPago` (`idLiquidacion`),
-  ADD KEY `FK_idPropiedadPago` (`idPropiedad`);
-
---
 -- Indices de la tabla `propiedad`
 --
 ALTER TABLE `propiedad`
@@ -331,12 +309,6 @@ ALTER TABLE `ordenpago`
   MODIFY `idOperacion` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT de la tabla `pago`
---
-ALTER TABLE `pago`
-  MODIFY `idPago` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT de la tabla `propiedad`
 --
 ALTER TABLE `propiedad`
@@ -397,13 +369,6 @@ ALTER TABLE `liquidaciongasto`
 ALTER TABLE `ordenpago`
   ADD CONSTRAINT `FK_idExpensa` FOREIGN KEY (`idExpensa`) REFERENCES `expensa` (`idExpensa`),
   ADD CONSTRAINT `FK_idFormaPago` FOREIGN KEY (`idFormaPago`) REFERENCES `formasdepago` (`idFormaPago`);
-
---
--- Filtros para la tabla `pago`
---
-ALTER TABLE `pago`
-  ADD CONSTRAINT `FK_idLiquidacionPago` FOREIGN KEY (`idLiquidacion`) REFERENCES `liquidacion` (`idLiquidacion`),
-  ADD CONSTRAINT `FK_idPropiedadPago` FOREIGN KEY (`idPropiedad`) REFERENCES `propiedad` (`idPropiedad`);
 
 --
 -- Filtros para la tabla `propiedad`
