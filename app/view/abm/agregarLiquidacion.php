@@ -27,10 +27,17 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 			<?php
 			if (isset($_POST['add'])) {
 				// TODO: Validar que se hayan ingresado la fecha y el Mes...
-				$yearLiquidacion = $_POST["yearLiquidacion"];
-				$mesLiquidacion = $_POST["mesLiquidacion"];
+				$yearLiquidacion = mysqli_real_escape_string($conexion,(strip_tags($_POST["yearLiquidacion"],ENT_QUOTES)));
+				$mesLiquidacion = mysqli_real_escape_string($conexion,(strip_tags($_POST["mesLiquidacion"],ENT_QUOTES)));
 				$periodo = "$yearLiquidacion-$mesLiquidacion-01";
-				
+
+				$selectLiquidacionRepetida = mysqli_query($conexion, 
+				"SELECT *
+				FROM liquidacion
+				WHERE liquidacion.periodo = '$periodo'") or die(mysqli_error($conexion));
+
+				// Si no se encuetra una liquidacion del periodo seleccionado puedo continuar
+				if (mysqli_num_rows($selectLiquidacionRepetida) == 0) {
 				if (isset($_POST['gastosLiquidacion']) && !empty($_POST['gastosLiquidacion'])) {
 					// La fecha se setea desde MySQL a través de la funcion now()
 					$insertLiquidacion = mysqli_query($conexion, "INSERT INTO liquidacion(periodo, fecha) 
@@ -55,19 +62,13 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 						WHERE liquidaciongasto.idLiquidacion = '$idLiquidacion';") or die(mysqli_error($conexion));
 						
 						$gastoTotalLiquidacion = (float) mysqli_fetch_assoc($queryGastoTotalLiquidacion)["gastoTotal"];
-						echo "<script>console.log( 'gastoTotalLiquidacion: " . json_encode($gastoTotalLiquidacion) . "' );</script>";
-						
 						if (!$gastoTotalLiquidacion) {
 							die(mysqli_error($conexion));
 						}
 
-						// TODO: El importe debe ser un float
 						// Se le agrega un 20% de comisión al gasto total
 						$gastoTotalFinal = $gastoTotalLiquidacion * 1.20;
-						echo "<script>console.log( 'gastoTotalFinal: " . json_encode($gastoTotalFinal) . "' );</script>";
-
 						$gastoTotalFinalRedondeado = number_format((float)$gastoTotalFinal, 2, '.', '') ;
-						echo "<script>console.log( 'Gasto Redondeado: " . json_encode($gastoTotalFinalRedondeado) . "' );</script>";
 
 						$queryPropietarios = mysqli_query($conexion, 
 						"SELECT idPropiedad, idUsuarios, porcentajeParticipacion FROM propiedad;") or die(mysqli_error($conexion));
@@ -96,7 +97,6 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 								die(mysqli_error($conexion));
 							}
 						}
-		
 						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha creado una nueva liquidación satisfactoriamente.</div>';
 					} else {
 						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido crear una nueva liquidación!</div>';
@@ -104,7 +104,9 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				} else {
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: Debe seleccionar por lo menos un gasto para asociar a la liquidación!</div>';
 				}
-
+				} else {
+					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: Ya existe una liquidación para el periodo seleccionado! </div>';
+				}
 			}
 			?>
 			<form class="form-horizontal" action="" method="post" id="reclamoForm">
