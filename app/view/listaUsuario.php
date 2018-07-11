@@ -43,13 +43,14 @@ if(!isset($_SESSION['admin'])){
 
 			<form class="form-inline" method="get">
 				<div class="form-group">
-					<select name="filter" class="form-control" onchange="form.submit()">
+					<select name="filter" class="form-control" onchange="form.submit()" id="filtro">
 						<option value="0">Filtros de datos de usuarios</option>
-						<?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
+						<?php $filter = (isset($_GET['filter']) ? $_GET['filter'] : NULL);  ?>
 						<option value="Activo" <?php if($filter == 'Activo'){ echo 'selected'; } ?>>Activo</option>
 						<option value="Inactivo" <?php if($filter == 'Inactivo'){ echo 'selected'; } ?>>Inactivo</option>
                         <option value="Pendiente" <?php if($filter == 'Pendiente'){ echo 'selected'; } ?>>Pendiente</option>
-					</select><button href="listaUsuario.php" role="button" aria-pressed="true" class="btn btn-secondary btn-sm">Ver Todos</button>
+					</select>
+					<button onclick="document.getElementById('filtro').selectedIndex = 0;" role="button" aria-pressed="true" class="btn btn-outline-secondary">Ver Todos</button>
 				</div>
 			</form>
 			<br />

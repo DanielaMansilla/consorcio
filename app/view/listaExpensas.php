@@ -30,7 +30,8 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 						<?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
 						<option value="Impago" <?php if(strcasecmp($filter, 'Impago') == 0){ echo 'selected'; } ?>>Impago</option>
 						<option value="Pago" <?php if(strcasecmp($filter, 'Pago') == 0){ echo 'selected'; } ?>>Pago</option>
-					</select><button onclick="document.getElementById('filtro').selectedIndex = 0;" role="button" aria-pressed="true" class="btn btn-secondary btn-sm">Ver Todas</button>
+					</select>
+						<button onclick="document.getElementById('filtro').selectedIndex = 0;" role="button" aria-pressed="true" class="btn btn-outline-secondary">Ver Todas</button>
 				</div>
 			</form>
 
