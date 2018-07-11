@@ -1,7 +1,7 @@
 <?php
 require_once '../config/Conexion.php'; 
 session_start();
-if(!isset($_SESSION['operador'])){  // verificar si es operador
+if(!isset($_SESSION['operador'])){
     header("Location: index.php");} ?>
 
 <!DOCTYPE html>
@@ -20,29 +20,10 @@ if(!isset($_SESSION['operador'])){  // verificar si es operador
     <h2>Lista de usuarios pendientes</h2>
     <hr />
         
-    <?php
-			if(isset($_GET['aksi']) == 'delete'){
-				// escaping, additionally removing everything that could be (html/javascript-) code
-				$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
-				$cek = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$nik'");
-				if(mysqli_num_rows($cek) == 0){
-					echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encotraron datos.</div>';
-				}else{
-					$delete = mysqli_query($conexion, "DELETE FROM usuarios WHERE idUsuarios='$nik'");
-                    var_dump($delete);
-					if($delete){
-						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Datos eliminados correctamente.</div>';
-					}else{
-						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar la solicitud.</div>';
-					}
-				}
-			}?>
-
 			<br />
 			<div class="table-responsive">
 			<table class="table table-striped table-hover">
 				<tr>
-                    <!--<th>No</th> -->
 					<th>Apellido</th>
                     <th>Nombre</th>
                     <th>Cuil</th>
@@ -58,7 +39,6 @@ if(!isset($_SESSION['operador'])){  // verificar si es operador
 					echo '<tr><td colspan="8">No hay usuarios pendientes de habilitación.</td></tr>';
 				}else{
 					while($row = mysqli_fetch_assoc($sql)){
-                        /* Falta linkear unir las tablas idRol para que muestre nombre del rol */
 						echo '
 						<tr>
                             <td><a href="perfil.php?nik='.$row['idUsuarios'].'"><span class="fas fa-user" aria-hidden="true"></span> '.$row['apellido'].'</a></td>
@@ -69,9 +49,7 @@ if(!isset($_SESSION['operador'])){  // verificar si es operador
 							<td>'.$row['telefono'].'</td>  
                             <td>'.$row['descripcion'].'</td> 
 							<td>
-
 								<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
-								<a href="homeOperador.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar solicitud de habilitacion" onclick="return confirm(\'Esta seguro de borrar la solicitud de: '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';

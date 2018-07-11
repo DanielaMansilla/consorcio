@@ -119,7 +119,7 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Cuil</label>
 					<div class="col-sm-4">
-						<input type="text" name="cuil" value="<?php echo $row ['cuil']; ?>" class="form-control" placeholder="Cuil" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
+						<input type="text" name="cuil" value="<?php echo $row ['cuil']; ?>" class="form-control" placeholder="Cuil" required><small class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 					</div>
 				</div>
                 <div class="form-group">
@@ -131,7 +131,7 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Dni</label>
 					<div class="col-sm-4">
-						<input type="text" name="dni" value="<?php echo $row ['dni']; ?>" class="form-control" placeholder="Dni" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
+						<input type="text" name="dni" value="<?php echo $row ['dni']; ?>" class="form-control" placeholder="Dni" required><small class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 					</div>
 				</div>
 				<div class="form-group">
