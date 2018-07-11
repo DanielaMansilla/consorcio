@@ -262,7 +262,7 @@ CREATE TABLE `usuarios` (
   `telefono` int(11) UNSIGNED NOT NULL,
   `estado` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `idRol` int(11) UNSIGNED NOT NULL,
-  `pass` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `pass` varchar(32) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
   `primeraVez` tinyint(1) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
