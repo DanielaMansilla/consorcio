@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-  <!-- <a class="navbar-brand" href="#">Menu</a> -->
   <a class="navbar-brand" href="#">
     <img src="/consorcio/public/img/building-icon.svg" width="30" height="30" class="d-inline-block align-top" alt="">
     Menu
@@ -24,7 +23,6 @@
     if(mysqli_connect_errno()){
       echo 'No se pudo conectar a la base de datos : '.mysqli_connect_error(); }
 
-      
         //Si es Administrador.
         if(isset($_SESSION['admin'])){ ?>
 
@@ -87,9 +85,6 @@
       <li class="nav-item">
         <a class="nav-link" href="/consorcio/app/view/estadistica.php"><i class="fas fa-chart-bar"></i> Estadística</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/config/CerrarSession.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
-      </li>
       <?php }?>
 
         <?php
@@ -143,9 +138,6 @@
       <li class="nav-item">
         <a class="nav-link" href="/consorcio/app/view/estadistica.php">Estadística</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/config/CerrarSession.php">Cerrar sesión</a>
-      </li>
         <?php }?>
 
         <?php
@@ -174,10 +166,10 @@
           <a class="dropdown-item" href="/consorcio/app/view/listaReclamos.php">Ver Listado</a>
         </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/config/CerrarSession.php">Cerrar sesión</a>
-      </li>
         <?php }?>
+        <li class="nav-item">
+        <a class="nav-link" href="/consorcio/app/config/CerrarSession.php"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a>
+      </li>
     </ul>
   </div>
 </nav>

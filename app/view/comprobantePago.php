@@ -36,14 +36,14 @@ $sql = mysqli_query($conexion,
 					WHERE expensa.idExpensa = '$idExpensa';") or die(mysqli_error($conexion));
  $row = mysqli_fetch_assoc($sql);           
           echo '
-<pre>EL PAGO FUE APLICADO AL PERIODO '.$row['periodo'].'
+<pre>EL PAGO FUE APLICADO AL PERIODO '.date("m", strtotime($row['periodo'])).'/'.date("Y", strtotime($row['periodo'])).'
 </pre>
 <div class="col-xs-6 text-right">
             <div class="col-xs-6">
                 <img alt="logo" width=160px  src="../../public/img/logo.jpg" >
             </div>
-<h1>Comprobante de Pago realizado el '.$row['fechaPago'].'</h1>
-<h1><small>Expensa nro. '.$idExpensa.'</small></h1>
+<h1>Comprobante de Pago realizado el '.date("d", strtotime($row['fechaPago'])).'-'.date("m", strtotime($row['fechaPago'])).'-'.date("Y", strtotime($row['fechaPago'])).'</h1>
+<h4>Expensa nro. '.$idExpensa.'</h4>
 <div class="panel-body">Numero de Liquidacion : '.$row['idLiquidacion'].'</div>
 </div>
 </div>
@@ -67,7 +67,7 @@ $sql = mysqli_query($conexion,
 <div class="col-xs-5 col-xs-offset-2 text-right">
 <div class="panel panel-default">
 <div class="panel-heading">
-<h4>Por un importe de: $'.$row['importe'].'.-</h4>
+<h1><small>Por un importe de: $'.$row['importe'].'.-</small></h1>
 </div>
 <div class="panel-body"><b>Numero de Control de pago : '.$row['idPago'].'</b></div>
 </div>
