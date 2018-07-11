@@ -27,9 +27,9 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 				<div class="form-group">
 					<select name="filter" class="form-control" onchange="form.submit()" id="filtro">
 						<option value="0">Filtros de expensas</option>
-						<?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
-						<option value="Impago" <?php if(strcasecmp($filter, 'Impago') == 0){ echo 'selected'; } ?>>Impago</option>
-						<option value="Pago" <?php if(strcasecmp($filter, 'Pago') == 0){ echo 'selected'; } ?>>Pago</option>
+						<?php $filter = (isset($_GET['filter']) ? $_GET['filter'] : NULL);  ?>
+						<option value="Impago" <?php if ($filter == 'Impago') { echo 'selected'; } ?>>Impago</option>
+						<option value="Pago" <?php if ($filter == 'Pago') { echo 'selected'; } ?>>Pago</option>
 					</select><button onclick="document.getElementById('filtro').selectedIndex = 0;" role="button" aria-pressed="true" class="btn btn-secondary btn-sm">Ver Todas</button>
 				</div>
 			</form>
