@@ -72,7 +72,7 @@
       </li>
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      <i class="fas fa-file-invoice-dollar"></i> Gastos
+        <i class="fas fa-file-invoice-dollar"></i> Gastos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/consorcio/app/view/abm/agregarGasto.php">Agregar Nuevo Gasto</a>
@@ -92,11 +92,11 @@
         if(isset($_SESSION['operador'])){ ?>
 
         <li class="nav-item active">
-        <a class="nav-link" href="/consorcio/app/view/homeOperador.php">Inicio <span class="sr-only"><!-- (current) para que muestre seleccionada --></span></a>
+        <a class="nav-link" href="/consorcio/app/view/homeOperador.php"><i class="fas fa-home"></i> Inicio <span class="sr-only"><!-- (current) para que muestre seleccionada --></span></a>
       </li>
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Listas
+        <i class="fas fa-list-ul"></i> Listas
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
         <a class="dropdown-item" href="/consorcio/app/view/listaUsuario.php">L. Usuarios</a>
@@ -107,7 +107,7 @@
         </li>
         <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Pagos
+        <i class="fas fa-money-bill-alt"></i> Pagos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/consorcio/app/view/abm/agregarLiquidacion.php">Agregar Nueva Liquidación</a>
@@ -116,7 +116,7 @@
       </li>
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Reclamos
+        <i class="fas fa-exclamation-circle"></i> Reclamos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/consorcio/app/view/abm/agregarReclamo.php">Iniciar Nuevo Reclamo</a>
@@ -125,7 +125,7 @@
       </li>
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Gastos
+        <i class="fas fa-file-invoice-dollar"></i> Gastos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/consorcio/app/view/abm/agregarGasto.php">Agregar Nuevo Gasto</a>
@@ -133,10 +133,10 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php">Cobranzas</a>
+        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php"><i class="fas fa-hand-holding-usd"></i> Cobranzas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/view/estadistica.php">Estadística</a>
+        <a class="nav-link" href="/consorcio/app/view/estadistica.php"><i class="fas fa-chart-bar"></i> Estadística</a>
       </li>
         <?php }?>
 
@@ -145,21 +145,21 @@
         if(isset($_SESSION['propietario'])){ ?>
 
         <li class="nav-item active">
-        <a class="nav-link" href="/consorcio/app/view/homePropietario.php">Inicio <span class="sr-only"><!-- (current) para que muestre seleccionada --></span></a>
+        <a class="nav-link" href="/consorcio/app/view/homePropietario.php"><i class="fas fa-home"></i> Inicio <span class="sr-only"><!-- (current) para que muestre seleccionada --></span></a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/view/deudasPropietario.php">Deudas</a>
+        <a class="nav-link" href="/consorcio/app/view/deudasPropietario.php"><i class="fas fa-hand-holding-usd"></i> Deudas</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/view/informePropietario.php">Informe Mensual</a>
+        <a class="nav-link" href="/consorcio/app/view/informePropietario.php"><i class="fas fa-calendar-alt"></i> Informe Mensual</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php">Expensas</a>
+        <a class="nav-link" href="/consorcio/app/view/listaExpensas.php"><i class="fas fa-money-bill-alt"></i> Expensas</a>
       </li>
       <li class="nav-item dropdown">
       <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Reclamos
+        <i class="fas fa-exclamation-circle"></i> Reclamos
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="/consorcio/app/view/abm/agregarReclamo.php">Iniciar Nuevo Reclamo</a>
