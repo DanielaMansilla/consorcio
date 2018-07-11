@@ -34,7 +34,6 @@ if(!isset($_SESSION['admin'])){
 			}
 			if(isset($_POST['save'])){ 
 				$nombre		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
-				$nombre = ucfirst($nombre); 
                 $cuit		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["cuit"],ENT_QUOTES)));//Escanpando caracteres 
                 $codigoPostal   = mysqli_real_escape_string($conexion,(strip_tags($_POST["codigoPostal"],ENT_QUOTES)));//Escanpando caracteres 
                 $telefono   = mysqli_real_escape_string($conexion,(strip_tags($_POST["telefono"],ENT_QUOTES)));//Escanpando caracteres 
@@ -43,18 +42,6 @@ if(!isset($_SESSION['admin'])){
 				
 				$error = array();
 				//Validaciones
-				if(!(strlen($nombre) <= 50)){
-					$error[] = "Nombre debe tener como maximo 50 caracteres.";
-				  }
-				if(!(strlen($direccion) <= 70)){
-					$error[] = "Dirección debe tener como maximo 70 caracteres.";
-				  }
-				if(!(strlen($telefono) >= 8 && strlen($telefono) <= 11)){
-					$error[] = "Teléfono debe tener entre 8 y 11 digitos sin guiones.";
-				  }
-				if(!(strlen($codigoPostal) == 4)){
-					$error[] = "Codigo postal debe tener 4 digitos sin guiones.";
-				  }
 				if(!(strlen($cuit) == 11)){
 					$error[] = "Cuit debe tener 11 digitos sin guiones.";
 				  }
@@ -93,41 +80,41 @@ if(!isset($_SESSION['admin'])){
             <div class="form-group">
 				<label class="col-sm-3 control-label">Nombre:</label>
 				<div class="col-sm-3">
-                     <input type="text" name="nombre" value="<?php echo $row ['nombre']; ?>" class="form-control" placeholder="Nombre" maxlength="50" required>
+                     <input type="text" name="nombre" value="<?php echo $row ['nombre']; ?>" class="form-control" placeholder="Nombre" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">CUIT:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="cuit" value="<?php echo $row ['cuit']; ?>" class="form-control" placeholder="cuit" maxlength="11" required><small class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
+					<input type="text" name="cuit" value="<?php echo $row ['cuit']; ?>" class="form-control" placeholder="cuit" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Código Postal:</label>
 				<div class="col-sm-3">
-                     <input type="text" name="codigoPostal" value="<?php echo $row ['codigoPostal']; ?>" class="form-control" placeholder="Código Postal" maxlength="4" required>
+                     <input type="text" name="codigoPostal" value="<?php echo $row ['codigoPostal']; ?>" class="form-control" placeholder="Código Postal" required>
 				</div>
 			</div>
             <div class="form-group">
 				<label class="col-sm-3 control-label">Teléfono:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="telefono" value="<?php echo $row ['telefono']; ?>" class="form-control" placeholder="Teléfono" maxlength="11" required>
+					<input type="text" name="telefono" value="<?php echo $row ['telefono']; ?>" class="form-control" placeholder="Teléfono" required>
 				</div>
 			</div>
             <div class="form-group">
 				<label class="col-sm-3 control-label">Correo Electrónico:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="correo" value="<?php echo $row ['correo']; ?>" class="form-control" placeholder="Correo Electrónico" maxlength="50" required>
+					<input type="text" name="correo" value="<?php echo $row ['correo']; ?>" class="form-control" placeholder="Correo Electrónico" required>
 				</div>
 			</div>
             <div class="form-group">
 				<label class="col-sm-3 control-label">Dirección:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="direccion" value="<?php echo $row ['direccion']; ?>" class="form-control" placeholder="Dirección" maxlength="70" required>
+					<input type="text" name="direccion" value="<?php echo $row ['direccion']; ?>" class="form-control" placeholder="Dirección" required>
 				</div>
 			</div>
 				

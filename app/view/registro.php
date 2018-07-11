@@ -18,15 +18,13 @@ if(isset($_SESSION['propietario'])){
     if(isset($_POST['enviar'])){
         $error = array();
         $nombre=$_POST["nombreUsuario"];
-        $nombre=ucfirst($nombre);
         $apellido=$_POST["apellidoUsuario"];
-        $apellido=ucfirst($apellido);
         $cuilUsuario=$_POST["cuilUsuario"];
         $email=$_POST["emailUsuario"];
         $dni=$_POST["dniUsuario"];
         $telUsuario=$_POST["telUsuario"];
         $estado = "Pendiente";
-        $rol=4;
+        $rol=0;
         $primeraVez=0;
         $pass=$_POST["passUsuario"];
         $pass2=$_POST["passUsuario2"];
@@ -47,8 +45,8 @@ if(isset($_SESSION['propietario'])){
         if(!(strlen($dni) == 8)){
             $error[] = "Dni debe tener 8 digitos sin guiones.";
           }
-        if(!(strlen($telUsuario) >= 8 && strlen($telUsuario) <= 11)){
-            $error[] = "Teléfono debe tener entre 8 y 11 digitos sin guiones.";
+        if(!(strlen($telUsuario) >= 8 && strlen($telUsuario) <= 10)){
+            $error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";
           }
         //Separador
         if(!(filter_var($email, FILTER_VALIDATE_EMAIL))){
@@ -64,7 +62,7 @@ if(isset($_SESSION['propietario'])){
           }
         }
           if(!(strlen($pass) >= 6 && strlen($pass) <= 32 && $pass == $pass2)){
-            $error[] = "Password debe tener entre 6 a 32 caracteres y coincidir entre sí.";
+            $error[] = "Password debe tener al menos 6 caracteres y coincidir entre sí.";
           }
 
           if(sizeof($error) == 0){
@@ -84,48 +82,47 @@ if(isset($_SESSION['propietario'])){
             } ?>   
   <body>   
     <main> 
-        <div class="card container">
+        <div class="card">
             <h3 class="card-header">Solicitud de Registro de Usuario</h3>
                     <form class="form-control" action='' method='POST' ENCTYPE="application/x-www-form-urlencoded">
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                     <p class="card-text">Nombre: </p> <INPUT class="form-control" name="nombreUsuario" type="text" maxlength="50" required><br>
+                                     <p class="card-text">Nombre: </p> <INPUT class="form-control" name="nombreUsuario" type="text" required><br>
                                 </div>
                                  <div class="form-group col-md-6">
-                                    <p class="card-text">Apellido: </p> <INPUT class="form-control" name="apellidoUsuario" type="text" maxlength="50" required><br>
+                                    <p class="card-text">Apellido: </p> <INPUT class="form-control" name="apellidoUsuario" type="text" required><br>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <p class="card-text">DNI: </p> <INPUT class="form-control" name="dniUsuario" type="text" maxlength="8" required>
-                                    <small class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales.</small>
+                                    <p class="card-text">DNI: </p> <INPUT class="form-control" name="dniUsuario" type="number" required>
+                                    <small id="emailHelp" class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales.</small>
                                     <br>
                                 </div>
                                 <div class="form-group col-md-6">
-                                 <p class="card-text">CUIL: </p> <INPUT class="form-control" name="cuilUsuario" type="text" maxlength="11" required>
-                                <small class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales.</small>
+                                 <p class="card-text">CUIL: </p> <INPUT class="form-control" name="cuilUsuario" type="number" required>
+                                <small id="emailHelp" class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales.</small>
                                 <br>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <p class="card-text">Teléfono: </p> <INPUT class="form-control" name="telUsuario" type="text" maxlength="11" required>
-                                    <small class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales. Si es celular, recuerde anteponer el 15.</small>
+                                    <p class="card-text">Teléfono: </p> <INPUT class="form-control" name="telUsuario" type="number" required>
+                                    <small id="emailHelp" class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales. Si es celular, recuerde anteponer el 15.</small>
                                     <br>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <p class="card-text">Dirección de Correo Electrónico: </p> <INPUT class="form-control" maxlength="50" name="emailUsuario" type="text" placeholder="ejemplo@ejemplo.com" required><small class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie.</small>
+                                    <p class="card-text">Dirección de Correo Electrónico: </p> <INPUT class="form-control"  name="emailUsuario" type="text"  placeholder="ejemplo@ejemplo.com" required><small id="emailHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie.</small>
                                     <br>
                                 </div>
                            </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <p class="card-text">Contraseña: </p><INPUT class="form-control" name="passUsuario" type="password" minlength="6" maxlength="32" required>
-                                    <small class="form-text text-muted">Debe ser entre 6 a 32 caracteres de largo</small>
+                                    <p class="card-text">Contraseña: </p><INPUT class="form-control" name="passUsuario" type="password" required>
                                 <br>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <p class="card-text">Ingrese nuevamente la contraseña: </p><INPUT class="form-control" name="passUsuario2" type="password" minlength="6" maxlength="32" required>
+                                    <p class="card-text">Ingrese nuevamente la contraseña: </p><INPUT class="form-control" name="passUsuario2" type="password" required>
                                 <br>
                                 </div>
                             </div> 
