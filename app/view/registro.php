@@ -32,25 +32,21 @@ if(isset($_SESSION['propietario'])){
         $pass2=$_POST["passUsuario2"];
         $pass_sha1 = sha1($pass); //Guarda el pass hasheado
 
-        // Luego revisar los limites con la base de datos.
         if(!(ctype_alpha($nombre) && strlen($nombre) >= 3 && strlen($nombre) <= 20)){
             $error[] = "Nombre debe tener al menos 3 caracteres, solo alfabeticos";
           }        
-        
         if(!(ctype_alpha($apellido) && strlen($apellido) >= 3 && strlen($apellido) <= 20)){
             $error[] = "Apellido debe tener al menos 3 caracteres, solo alfabeticos";
           }
-        //Verificar validaciones de dni, cuil, teléfono.
-        if(!(strlen($cuilUsuario) == 11)){
+        if(!(ctype_digit($cuilUsuario) && strlen($cuilUsuario) == 11)){
             $error[] = "Cuil debe tener 11 digitos sin guiones.";
           }
-        if(!(strlen($dni) == 8)){
+        if(!(ctype_digit($dni) && strlen($dni) == 8)){
             $error[] = "Dni debe tener 8 digitos sin guiones.";
           }
-        if(!(strlen($telUsuario) >= 8 && strlen($telUsuario) <= 11)){
+        if(!(ctype_digit($telUsuario) && strlen($telUsuario) >= 8 && strlen($telUsuario) <= 11)){
             $error[] = "Teléfono debe tener entre 8 y 11 digitos sin guiones.";
           }
-        //Separador
         if(!(filter_var($email, FILTER_VALIDATE_EMAIL))){
             $error[] = "Email incorrecto";
           }else{
