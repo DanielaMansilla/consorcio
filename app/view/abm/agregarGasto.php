@@ -109,7 +109,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 					<div class="col-sm-3">
 						<!-- TODO: Modificar tipo de dato en importe de gastos, para que sea un float -->
 						<!-- <input type="number" name="importe" step="0.01" class="form-control" placeholder="Importe" required> -->
-						<input type="number" name="importe" min="0.00" step="0.01" class="form-control" placeholder="Ingrese el importe..." required>
+						<input type="number" name="importe" min="0.00" max="9999999999.99" step="0.01" class="form-control" placeholder="Ingrese el importe..." required>
 					</div>
 				</div>
 

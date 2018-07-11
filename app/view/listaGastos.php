@@ -16,12 +16,29 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
         include('template/nav.php');  
         include('template/header.php'); ?>
 
-		<title>Consorcios del Valle - Lista de Gastos</title>
+		<title>gastos del Valle - Lista de Gastos</title>
 
         <div class="container">
 		<div class="content">
 			<h2>Lista de Gastos</h2>
 			<hr />
+
+			<?php
+			if(isset($_GET['aksi']) == 'delete'){
+				$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
+				$cek = mysqli_query($conexion, "SELECT * FROM gasto WHERE idGasto='$nik'");
+				if(mysqli_num_rows($cek) == 0){
+					echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encotraron Gastos.</div>';
+				}else{
+					$delete = mysqli_query($conexion, "DELETE FROM gasto WHERE idGasto='$nik'");
+					if($delete){
+						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Gasto eliminado correctamente.</div>';
+					}else{
+						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar el Gasto.</div>';
+					}
+				}
+			}
+			?>
 
 			<br/>
 			<div class="table-responsive">
@@ -113,7 +130,25 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 							}
 							echo '<span class="badge badge-'.$badgeColor.'">'.$estado.'</span></td>';
 							
-							echo '<td></td>';
+							if(isset($_SESSION['admin'])){
+								echo '
+							</td>
+							<td>
+								<a href="abm/editarGasto.php?nik='.$row['idGasto'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+								<a href="listaGastos.php?aksi=delete&nik='.$row['idGasto'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar el gasto: '.$row['concepto'].' con monto: '.$row['importe'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
+							</td>
+						</tr>
+						';
+							}if(isset($_SESSION['operador'])){
+								echo '
+							</td>
+							<td>
+								<a href="abm/editarGasto.php?nik='.$row['idGasto'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+							</td>
+						</tr>
+						';
+							}
+
 					}
 				}
 				?>
