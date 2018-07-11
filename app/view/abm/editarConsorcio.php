@@ -43,19 +43,19 @@ if(!isset($_SESSION['admin'])){
 				
 				$error = array();
 				//Validaciones
-				if(!(ctype_alpha($nombre) && strlen($nombre) <= 50)){
-					$error[] = "Nombre debe tener como maximo 50 caracteres alfabéticos.";
+				if(!(strlen($nombre) <= 50)){
+					$error[] = "Nombre debe tener como maximo 50 caracteres.";
 				  }
 				if(!(strlen($direccion) <= 70)){
 					$error[] = "Dirección debe tener como maximo 70 caracteres.";
 				  }
-				  if(!(ctype_digit($telefono) && strlen($telefono) >= 8 && strlen($telefono) <= 11)){
+				if(!(strlen($telefono) >= 8 && strlen($telefono) <= 11)){
 					$error[] = "Teléfono debe tener entre 8 y 11 digitos sin guiones.";
 				  }
-				if(!(ctype_digit($codigoPostal) && strlen($codigoPostal) == 4)){
+				if(!(strlen($codigoPostal) == 4)){
 					$error[] = "Codigo postal debe tener 4 digitos sin guiones.";
 				  }
-				if(!(ctype_digit($cuit) && strlen($cuit) == 11)){
+				if(!(strlen($cuit) == 11)){
 					$error[] = "Cuit debe tener 11 digitos sin guiones.";
 				  }
                 $proveedor = new Proveedor();
