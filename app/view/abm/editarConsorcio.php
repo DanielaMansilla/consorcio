@@ -42,7 +42,7 @@ if(!isset($_SESSION['admin'])){
 				
 				$error = array();
 				//Validaciones
-				if(!(strlen($cuit) == 11)){
+				if(!(strlen($cuit) == 11 && ctype_digit($cuit))){
 					$error[] = "Cuit debe tener 11 digitos sin guiones.";
 				  }
 				if(!(ctype_digit($codigoPostal) && strlen($codigoPostal) == 4)){
@@ -97,12 +97,14 @@ if(!isset($_SESSION['admin'])){
 					foreach($error as $er){
 						echo "</br><strong>$er</strong>";
 					  }
-				    }
+					}
+					
+					if(isset($_GET['pesan']) == 'sukses'){
+						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
+				}
                 }
 
-                if(isset($_GET['pesan']) == 'sukses'){
-                    echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
-			} ?>
+                 ?>
             
 		<form class="form-horizontal" action="" method="post">      
             <div class="form-group">
