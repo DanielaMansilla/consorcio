@@ -64,27 +64,30 @@ if(!isset($_SESSION['admin'])){
 					$error[] = "Email incorrecto";
 				}
 				//Validacion datos actuales
-				$cek = mysqli_query($conexion, "SELECT * FROM consorcio WHERE idConsorcio='$nik'");
+				// $cek = mysqli_query($conexion, "SELECT * FROM consorcio WHERE idConsorcio='$nik'");
+				// if (mysqli_num_rows($cek) == 0) {
+				// 	// ERROR, no existe el consorcio!
+				// 	// Aca hay que abortar todo...
+				// } else {
+				// 	$row = mysqli_fetch_assoc($sql);
+				// }
+
 				$correoViejo = $row ['correo'];
 				$cuitViejo = $row ['cuit'];
+				
 				//Correo
-				$cek8 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE correo = '$correoViejo'");
-				if(mysqli_num_rows($cek8) == 0){
-					$cek7 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE correo = '$correo'");
-					if(!(mysqli_num_rows($cek7) == 0)){
-						$error[] = "Email está utilizado en otro consorcio.";
-					}
-				}
-				//Cuit
-				$cek4 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE cuit = '$cuitViejo'");
-				if(mysqli_num_rows($cek4) == 0){
-					$cek5 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE cuit = '$cuit'");
-					if(!(mysqli_num_rows($cek5) == 0)){
-						$error[] = "Cuit está utilizado en otro consorcio.";
-					}
+				$cek8 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE correo = '$correo' AND idConsorcio <> '$nik'");
+				if (mysqli_num_rows($cek8) != 0){
+					$error[] = "Email está utilizado en otro consorcio.";
 				}
 
-                if(sizeof($error) == 0){
+				//Cuit
+				$cek4 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE cuit = '$cuit' AND idConsorcio <> '$nik'");
+				if (mysqli_num_rows($cek4) != 0){
+					$error[] = "Cuit está utilizado en otro consorcio.";
+				}
+
+                if (sizeof($error) == 0){
                    $update = mysqli_query($conexion, "UPDATE consorcio SET nombre='$nombre', cuit='$cuit', codigoPostal='$codigoPostal', telefono='$telefono', correo='$correo', direccion='$direccion' WHERE idConsorcio='$nik'") or die(mysqli_error($conexion));
                     if($update){
                         //header("Location: editarConsorcio.php?nik=".$nik."&pesan=sukses");
