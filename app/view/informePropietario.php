@@ -113,18 +113,17 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                     <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h4 class="modal-title">Reclamo Nro: '.$row['idReclamo'].'</h4>
+                                            <h4 class="modal-title">Reclamo Nro: '.$row['idReclamo'].'</h4>
                                         </div>
                                         <div class="modal-body">
-                                        <p><b>Fecha:</b> '.$row['fechaReclamo'].'</p>
-                                        <p><b>Estado:</b> '.$row['estadoReclamo'].'</p>
-                                        <p><b>Propiedad (Id):</b> '.$row['idPropiedad'].'</b> 
-                                        <p><b>Piso:</b> '.$row['piso'].' - <b>Departamento:</b> '.$row['departamento'].'</p>
-                                        <p><b>Descripción:</b> '.$row['descripcion'].'</p>
-                                        
+                                            <p><b>Fecha:</b> '.$row['fechaReclamo'].'</p>
+                                            <p><b>Estado:</b> '.$row['estadoReclamo'].'</p>
+                                            <p><b>Propiedad (Id):</b> '.$row['idPropiedad'].'</b></p>
+                                            <p><b>Piso:</b> '.$row['piso'].' - <b>Departamento:</b> '.$row['departamento'].'</p>
+                                            <p><b>Descripción:</b> '.$row['descripcion'].'</p>
                                         </div>
                                         <div class="modal-footer">
-                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                     </div>
@@ -134,15 +133,14 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                 <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                    <h4 class="modal-title">Proveedor Nro: '.$row['idProveedor'].'</h4>
+                                        <h4 class="modal-title">Proveedor Nro: '.$row['idProveedor'].'</h4>
                                     </div>
                                     <div class="modal-body">
-                                    <p><b>Nombre:</b> '.$row['nombre'].'</p>
-                                    <p><b>CUIT:</b> '.$row['cuit'].'</p>
-                                    
+                                        <p><b>Nombre:</b> '.$row['nombre'].'</p>
+                                        <p><b>CUIT:</b> '.$row['cuit'].'</p>
                                     </div>
                                     <div class="modal-footer">
-                                    <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
                                     </div>
                                 </div>
                                 </div>
@@ -185,13 +183,15 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                     <th>Fecha</th>
                                     <th>Propietario</th>
                                     <th>Propiedad</th>
+                                    <th>Forma de Pago</th>
                                     <th>Importe</th>
                                 </tr>
                     <?php
                         // TODO: Mostrar pagos de los propietarios
                         $queryPagosPropietarios = mysqli_query($conexion,
-                        "SELECT *, ordenpago.fecha as fechaOrdenPago, ordenpago.importe as importeOrdenPago
+                        "SELECT *, ordenpago.fecha as fechaOrdenPago, ordenpago.importe as importeOrdenPago, formasdepago.descripcion as descripcionFormaPago
                         FROM ordenpago
+                        JOIN formasdepago ON ordenpago.idFormaPago = formasdepago.idFormaPago
                         JOIN expensa ON ordenpago.idExpensa = expensa.idExpensa
                         JOIN liquidacion ON expensa.idLiquidacion = liquidacion.idLiquidacion
                         JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
@@ -207,10 +207,10 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                 echo "<script>console.log( 'Debug Objects: " . json_encode($pagoPropietario) . "' );</script>";
                                 echo '<tr>
                                 <td>'.$pagoPropietario['idOperacion'].'</td>
-                                <td><a href="#" data-toggle="modal" data-target="#modal-propietario-'.$pagoPropietario['idUsuarios'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> '.$pagoPropietario['idUsuarios'].'</a></td>
                                 <td>'.$pagoPropietario['fechaOrdenPago'].'</td>
-                                <td>'.$pagoPropietario['apellido']. ' '.$pagoPropietario['nombre'].'</td>
-                                <td>Piso: '.$pagoPropietario['piso'].' - Dpto: '.$pagoPropietario['departamento'].'</td>
+                                <td><a href="#" data-toggle="modal" data-target="#modal-propietario-'.$pagoPropietario['idUsuarios'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> '.$pagoPropietario['apellido']. ' '.$pagoPropietario['nombre'].'</a></td>
+                                <td><a href="#" data-toggle="modal" data-target="#modal-propiedad-'.$pagoPropietario['idPropiedad'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> Piso: '.$pagoPropietario['piso'].' - Dpto: '.$pagoPropietario['departamento'].'</a></td>
+                                <td>'.$pagoPropietario['descripcionFormaPago'].'</td>
                                 <td>$ '.$pagoPropietario['importeOrdenPago'].'</td>';
 
                                 echo '
@@ -219,18 +219,39 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                     <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        <h4 class="modal-title">Propietario Nro: '.$pagoPropietario['idUsuarios'].'</h4>
+                                            <h4 class="modal-title">Propietario Nro: '.$pagoPropietario['idUsuarios'].'</h4>
                                         </div>
                                         <div class="modal-body">
                                             <p><b>Apellido:</b> '.$pagoPropietario['apellido'].'</p>
                                             <p><b>Nombre:</b> '.$pagoPropietario['nombre'].'</p>
-                                            <p><b>DNI:</b> '.$pagoPropietario['dni'].'</b>
-                                            <p><b>CUIL:</b> '.$pagoPropietario['cuil'].'</b> 
-                                            <p><b>E-mail:</b> '.$pagoPropietario['email'].'</b>
-                                            <p><b>Teléfono:</b> '.$pagoPropietario['telefono'].'</b>
+                                            <p><b>DNI:</b> '.$pagoPropietario['dni'].'</b></p>
+                                            <p><b>CUIL:</b> '.$pagoPropietario['cuil'].'</b></p>
+                                            <p><b>E-mail:</b> '.$pagoPropietario['email'].'</b></p>
+                                            <p><b>Teléfono:</b> '.$pagoPropietario['telefono'].'</b></p>
                                         </div>
                                         <div class="modal-footer">
-                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>';
+
+                                echo '
+                                <!-- Modal Propiedad-->
+                                <div class="modal fade" id="modal-propiedad-'.$pagoPropietario['idPropiedad'].'" role="dialog">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Propiedad Nro: '.$pagoPropietario['idPropiedad'].'</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><b>Piso:</b> '.$pagoPropietario['piso'].'</b></p>
+                                            <p><b>Departamento:</b> '.$pagoPropietario['departamento'].'</b></p>
+                                            <p><b>Lote Unidad Funcional:</b> '.$pagoPropietario['unidadFuncionalLote'].'</p>
+                                            <p><b>Porcentaje Participación:</b> '.$pagoPropietario['porcentajeParticipacion'].' %</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
                                         </div>
                                     </div>
                                     </div>
