@@ -171,7 +171,7 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                             }
                             echo "<strong>TOTAL:</strong> $ $totalGastosAdministracion";
                         }
-                        echo '</table>';
+                        echo '</table>';// TODO: Falta </tr>???
 
                         ?>
                             <hr />
@@ -204,7 +204,6 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                             echo '<tr><td colspan="8">No hay pagos para listar.</td></tr>';
                         } else {
                             while ($pagoPropietario = mysqli_fetch_assoc($queryPagosPropietarios)) {
-                                echo "<script>console.log( 'Debug Objects: " . json_encode($pagoPropietario) . "' );</script>";
                                 echo '<tr>
                                 <td>'.$pagoPropietario['idOperacion'].'</td>
                                 <td>'.$pagoPropietario['fechaOrdenPago'].'</td>
@@ -256,6 +255,9 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                     </div>
                                     </div>
                                 </div>';
+
+                                echo '</tr>';
+                                // TODO: Falta </tr>???
                             }
 
                             $queryTotalPagosPropietarios = mysqli_query($conexion,
@@ -277,6 +279,39 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
 
                         // TODO: Mostrar propietarios con deudas
 
+                    ?>
+                        <hr />
+                        <label class=""><b>Propietarios con Deudas:</b></label>
+                        <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <tr>
+                                <th>Id</th>
+                                <th>Propietario</th>
+                                <th>Propiedad</th>
+                                <th>Vencimiento</th>
+                                <th>Importe</th>
+                            </tr>
+                    <?php
+                        // TODO: Revisar query!
+                        $queryPropietariosDeudores = mysqli_query($conexion,
+                        "SELECT *
+                        FROM expensa
+                        JOIN ordenpago ON expensa.idExpensa = ordenpago.idExpensa
+                        JOIN liquidacion ON expensa.idLiquidacion = liquidacion.idLiquidacion
+                        WHERE liquidacion.periodo = '$periodoLiquidacion'
+                        AND expensa.estado = 'Impago'") or die(mysqli_error($conexion));
+
+                        $cantidadPropietariosDeudores = mysqli_num_rows($queryPropietariosDeudores);
+                        if ($cantidadPropietariosDeudores == 0) {
+                            echo '<tr><td colspan="8">No hay propietarios con deudas para listar.</td></tr>';
+                        } else {
+                            while ($propietarioDeudor = mysqli_fetch_assoc($queryPropietariosDeudores)) {
+                                // TODO: Completar tabla
+                                echo "<script>console.log( 'Debug Objects: " . json_encode($propietarioDeudor) . "' );</script>";
+                            }
+                        }
+                        
+                        echo '</table>';
                     }
 					?>
         </div>
