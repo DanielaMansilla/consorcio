@@ -76,7 +76,7 @@ if(!isset($_SESSION['admin'])){
 					}
 				}
 				//Cuit
-				$cek4 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE WHERE cuit = '$cuitViejo'");
+				$cek4 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE cuit = '$cuitViejo'");
 				if(mysqli_num_rows($cek4) == 0){
 					$cek5 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE cuit = '$cuit'");
 					if(!(mysqli_num_rows($cek5) == 0)){
