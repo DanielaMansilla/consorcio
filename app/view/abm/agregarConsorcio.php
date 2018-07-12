@@ -35,23 +35,38 @@ if(!isset($_SESSION['admin'])){
 				if(!(strlen($cuit) == 11)){
 					$error[] = "Cuit debe tener 11 digitos sin guiones.";
 				  }
+				if(!(ctype_digit($codigoPostal) && strlen($codigoPostal) == 4)){
+					$error[] = "Codigo Postal debe tener 4 digitos.";
+				}
+				if(!(ctype_digit($telefono) && strlen($telefono) >= 8 && strlen($telefono) <= 11)){
+					$error[] = "Telefono debe tener entre 8 y 11 digitos.";
+				}
+				if(!(strlen($direccion) <= 70)){
+					$error[] = "Dirección debe tener maximo 70 caracteres.";
+				}
+
                 $proveedor = new Proveedor();
 				$cuitValido = $proveedor::validarCuit($cuit);
-				if(!$cuilValido){
-					$error[] = "Cuil invalido.";
-				  }
-
+				if(!$cuitValido){
+					$error[] = "Cuit invalido.";
+				}
+				//Realiza el Insert solo si no existe otro consorcio con el mismo CUIT 
+				$cek4 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE cuit = '$cuit'");
+				if(!(mysqli_num_rows($cek4) == 0)){
+					$error[] = "Cuit está utilizado en otro consorcio.";
+				}
+				
 				if(!(filter_var($correo, FILTER_VALIDATE_EMAIL))){
 					$error[] = "Email incorrecto";
 				}
-				$cek5 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email='$email' and idUsuarios<>'$nik'");
+				$cek5 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE correo = '$correo'");
                 if(!(mysqli_num_rows($cek5) == 0)){
-                    $error[] = "Email está utilizado en otro usuario.";
+                    $error[] = "Email está utilizado en otro consorcio.";
 				}
+
+
                 if(sizeof($error) == 0){
-                //Realiza el Insert solo si no existe otro consorcio con el mismo CUIT
-				$cek = mysqli_query($conexion, "SELECT * FROM consorcio WHERE idConsorcio='$cuit'");
-				if(mysqli_num_rows($cek) == 0){
+                //Realiza el Insert solo si no existe otro consorcio con el mismo CUIT 
 						$insert = mysqli_query($conexion, "INSERT INTO consorcio(nombre, cuit, codigoPostal, telefono, correo, direccion)
 															VALUES('$nombre', '$cuit', '$codigoPostal', '$telefono', '$correo', '$direccion')") or die(mysqli_error($conexion));
 						if($insert){
@@ -60,11 +75,11 @@ if(!isset($_SESSION['admin'])){
 							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
                         }
                         
-				}else{
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El CUIL del Consorcio ya exite!</div>';
-                }
             }else{
-                echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El CUIT del consorcio no es valido.</div>';
+				echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
+				foreach($error as $er){
+                    echo "</br><strong>$er</strong>";
+                  }
                 }
 			}
 			?>
@@ -73,37 +88,37 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Nombre</label>
 					<div class="col-sm-4">
-						<input type="text" name="nombre" class="form-control" placeholder="Nombre" required>
+						<input type="text" name="nombre" class="form-control" maxlength="50" placeholder="Nombre" required>
 					</div>
 				</div>
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Cuit</label>
 					<div class="col-sm-4">
-						<input type="text" name="cuit" class="form-control" placeholder="CUIT" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
+						<input type="text" name="cuit" class="form-control" maxlength="11" placeholder="CUIT" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Código Postal</label>
 					<div class="col-sm-4">
-						<input type="text" name="codigoPostal" class="form-control" placeholder="Código Postal" required>
+						<input type="text" name="codigoPostal" class="form-control" maxlength="4" placeholder="Código Postal" required>
 					</div>
 				</div>
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Teléfono</label>
 					<div class="col-sm-4">
-						<input type="text" name="telefono" class="form-control" placeholder="Teléfono" required>
+						<input type="text" name="telefono" class="form-control" maxlength="11" placeholder="Teléfono" required>
 					</div>
 				</div>
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Correo Electrónico</label>
 					<div class="col-sm-4">
-						<input type="text" name="correo" class="form-control" placeholder="E-Mail" required>
+						<input type="text" name="correo" class="form-control" maxlength="50" placeholder="E-Mail" required>
 					</div>
 				</div>
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Dirección</label>
 					<div class="col-sm-4">
-						<input type="text" name="direccion" class="form-control" placeholder="Dirección" required>
+						<input type="text" name="direccion" class="form-control" maxlength="70" placeholder="Dirección" required>
 					</div>
 				</div>
 

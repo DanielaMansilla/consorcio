@@ -45,18 +45,43 @@ if(!isset($_SESSION['admin'])){
 				if(!(strlen($cuit) == 11)){
 					$error[] = "Cuit debe tener 11 digitos sin guiones.";
 				  }
-                $proveedor = new Proveedor();
+				if(!(ctype_digit($codigoPostal) && strlen($codigoPostal) == 4)){
+					$error[] = "Codigo Postal debe tener 4 digitos.";
+				}
+				if(!(ctype_digit($telefono) && strlen($telefono) >= 8 && strlen($telefono) <= 11)){
+					$error[] = "Telefono debe tener entre 8 y 11 digitos.";
+				}
+				if(!(strlen($direccion) <= 70)){
+					$error[] = "Dirección debe tener maximo 70 caracteres.";
+				}
+				$proveedor = new Proveedor();
 				$cuitValido = $proveedor::validarCuit($cuit);
-				if(!$cuilValido){
-					$error[] = "Cuil invalido.";
-				  }
+				if(!$cuitValido){
+					$error[] = "Cuit invalido.";
+				}
 
 				if(!(filter_var($correo, FILTER_VALIDATE_EMAIL))){
 					$error[] = "Email incorrecto";
 				}
-				$cek5 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email='$email' and idUsuarios<>'$nik'");
-                if(!(mysqli_num_rows($cek5) == 0)){
-                    $error[] = "Email está utilizado en otro usuario.";
+				//Validacion datos actuales
+				$cek = mysqli_query($conexion, "SELECT * FROM consorcio WHERE idConsorcio='$nik'");
+				$correoViejo = $row ['correo'];
+				$cuitViejo = $row ['cuit'];
+				//Correo
+				$cek8 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE correo = '$correoViejo'");
+				if(mysqli_num_rows($cek8) == 0){
+					$cek7 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE correo = '$correo'");
+					if(!(mysqli_num_rows($cek7) == 0)){
+						$error[] = "Email está utilizado en otro consorcio.";
+					}
+				}
+				//Cuit
+				$cek4 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE WHERE cuit = '$cuitViejo'");
+				if(mysqli_num_rows($cek4) == 0){
+					$cek5 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE cuit = '$cuit'");
+					if(!(mysqli_num_rows($cek5) == 0)){
+						$error[] = "Cuit está utilizado en otro consorcio.";
+					}
 				}
 
                 if(sizeof($error) == 0){
@@ -69,6 +94,9 @@ if(!isset($_SESSION['admin'])){
                     }
                  }else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El CUIT del consorcio no es valido.</div>';
+					foreach($error as $er){
+						echo "</br><strong>$er</strong>";
+					  }
 				    }
                 }
 
@@ -80,41 +108,41 @@ if(!isset($_SESSION['admin'])){
             <div class="form-group">
 				<label class="col-sm-3 control-label">Nombre:</label>
 				<div class="col-sm-3">
-                     <input type="text" name="nombre" value="<?php echo $row ['nombre']; ?>" class="form-control" placeholder="Nombre" required>
+                     <input type="text" name="nombre" value="<?php echo $row ['nombre']; ?>" class="form-control" maxlength="50" placeholder="Nombre" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">CUIT:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="cuit" value="<?php echo $row ['cuit']; ?>" class="form-control" placeholder="cuit" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
+					<input type="text" name="cuit" value="<?php echo $row ['cuit']; ?>" class="form-control" maxlength="11" placeholder="cuit" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Código Postal:</label>
 				<div class="col-sm-3">
-                     <input type="text" name="codigoPostal" value="<?php echo $row ['codigoPostal']; ?>" class="form-control" placeholder="Código Postal" required>
+                     <input type="text" name="codigoPostal" value="<?php echo $row ['codigoPostal']; ?>" class="form-control" maxlength="4" placeholder="Código Postal" required>
 				</div>
 			</div>
             <div class="form-group">
 				<label class="col-sm-3 control-label">Teléfono:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="telefono" value="<?php echo $row ['telefono']; ?>" class="form-control" placeholder="Teléfono" required>
+					<input type="text" name="telefono" value="<?php echo $row ['telefono']; ?>" class="form-control" maxlength="11" placeholder="Teléfono" required>
 				</div>
 			</div>
             <div class="form-group">
 				<label class="col-sm-3 control-label">Correo Electrónico:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="correo" value="<?php echo $row ['correo']; ?>" class="form-control" placeholder="Correo Electrónico" required>
+					<input type="text" name="correo" value="<?php echo $row ['correo']; ?>" class="form-control" maxlength="50" placeholder="Correo Electrónico" required>
 				</div>
 			</div>
             <div class="form-group">
 				<label class="col-sm-3 control-label">Dirección:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="direccion" value="<?php echo $row ['direccion']; ?>" class="form-control" placeholder="Dirección" required>
+					<input type="text" name="direccion" value="<?php echo $row ['direccion']; ?>" class="form-control" maxlength="70" placeholder="Dirección" required>
 				</div>
 			</div>
 				
