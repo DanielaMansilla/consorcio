@@ -77,6 +77,8 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
 					<?php
                     if (isset($periodoLiquidacion)) {
                         ?>
+                            <!-- TODO: Mostrar balance total de la liquidación (porcentaje pagado, total pago, total que falta) -->
+
                             <label class=""><b>Gastos de la administración:</b></label>
                             <div class="table-responsive">
                             <table class="table table-striped table-hover">
@@ -205,10 +207,34 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                 echo "<script>console.log( 'Debug Objects: " . json_encode($pagoPropietario) . "' );</script>";
                                 echo '<tr>
                                 <td>'.$pagoPropietario['idOperacion'].'</td>
+                                <td><a href="#" data-toggle="modal" data-target="#modal-propietario-'.$pagoPropietario['idUsuarios'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> '.$pagoPropietario['idUsuarios'].'</a></td>
                                 <td>'.$pagoPropietario['fechaOrdenPago'].'</td>
                                 <td>'.$pagoPropietario['apellido']. ' '.$pagoPropietario['nombre'].'</td>
                                 <td>Piso: '.$pagoPropietario['piso'].' - Dpto: '.$pagoPropietario['departamento'].'</td>
                                 <td>$ '.$pagoPropietario['importeOrdenPago'].'</td>';
+
+                                echo '
+                                <!-- Modal Propietario-->
+                                <div class="modal fade" id="modal-propietario-'.$pagoPropietario['idUsuarios'].'" role="dialog">
+                                    <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h4 class="modal-title">Propietario Nro: '.$pagoPropietario['idUsuarios'].'</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><b>Apellido:</b> '.$pagoPropietario['apellido'].'</p>
+                                            <p><b>Nombre:</b> '.$pagoPropietario['nombre'].'</p>
+                                            <p><b>DNI:</b> '.$pagoPropietario['dni'].'</b>
+                                            <p><b>CUIL:</b> '.$pagoPropietario['cuil'].'</b> 
+                                            <p><b>E-mail:</b> '.$pagoPropietario['email'].'</b>
+                                            <p><b>Teléfono:</b> '.$pagoPropietario['telefono'].'</b>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>';
                             }
 
                             $queryTotalPagosPropietarios = mysqli_query($conexion,
@@ -227,6 +253,9 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                             echo "<strong>TOTAL:</strong> $ $totalPagosPropietarios";
                         }
                         echo '</table>';
+
+                        // TODO: Mostrar propietarios con deudas
+
                     }
 					?>
         </div>
