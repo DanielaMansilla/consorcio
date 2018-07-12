@@ -210,6 +210,21 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                 <td>Piso: '.$pagoPropietario['piso'].' - Dpto: '.$pagoPropietario['departamento'].'</td>
                                 <td>$ '.$pagoPropietario['importeOrdenPago'].'</td>';
                             }
+
+                            $queryTotalPagosPropietarios = mysqli_query($conexion,
+                            "SELECT SUM(ordenpago.importe) as total
+                            FROM ordenpago
+                            JOIN expensa ON ordenpago.idExpensa = expensa.idExpensa
+                            JOIN liquidacion ON expensa.idLiquidacion = liquidacion.idLiquidacion
+                            WHERE liquidacion.periodo = '$periodoLiquidacion'") or die(mysqli_error($conexion));
+                            
+                            $totalPagosPropietarios = (float) 0.0;
+                            if ($queryTotalPagosPropietarios) {
+                                $totalPagosPropietarios = number_format((float)mysqli_fetch_assoc($queryTotalPagosPropietarios)["total"], 2, '.', '') ;
+                            } else {
+                                // TODO: Mostrar error!
+                            }
+                            echo "<strong>TOTAL:</strong> $ $totalPagosPropietarios";
                         }
                         echo '</table>';
                     }
