@@ -37,9 +37,9 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                 }
             ?>
             
-            <form class="form-inline">
+            <form class="form-inline" method="GET">
                 <div class="form-group mb-2">
-                    <select name="year" class="form-control">
+                    <select name="year" class="form-control" onchange="this.form.submit()">
                         <option disabled <?php if ($year == 0) echo 'selected'; ?>>- Año -</option>
                         <!-- TODO: Obtener años disponibles de liquidaciones -->
                         <option value='2018' <?php if ($year == "2018" ) echo 'selected'; ?>>2018</option>
@@ -53,7 +53,7 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                     </select>
                 </div>
                 <div class="form-group mx-sm-3 mb-2">
-                    <select name="month" class="form-control">
+                    <select name="month" class="form-control" onchange="this.form.submit()">
                         <option disabled <?php if ($month == 0) echo 'selected'; ?>>- Mes -</option>
                         <!-- TODO: Obtener meses disponibles de liquidaciones en base al año -->
                         <option value='01' <?php if ($month == "01" ) echo 'selected'; ?>>Enero</option>
