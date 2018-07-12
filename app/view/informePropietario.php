@@ -172,6 +172,46 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                             echo "<strong>TOTAL:</strong> $ $totalGastosAdministracion";
                         }
                         echo '</table>';
+
+                        ?>
+                            <hr />
+                            <label class=""><b>Pagos de los propietarios:</b></label>
+                            <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Fecha</th>
+                                    <th>Propietario</th>
+                                    <th>Propiedad</th>
+                                    <th>Importe</th>
+                                </tr>
+                    <?php
+                        // TODO: Mostrar pagos de los propietarios
+                        $queryPagosPropietarios = mysqli_query($conexion,
+                        "SELECT *, ordenpago.fecha as fechaOrdenPago, ordenpago.importe as importeOrdenPago
+                        FROM ordenpago
+                        JOIN expensa ON ordenpago.idExpensa = expensa.idExpensa
+                        JOIN liquidacion ON expensa.idLiquidacion = liquidacion.idLiquidacion
+                        JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
+                        JOIN usuarios ON propiedad.idUsuarios = usuarios.IdUsuarios
+                        WHERE liquidacion.periodo = '$periodoLiquidacion'
+                        ORDER BY ordenpago.idOperacion ASC") or die(mysqli_error($conexion));
+
+                        $cantidadPagosPropietarios = mysqli_num_rows($queryPagosPropietarios);
+                        if ($cantidadPagosPropietarios == 0) {
+                            echo '<tr><td colspan="8">No hay pagos para listar.</td></tr>';
+                        } else {
+                            while ($pagoPropietario = mysqli_fetch_assoc($queryPagosPropietarios)) {
+                                echo "<script>console.log( 'Debug Objects: " . json_encode($pagoPropietario) . "' );</script>";
+                                echo '<tr>
+                                <td>'.$pagoPropietario['idOperacion'].'</td>
+                                <td>'.$pagoPropietario['fechaOrdenPago'].'</td>
+                                <td>'.$pagoPropietario['apellido']. ' '.$pagoPropietario['nombre'].'</td>
+                                <td>Piso: '.$pagoPropietario['piso'].' - Dpto: '.$pagoPropietario['departamento'].'</td>
+                                <td>$ '.$pagoPropietario['importeOrdenPago'].'</td>';
+                            }
+                        }
+                        echo '</table>';
                     }
 					?>
         </div>
