@@ -45,7 +45,6 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                 <div class="form-group mb-2">
                     <select name="year" class="form-control" onchange="this.form.submit()">
                         <option disabled <?php if ($year == 0) echo 'selected'; ?>>- Año -</option>
-                        <!-- TODO: Obtener años disponibles de liquidaciones -->
                         <option value='2018' <?php if ($year == "2018" ) echo 'selected'; ?>>2018</option>
                         <option value='2019' <?php if ($year == "2019" ) echo 'selected'; ?>>2019</option>
                         <option value='2020' <?php if ($year == "2020" ) echo 'selected'; ?>>2020</option>
@@ -59,7 +58,6 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                 <div class="form-group mx-sm-3 mb-2">
                     <select name="month" class="form-control" onchange="this.form.submit()">
                         <option disabled <?php if ($month == 0) echo 'selected'; ?>>- Mes -</option>
-                        <!-- TODO: Obtener meses disponibles de liquidaciones en base al año -->
                         <option value='01' <?php if ($month == "01" ) echo 'selected'; ?>>Enero</option>
                         <option value='02' <?php if ($month == "02" ) echo 'selected'; ?>>Febrero</option>
                         <option value='03' <?php if ($month == "03" ) echo 'selected'; ?>>Marzo</option>
@@ -74,16 +72,40 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                         <option value='12' <?php if ($month == "12" ) echo 'selected'; ?>>Diciembre</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary mb-2">Buscar</button>
+                <button type="submit" class="btn btn-primary mb-2">Actualizar</button>
             </form>
 
             <hr/>
 					<?php
                     if (isset($periodoLiquidacion)) {
-                        ?>
-                            <!-- TODO: Mostrar balance total de la liquidación (porcentaje pagado, total pago, total que falta) -->
-
+                        $queryLiquidacionExistente = mysqli_query($conexion,
+                        "SELECT *
+                        FROM liquidacion
+                        WHERE liquidacion.periodo = '$periodoLiquidacion'") or die(mysqli_error($conexion));
+                        
+                        // Verifico que en el periodo seleccionado exista una liquidación
+                        if (mysqli_num_rows($queryLiquidacionExistente) == 0) {
+                            echo '<div class="alert alert-warning alert-dismissable">Aviso: No existe una liquidación para el periodo seleccionado.</div>';
+                        } else {
+                            ?>
                             <label class=""><b>Gastos de la administración:</b></label>
+                            <br>
+
+                            <?php
+                                $queryTotalGastosAdministracion = mysqli_query($conexion,
+                                "SELECT SUM(gasto.importe) as total
+                                FROM liquidaciongasto
+                                JOIN liquidacion ON liquidaciongasto.idLiquidacion = liquidacion.idLiquidacion
+                                JOIN gasto ON liquidaciongasto.idGasto = gasto.idGasto
+                                WHERE liquidacion.periodo = '$periodoLiquidacion'") or die(mysqli_error($conexion));
+                                
+                                $totalGastosAdministracion = (float) 0.0;
+                                if ($queryTotalGastosAdministracion) {
+                                    $totalGastosAdministracion = number_format((float)mysqli_fetch_assoc($queryTotalGastosAdministracion)["total"], 2, '.', '');
+                                }
+                                echo "<strong>TOTAL:</strong> $ $totalGastosAdministracion";
+                            ?>
+
                             <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <tr>
@@ -157,29 +179,32 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                     <td>'.$row['nroFactura'].'</td>
                                     <td><a href="#" data-toggle="modal" data-target="#modal-proveedor-'.$row['idProveedor'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> '.$row['nombre'].'</a></td>
                                     <td>'.$row['concepto'].'</td>
-                                    <td>$ '.$row['importe'].'</td>';
+                                    <td>$ '.$row['importe'].'</td>
+                                </tr>';
                             }
-
-                            $queryTotalGastosAdministracion = mysqli_query($conexion,
-                            "SELECT SUM(gasto.importe) as total
-                            FROM liquidaciongasto
-                            JOIN liquidacion ON liquidaciongasto.idLiquidacion = liquidacion.idLiquidacion
-                            JOIN gasto ON liquidaciongasto.idGasto = gasto.idGasto
-                            WHERE liquidacion.periodo = '$periodoLiquidacion'") or die(mysqli_error($conexion));
-                            
-                            $totalGastosAdministracion = (float) 0.0;
-                            if ($queryTotalGastosAdministracion) {
-                                $totalGastosAdministracion = number_format((float)mysqli_fetch_assoc($queryTotalGastosAdministracion)["total"], 2, '.', '') ;
-                            } else {
-                                // TODO: Mostrar error!
-                            }
-                            echo "<strong>TOTAL:</strong> $ $totalGastosAdministracion";
                         }
-                        echo '</table>';// TODO: Falta </tr>???
+                        echo '</table>';
 
                         ?>
                             <hr />
                             <label class=""><b>Pagos de los propietarios:</b></label>
+                            <br>
+
+                            <?php
+                                $queryTotalPagosPropietarios = mysqli_query($conexion,
+                                "SELECT SUM(ordenpago.importe) as total
+                                FROM ordenpago
+                                JOIN expensa ON ordenpago.idExpensa = expensa.idExpensa
+                                JOIN liquidacion ON expensa.idLiquidacion = liquidacion.idLiquidacion
+                                WHERE liquidacion.periodo = '$periodoLiquidacion'") or die(mysqli_error($conexion));
+                                
+                                $totalPagosPropietarios = (float) 0.0;
+                                if ($queryTotalPagosPropietarios) {
+                                    $totalPagosPropietarios = number_format((float)mysqli_fetch_assoc($queryTotalPagosPropietarios)["total"], 2, '.', '');
+                                }
+                                echo "<strong>TOTAL:</strong> $ $totalPagosPropietarios";
+                            ?>
+
                             <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <tr>
@@ -191,7 +216,6 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                     <th>Importe</th>
                                 </tr>
                     <?php
-                        // TODO: Mostrar pagos de los propietarios
                         $queryPagosPropietarios = mysqli_query($conexion,
                         "SELECT *, ordenpago.fecha as fechaOrdenPago, ordenpago.importe as importeOrdenPago, formasdepago.descripcion as descripcionFormaPago
                         FROM ordenpago
@@ -214,7 +238,8 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                 <td><a href="#" data-toggle="modal" data-target="#modal-propietario-'.$pagoPropietario['idUsuarios'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> '.$pagoPropietario['apellido']. ' '.$pagoPropietario['nombre'].'</a></td>
                                 <td><a href="#" data-toggle="modal" data-target="#modal-propiedad-'.$pagoPropietario['idPropiedad'].'"><span class="fas fa-info-circle" aria-hidden="true"></span> Piso: '.$pagoPropietario['piso'].' - Dpto: '.$pagoPropietario['departamento'].'</a></td>
                                 <td>'.$pagoPropietario['descripcionFormaPago'].'</td>
-                                <td>$ '.$pagoPropietario['importeOrdenPago'].'</td>';
+                                <td>$ '.$pagoPropietario['importeOrdenPago'].'</td>
+                                </tr>';
 
                                 echo '
                                 <!-- Modal Propietario-->
@@ -259,31 +284,31 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                     </div>
                                     </div>
                                 </div>';
-
-                                echo '</tr>';
-                                // TODO: Falta </tr>???
                             }
-
-                            $queryTotalPagosPropietarios = mysqli_query($conexion,
-                            "SELECT SUM(ordenpago.importe) as total
-                            FROM ordenpago
-                            JOIN expensa ON ordenpago.idExpensa = expensa.idExpensa
-                            JOIN liquidacion ON expensa.idLiquidacion = liquidacion.idLiquidacion
-                            WHERE liquidacion.periodo = '$periodoLiquidacion'") or die(mysqli_error($conexion));
-                            
-                            $totalPagosPropietarios = (float) 0.0;
-                            if ($queryTotalPagosPropietarios) {
-                                $totalPagosPropietarios = number_format((float)mysqli_fetch_assoc($queryTotalPagosPropietarios)["total"], 2, '.', '') ;
-                            } else {
-                                // TODO: Mostrar error!
-                            }
-                            echo "<strong>TOTAL:</strong> $ $totalPagosPropietarios";
                         }
                         echo '</table>';
 
                     ?>
                         <hr />
                         <label class=""><b>Propietarios con Deudas:</b></label>
+
+                        <?php
+                            $queryTotalDeudasPropietarios = mysqli_query($conexion,
+                            "SELECT SUM(expensa.importe) as total
+                            FROM expensa 
+                            JOIN liquidacion ON expensa.idLiquidacion = liquidacion.idLiquidacion
+                            JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
+                            JOIN usuarios ON propiedad.idUsuarios = usuarios.IdUsuarios
+                            WHERE liquidacion.periodo = '$periodoLiquidacion'
+                            AND expensa.estado = 'Impago'") or die(mysqli_error($conexion));
+                            
+                            $totalDeudasPropietarios = (float) 0.0;
+                            if ($queryTotalDeudasPropietarios) {
+                                $totalDeudasPropietarios = number_format((float)mysqli_fetch_assoc($queryTotalDeudasPropietarios)["total"], 2, '.', '');
+                            }
+                            echo "<br><strong>TOTAL:</strong> $ $totalDeudasPropietarios";
+                        ?>
+
                         <div class="table-responsive">
                         <table class="table table-striped table-hover">
                             <tr>
@@ -308,73 +333,92 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                             echo '<tr><td colspan="8">No hay propietarios con deudas para listar.</td></tr>';
                         } else {
                             while ($propietarioDeudor = mysqli_fetch_assoc($queryPropietariosDeudores)) {
-                                echo "<script>console.log( 'Debug Objects: " . json_encode($propietarioDeudor) . "' );</script>";
                                 ?>
+                                    <tr>
+                                        <td><?php echo $propietarioDeudor['idExpensa'] ?></td>
+                                        <td>
+                                            <a href="#" data-toggle="modal" data-target="#modal-propietario-<?php echo $propietarioDeudor['idUsuarios'] ?>">
+                                                <span class="fas fa-info-circle" aria-hidden="true"></span> <?php echo $propietarioDeudor['apellido'] ?> <?php echo $propietarioDeudor['nombre'] ?>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="#" data-toggle="modal" data-target="#modal-propiedad-<?php echo $propietarioDeudor['idPropiedad']?>">
+                                                <span class="fas fa-info-circle" aria-hidden="true"></span> Piso: <?php echo $propietarioDeudor['piso'] ?> - Dpto: <?php echo $propietarioDeudor['departamento'] ?>
+                                            </a>
+                                        </td>
+                                        <td><?php echo $propietarioDeudor['vencimiento'] ?></td>
+                                        <td>$ <?php echo $propietarioDeudor['importeExpensa'] ?></td>
+                                    </tr>
 
-                                <tr>
-                                    <td><?php echo $propietarioDeudor['idExpensa'] ?></td>
-                                    <td>
-                                        <a href="#" data-toggle="modal" data-target="#modal-propietario-<?php echo $propietarioDeudor['idUsuarios'] ?>">
-                                            <span class="fas fa-info-circle" aria-hidden="true"></span> <?php echo $propietarioDeudor['apellido'] ?> <?php echo $propietarioDeudor['nombre'] ?>
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <a href="#" data-toggle="modal" data-target="#modal-propiedad-<?php echo $propietarioDeudor['idPropiedad']?>">
-                                            <span class="fas fa-info-circle" aria-hidden="true"></span> Piso: <?php echo $propietarioDeudor['piso'] ?> - Dpto: <?php echo $propietarioDeudor['departamento'] ?>
-                                        </a>
-                                    </td>
-                                    <td><?php echo $propietarioDeudor['vencimiento'] ?></td>
-                                    <td>$ <?php echo $propietarioDeudor['importeExpensa'] ?></td>
-                                </tr>
-
-                                <!-- Modal Propietario-->
-                                <div class="modal fade" id="modal-propietario-<?php echo $propietarioDeudor['idUsuarios'] ?>" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Propietario Nro: <?php echo $propietarioDeudor['idUsuarios'] ?></h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p><b>Apellido:</b> <?php echo $propietarioDeudor['apellido'] ?></p>
-                                                <p><b>Nombre:</b> <?php echo $propietarioDeudor['nombre'] ?></p>
-                                                <p><b>DNI:</b> <?php echo $propietarioDeudor['dni'] ?></b></p>
-                                                <p><b>CUIL:</b> <?php echo $propietarioDeudor['cuil'] ?></b></p>
-                                                <p><b>E-mail:</b> <?php echo $propietarioDeudor['email'] ?></b></p>
-                                                <p><b>Teléfono:</b> <?php echo $propietarioDeudor['telefono'] ?></b></p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                    <!-- Modal Propietario-->
+                                    <div class="modal fade" id="modal-propietario-<?php echo $propietarioDeudor['idUsuarios'] ?>" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Propietario Nro: <?php echo $propietarioDeudor['idUsuarios'] ?></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p><b>Apellido:</b> <?php echo $propietarioDeudor['apellido'] ?></p>
+                                                    <p><b>Nombre:</b> <?php echo $propietarioDeudor['nombre'] ?></p>
+                                                    <p><b>DNI:</b> <?php echo $propietarioDeudor['dni'] ?></b></p>
+                                                    <p><b>CUIL:</b> <?php echo $propietarioDeudor['cuil'] ?></b></p>
+                                                    <p><b>E-mail:</b> <?php echo $propietarioDeudor['email'] ?></b></p>
+                                                    <p><b>Teléfono:</b> <?php echo $propietarioDeudor['telefono'] ?></b></p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <!-- Modal Propiedad-->
-                                <div class="modal fade" id="modal-propiedad-<?php echo $propietarioDeudor['idPropiedad'] ?>" role="dialog">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Propiedad Nro: <?php echo $propietarioDeudor['idPropiedad'] ?></h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <p><b>Piso:</b> <?php echo $propietarioDeudor['piso'] ?></b></p>
-                                                <p><b>Departamento:</b> <?php echo $propietarioDeudor['departamento'] ?></b></p>
-                                                <p><b>Lote Unidad Funcional:</b> <?php echo $propietarioDeudor['unidadFuncionalLote'] ?></p>
-                                                <p><b>Porcentaje Participación:</b> <?php echo $propietarioDeudor['porcentajeParticipacion'] ?> %</p>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                    <!-- Modal Propiedad-->
+                                    <div class="modal fade" id="modal-propiedad-<?php echo $propietarioDeudor['idPropiedad'] ?>" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Propiedad Nro: <?php echo $propietarioDeudor['idPropiedad'] ?></h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p><b>Piso:</b> <?php echo $propietarioDeudor['piso'] ?></b></p>
+                                                    <p><b>Departamento:</b> <?php echo $propietarioDeudor['departamento'] ?></b></p>
+                                                    <p><b>Lote Unidad Funcional:</b> <?php echo $propietarioDeudor['unidadFuncionalLote'] ?></p>
+                                                    <p><b>Porcentaje Participación:</b> <?php echo $propietarioDeudor['porcentajeParticipacion'] ?> %</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                
                                 <?php
                             }
                         }
                         ?>
                             </table>
+
+                            <?php
+                                if (isset($totalPagosPropietarios) && isset($totalGastosAdministracion) && isset($totalDeudasPropietarios)) {
+                                    ?>
+                                        <hr />
+                                        <h2 class="text-center"><b>Resumen:</b></h2>
+                                        <br>
+                                        <div class="card text-center bg-light mb-3 mx-auto" style="max-width: 18rem;">
+                                            <div class="card-header"><strong>Liquidación</strong></div>
+                                            <div class="card-body">
+                                                <p style="color: green;">Ganancia: + $ <?php echo $totalPagosPropietarios ?></p>
+                                                <p style="color: red;">Perdida: - $ <?php echo number_format((float)($totalGastosAdministracion + $totalDeudasPropietarios), 2, '.', '') ?></p>
+                                                <p><strong>Neto: $ <?php echo number_format((float)($totalPagosPropietarios - ($totalGastosAdministracion + $totalDeudasPropietarios)), 2, '.', '') ?></strong></p>
+                                            </div>
+                                        </div>
+                                    <?php
+                                }
+                            ?>
+
                         <?php
+                        }
+                    } else {
+                        echo '<div class="alert alert-info alert-dismissable">Seleccione un <b>Año</b> y un <b>Mes</b> para visualizar un informe mensual.</div>';
                     }
 					?>
         </div>
