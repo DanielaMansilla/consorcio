@@ -30,9 +30,13 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
             <?php
                 // Valores por defecto 
                 $year = $month = 0;
-                if (isset($_GET["year"]) && isset($_GET["month"])) {
+                if (isset($_GET["year"])) {
                     $year = mysqli_real_escape_string($conexion, (strip_tags($_GET["year"], ENT_QUOTES)));
+                }
+                if (isset($_GET["month"])) {
                     $month = mysqli_real_escape_string($conexion, (strip_tags($_GET["month"], ENT_QUOTES)));
+                }
+                if ($year != 0 && $month != 0) {
                     $periodoLiquidacion = "$year-$month-01";
                 }
             ?>
