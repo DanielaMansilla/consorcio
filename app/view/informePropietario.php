@@ -281,8 +281,6 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                         }
                         echo '</table>';
 
-                        // TODO: Mostrar propietarios con deudas
-
                     ?>
                         <hr />
                         <label class=""><b>Propietarios con Deudas:</b></label>
@@ -296,12 +294,12 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                                 <th>Importe</th>
                             </tr>
                     <?php
-                        // TODO: Revisar query!
                         $queryPropietariosDeudores = mysqli_query($conexion,
-                        "SELECT *
-                        FROM expensa
-                        JOIN ordenpago ON expensa.idExpensa = ordenpago.idExpensa
+                        "SELECT *, expensa.importe as importeExpensa
+                        FROM expensa 
                         JOIN liquidacion ON expensa.idLiquidacion = liquidacion.idLiquidacion
+                        JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
+                        JOIN usuarios ON propiedad.idUsuarios = usuarios.IdUsuarios
                         WHERE liquidacion.periodo = '$periodoLiquidacion'
                         AND expensa.estado = 'Impago'") or die(mysqli_error($conexion));
 
@@ -310,12 +308,73 @@ liquidación debe constar si algún propietario en particular posee deuda y a cu
                             echo '<tr><td colspan="8">No hay propietarios con deudas para listar.</td></tr>';
                         } else {
                             while ($propietarioDeudor = mysqli_fetch_assoc($queryPropietariosDeudores)) {
-                                // TODO: Completar tabla
                                 echo "<script>console.log( 'Debug Objects: " . json_encode($propietarioDeudor) . "' );</script>";
+                                ?>
+
+                                <tr>
+                                    <td><?php echo $propietarioDeudor['idExpensa'] ?></td>
+                                    <td>
+                                        <a href="#" data-toggle="modal" data-target="#modal-propietario-<?php echo $propietarioDeudor['idUsuarios'] ?>">
+                                            <span class="fas fa-info-circle" aria-hidden="true"></span> <?php echo $propietarioDeudor['apellido'] ?> <?php echo $propietarioDeudor['nombre'] ?>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="#" data-toggle="modal" data-target="#modal-propiedad-<?php echo $propietarioDeudor['idPropiedad']?>">
+                                            <span class="fas fa-info-circle" aria-hidden="true"></span> Piso: <?php echo $propietarioDeudor['piso'] ?> - Dpto: <?php echo $propietarioDeudor['departamento'] ?>
+                                        </a>
+                                    </td>
+                                    <td><?php echo $propietarioDeudor['vencimiento'] ?></td>
+                                    <td>$ <?php echo $propietarioDeudor['importeExpensa'] ?></td>
+                                </tr>
+
+                                <!-- Modal Propietario-->
+                                <div class="modal fade" id="modal-propietario-<?php echo $propietarioDeudor['idUsuarios'] ?>" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Propietario Nro: <?php echo $propietarioDeudor['idUsuarios'] ?></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><b>Apellido:</b> <?php echo $propietarioDeudor['apellido'] ?></p>
+                                                <p><b>Nombre:</b> <?php echo $propietarioDeudor['nombre'] ?></p>
+                                                <p><b>DNI:</b> <?php echo $propietarioDeudor['dni'] ?></b></p>
+                                                <p><b>CUIL:</b> <?php echo $propietarioDeudor['cuil'] ?></b></p>
+                                                <p><b>E-mail:</b> <?php echo $propietarioDeudor['email'] ?></b></p>
+                                                <p><b>Teléfono:</b> <?php echo $propietarioDeudor['telefono'] ?></b></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal Propiedad-->
+                                <div class="modal fade" id="modal-propiedad-<?php echo $propietarioDeudor['idPropiedad'] ?>" role="dialog">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Propiedad Nro: <?php echo $propietarioDeudor['idPropiedad'] ?></h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p><b>Piso:</b> <?php echo $propietarioDeudor['piso'] ?></b></p>
+                                                <p><b>Departamento:</b> <?php echo $propietarioDeudor['departamento'] ?></b></p>
+                                                <p><b>Lote Unidad Funcional:</b> <?php echo $propietarioDeudor['unidadFuncionalLote'] ?></p>
+                                                <p><b>Porcentaje Participación:</b> <?php echo $propietarioDeudor['porcentajeParticipacion'] ?> %</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-info" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <?php
                             }
                         }
-                        
-                        echo '</table>';
+                        ?>
+                            </table>
+                        <?php
                     }
 					?>
         </div>
