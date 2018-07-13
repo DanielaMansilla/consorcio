@@ -2,15 +2,15 @@
 
 # Info
 
---phpmyadmin  http://localhost:8080/phpmyadmin/
+-- phpmyadmin  http://localhost:8080/phpmyadmin/
 
---Apache control xampp 
+-- Apache control xampp 
 
---Base de datos llamada 'nombre de la base' ya creada.
+-- Base de datos llamada 'nombre de la base' ya creada.
 
---Editor de texto cualquiera.
+-- Editor de texto cualquiera.
 
---Herramientas de gestión de proyectos: Trello https://trello.com/b/g63JsRvS/consorcio
+-- Herramientas de gestión de proyectos: Trello https://trello.com/b/g63JsRvS/consorcio
 
 Tecnicatura en Desarrollo Web - Universidad Nacional de La Matanza (2018)
 
@@ -29,7 +29,6 @@ Profesores:
  * Jonatan Uran
 
 # Descripción general del sistema:
------------------------------------------------
 
 Se nos solicita realizar una aplicación para la Administración de Consorcios.
 
@@ -59,7 +58,6 @@ Respecto al código, como el mismo, por contrato, le pertenece, desea que el des
 versionado GIT, donde pueda ver el avance del mismo, y participar en él con nosotros.
 
 # Detalles de la aplicación:
------------------------------
 
 Debe contar con los siguientes módulos, debe contemplar por cada uno de ellos un ABM:
 
@@ -108,21 +106,40 @@ asciende.
 Estadísticas: deberá informar por cada consorcio, cantidad de unidades, cobranzas realizadas / faltantes, reclamos abiertos/cerrados.
 
 # Detalles técnicos:
---------------------
-° Se utilizará una base de datos MySql para almacenar los datos.
 
-° El sistema deberá estar implementado con Lenguaje de programación PHP desde el lado del Servidor.
+* Se utilizará una base de datos MySql para almacenar los datos.
 
-° La interfaz deberá ser construida mediante un framework css a elegir entre Bootstrap, W3CSS o Materialize.
+* El sistema deberá estar implementado con Lenguaje de programación PHP desde el lado del Servidor.
 
-°  Se deberá Almacenar el versionado del producto en un repositorio GIT.
+* La interfaz deberá ser construida mediante un framework css a elegir entre Bootstrap, W3CSS o Materialize.
 
-°  Las claves de usuario deben almacenarse con encriptación SHA1 como mínimo en la base de datos.
+*  Se deberá Almacenar el versionado del producto en un repositorio GIT.
 
-° El sistema calculara el digito verificador de los CUIL/CUIT ingresados de manera de evitar errores.
+*  Las claves de usuario deben almacenarse con encriptación SHA1 como mínimo en la base de datos.
+
+* El sistema calculara el digito verificador de los CUIL/CUIT ingresados de manera de evitar errores.
+
+
+# Usuarios a utilizar en la aplicación:
+
+## Admin
+- e-mail: admin@hotmail.com
+- contraseña: 123456
+
+
+## Operador
+- e-mail: operador@hotmail.com
+- contraseña: 123456
+
+## Propietario 1
+- e-mail: propietario@hotmail.com
+- contraseña: 123456
+
+## Propietario 2
+- e-mail: propietario2@hotmail.com
+- contraseña: 123456
 
 # MercadoPago:
---------------
 
 Iniciar sesión con el siguiente usuario de prueba en MercadoPago.
 Luego, al momento de hacer un pago, ingresar alguna de las tarjetas de crédito de prueba que se encuentran más abajo.
