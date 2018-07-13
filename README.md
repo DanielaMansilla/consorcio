@@ -2,26 +2,26 @@
 
 # Info
 
--- phpmyadmin  http://localhost:8080/phpmyadmin/
+- phpmyadmin  http://localhost:8080/phpmyadmin/
 
--- Apache control xampp 
+- Apache control xampp 
 
--- Base de datos llamada 'nombre de la base' ya creada.
+- Base de datos llamada 'nombre de la base' ya creada.
 
--- Editor de texto cualquiera.
+- Editor de texto cualquiera.
 
--- Herramientas de gestión de proyectos: Trello https://trello.com/b/g63JsRvS/consorcio
+- Herramientas de gestión de proyectos: Trello https://trello.com/b/g63JsRvS/consorcio
 
-Tecnicatura en Desarrollo Web - Universidad Nacional de La Matanza (2018)
+# Tecnicatura en Desarrollo Web - Universidad Nacional de La Matanza (2018)
 
-Grupo de Trabajo:
+## Grupo de Trabajo:
   * Erika Rodriguez (https://github.com/erikaevelyn)
 
   * Federico Bevacqua (https://github.com/FedericoBevacqua)
 
   * Angela Mansilla (https://github.com/DanielaMansilla)
 
-Profesores:
+## Profesores:
  * Rusticcini Alejandro
 
  * Daranno Facundo
@@ -123,21 +123,21 @@ Estadísticas: deberá informar por cada consorcio, cantidad de unidades, cobran
 # Usuarios a utilizar en la aplicación:
 
 ## Admin
-- e-mail: admin@hotmail.com
-- contraseña: 123456
+- E-mail: admin@hotmail.com
+- Contraseña: 123456
 
 
 ## Operador
-- e-mail: operador@hotmail.com
-- contraseña: 123456
+- E-mail: operador@hotmail.com
+- Contraseña: 123456
 
 ## Propietario 1
-- e-mail: propietario@hotmail.com
-- contraseña: 123456
+- E-mail: propietario@hotmail.com
+- Contraseña: 123456
 
 ## Propietario 2
-- e-mail: propietario2@hotmail.com
-- contraseña: 123456
+- E-mail: propietario2@hotmail.com
+- Contraseña: 123456
 
 # MercadoPago:
 
