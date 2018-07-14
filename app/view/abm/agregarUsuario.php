@@ -92,7 +92,7 @@ if(!isset($_SESSION['admin'])){
 						}
 					 
 				}else{
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El DNI ya exite!</div>';
+					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El DNI ya existe!</div>';
 				}
 			}else{
                 echo "Ocurrio un error en los siguientes campos: ";
