@@ -32,7 +32,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 					<th>Mes</th>
 					<th>Dia</th>
 					<th>Fecha Completa</th>
-					<th>Informe Mensual</th>
+					<th style="text-align:center;">Informe Mensual</th>
                   
 				</tr>
 				<?php
@@ -55,7 +55,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 							<td>'.date("l", strtotime($row['periodo'])).'</td>
 							<td>'.$row['fecha'].'</td>
 							<td>
-							 	<a href="informeMensual.php?year='.date("Y",strtotime($row['fecha'])).'&month='.date("m",strtotime($row['fecha'])).'" title="Ver Liquidación" class="btn btn-primary btn-sm"><span class="fas fa-list-ul" aria-hidden="true"></span></a>
+							 	<a href="informeMensual.php?year='.date("Y",strtotime($row['fecha'])).'&month='.date("m",strtotime($row['fecha'])).'" title="Ver Liquidación" class="btn btn-primary btn-sm btn-block"><span class="fas fa-list-ul" aria-hidden="true"></span></a>
 							</td>
 							 ';
 					}

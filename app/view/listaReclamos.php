@@ -44,7 +44,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 					<th>Propiedad</th>
                     <th>Descripción</th>
                     <th>Estado</th>
-                    <th>Acciones</th>
+                    <th style="text-align:center;">Acciones</th>
 				</tr>
 				<?php
 
@@ -126,7 +126,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 							echo '<td>';
 							 if (isset($_SESSION['admin']) || isset($_SESSION['operador'])) {
 								if ($row['estado'] == 'Activo') {
-							 		echo '<a href="abm/editarReclamo.php?nik='.$row['idReclamo'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>';
+							 		echo '<a href="abm/editarReclamo.php?nik='.$row['idReclamo'].'" title="Editar datos" class="btn btn-primary btn-sm btn-block"><span class="fas fa-edit" aria-hidden="true"></span></a>';
 								}
 							 }
 							echo '</td>
