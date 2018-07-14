@@ -145,12 +145,20 @@ $mp->sandbox_mode(TRUE);
 			}
 			?>
 
+		<?php
+			if (isset($expensa)) {
+				if ($expensa["estado"] == "Pago") {
+					echo '<div class="alert alert-warning alert-dismissable">Aviso: Esta expensa ya ha sido pagada.</div>';
+				}
+		?>
 			<form class="form-horizontal" action="" method="post">
 				<div class="form-group">
 						<label class="col-sm-3 control-label"><b>Propiedad:</b></label>
 						<div class="col-sm-4">
 							<label class="col control-label">Piso: <?php echo $expensa['piso']; ?></label>
 							<label class="col control-label">Departamento: <?php echo $expensa['departamento']; ?></label>
+							<label class="col control-label">Porcentaje de Participación: <?php echo $expensa['porcentajeParticipacion']; ?></label>
+							<label class="col control-label">Lote Unidad Funcional: <?php echo $expensa['unidadFuncionalLote']; ?></label>
 						</div>
 				</div>
 
@@ -178,7 +186,7 @@ $mp->sandbox_mode(TRUE);
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Estado</label>
 					<div class="col-sm-4">
-						<input type="text" name="estadoExpensa" readonly="readonly" value="<?php echo $expensa['estado']; ?>" class="form-control" >
+						<input type="text" name="estadoExpensa" readonly="readonly" style="color: <?php echo ($expensa['estado']) == "Impago" ? "red" : "green" ?>" value="<?php echo $expensa['estado']; ?>" class="form-control" >
 					</div>
 				</div>
 				</div>
@@ -228,48 +236,52 @@ $mp->sandbox_mode(TRUE);
 		}
 	}
 	</script>
-
-				<div class="form-group">
-					<div class="col-sm-6">
-						<a href="../listaExpensas.php" class="btn btn-sm btn-danger">Cancelar</a>
-						<?php 
-							if ($expensa["estado"] != 'Pago') {
-								echo '<input type="submit" style="visibility: collapse;" name="pagar" id="botonPagar" class="btn btn-sm btn-primary" value="Pagar">';
-							}
-						?>
-						<a href="<?php echo $preference["response"]["init_point"]; ?>" style="visibility: collapse;" mp-mode="modal" name="MP-Checkout" id="botonMercadoPago" class="btn btn-sm btn-primary">Pagar</a>
+		<?php
+			if ($expensa["estado"] != 'Pago') {
+				?>
+					<div class="form-group">
+						<div class="col-sm-6">
+							<a href="../listaExpensas.php" class="btn btn-sm btn-danger">Cancelar</a>
+							<?php 
+								if ($expensa["estado"] != 'Pago') {
+									echo '<input type="submit" style="visibility: collapse;" name="pagar" id="botonPagar" class="btn btn-sm btn-primary" value="Pagar">';
+								}
+							?>
+							<a href="<?php echo $preference["response"]["init_point"]; ?>" style="visibility: collapse;" mp-mode="modal" name="MP-Checkout" id="botonMercadoPago" class="btn btn-sm btn-primary">Pagar</a>
+						</div>
 					</div>
-				</div>
-				<!-- Pagar con Código QR -->
-				<div class="form-group">
-					<div class="col-sm-6">
-						<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#pagarCodigoQr">Pagar con Código QR</button>
+					<!-- Pagar con Código QR -->
+					<div class="form-group">
+						<div class="col-sm-6">
+							<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#pagarCodigoQr">Pagar con Código QR</button>
+						</div>
 					</div>
-				</div>
-			</form>
-		</div>
-
-		<!-- Modal Pago con Código QR -->
-		<div class="modal fade" id="pagarCodigoQr" tabindex="-1" role="dialog" aria-labelledby="pagarCodigoQr" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">MercadoPago - Pagar con Código QR</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				<span aria-hidden="true">&times;</span>
-				</button>
+				</form>
 			</div>
-			<div class="modal-body">
-				<!-- <h3 class="text-center">Escaneá y pagá desde tu celular</h3> -->
-				<div class="text-center">
-					<!-- <img class="img-thumbnail" src="https://chart.googleapis.com/chart?chs=350x350&amp;cht=qr&amp;chl=00020101021143630016com.mercadolibre0139https%3A%2F%2Fmpago.la%2Fs%2Fqr%2F334686026%2Fdefault50150011200111111155204970053030325802AR5910XXXXX%20XXXX6004CABA63043B2E&amp;choe=UTF-8" alt="QR de Pago"> -->
-					<img class="img-thumbnail" src="/consorcio/public/img/mercado-pago-qr.png" alt="QR de Pago">
-				</div>
-			</div>
-			</div>
-		</div>
-		</div>
-		
+					<!-- Modal Pago con Código QR -->
+					<div class="modal fade" id="pagarCodigoQr" tabindex="-1" role="dialog" aria-labelledby="pagarCodigoQr" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">MercadoPago - Pagar con Código QR</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<!-- <h3 class="text-center">Escaneá y pagá desde tu celular</h3> -->
+							<div class="text-center">
+								<!-- <img class="img-thumbnail" src="https://chart.googleapis.com/chart?chs=350x350&amp;cht=qr&amp;chl=00020101021143630016com.mercadolibre0139https%3A%2F%2Fmpago.la%2Fs%2Fqr%2F334686026%2Fdefault50150011200111111155204970053030325802AR5910XXXXX%20XXXX6004CABA63043B2E&amp;choe=UTF-8" alt="QR de Pago"> -->
+								<img class="img-thumbnail" src="/consorcio/public/img/mercado-pago-qr.png" alt="QR de Pago">
+							</div>
+						</div>
+						</div>
+					</div>
+					</div>
+				<?php
+			}
+		}
+		?>
 	</div>
 
   	<div class="corte"></div>
