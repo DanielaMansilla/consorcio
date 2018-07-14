@@ -57,7 +57,7 @@ if(!isset($_SESSION['admin'])){
                         }
                         
 				}else{
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. código de Unidad Funcional exite!</div>';
+					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. código de Unidad Funcional existe!</div>';
 				}
 			}else{
                 echo "Ocurrio un error en los siguientes campos: ";
