@@ -51,7 +51,7 @@ if(!isset($_SESSION['admin'])){
                 
 
                 if(mysqli_num_rows($sql) == 0 || mysqli_num_rows($sql2) == 0 || mysqli_num_rows($sql3) == 0 || mysqli_num_rows($sql4) == 0 || mysqli_num_rows($sql5) == 0){
-					echo '<tr><td colspan="8">No hay consorcios para mostar.</td></tr>';
+					echo '<tr><td colspan="8">No hay consorcios para mostrar.</td></tr>';
 				}else{
 					while(($row = mysqli_fetch_assoc($sql) )&& ($row2 = mysqli_fetch_assoc($sql2)) && ($row3 = mysqli_fetch_assoc($sql3)) && ($row4 = mysqli_fetch_assoc($sql4)) && ($row5 = mysqli_fetch_assoc($sql5))){
                         echo '

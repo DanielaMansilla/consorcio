@@ -33,13 +33,13 @@ if(!isset($_SESSION['admin'])){
                 $error = array();
 				//Validaciones
 				if(!(ctype_digit($cuit) && strlen($cuit) == 11)){
-					$error[] = "Cuit debe tener 11 digitos sin guiones.";
+					$error[] = "CUIT debe tener 11 dígitos sin guiones.";
 				  }
 				if(!(ctype_digit($codigoPostal) && strlen($codigoPostal) == 4)){
-					$error[] = "Codigo Postal debe tener 4 digitos.";
+					$error[] = "Código Postal debe tener 4 dígitos.";
 				}
 				if(!(ctype_digit($telefono) && strlen($telefono) >= 8 && strlen($telefono) <= 11)){
-					$error[] = "Telefono debe tener entre 8 y 11 digitos.";
+					$error[] = "Teléfono debe tener entre 8 y 11 dígitos.";
 				}
 				if(!(strlen($direccion) <= 70)){
 					$error[] = "Dirección debe tener maximo 70 caracteres.";
@@ -48,20 +48,20 @@ if(!isset($_SESSION['admin'])){
                 $proveedor = new Proveedor();
 				$cuitValido = $proveedor::validarCuit($cuit);
 				if(!$cuitValido){
-					$error[] = "Cuit invalido.";
+					$error[] = "CUIT inválido.";
 				}
 				//Realiza el Insert solo si no existe otro consorcio con el mismo CUIT 
 				$cek4 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE cuit = '$cuit'");
 				if(!(mysqli_num_rows($cek4) == 0)){
-					$error[] = "Cuit está utilizado en otro consorcio.";
+					$error[] = "CUIT está utilizado en otro consorcio.";
 				}
 				
 				if(!(filter_var($correo, FILTER_VALIDATE_EMAIL))){
-					$error[] = "Email incorrecto";
+					$error[] = "E-mail incorrecto";
 				}
 				$cek5 = mysqli_query($conexion, "SELECT * FROM consorcio WHERE correo = '$correo'");
                 if(!(mysqli_num_rows($cek5) == 0)){
-                    $error[] = "Email está utilizado en otro consorcio.";
+                    $error[] = "El E-mail está utilizado en otro consorcio.";
 				}
 
 
@@ -72,11 +72,11 @@ if(!isset($_SESSION['admin'])){
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';
 						}else{
-							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
+							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se pudieron guardar los datos!</div>';
                         }
                         
             }else{
-				echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
+				echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se pudieron guardar los datos!</div>';
 				foreach($error as $er){
                     echo "</br><strong>$er</strong>";
                   }
