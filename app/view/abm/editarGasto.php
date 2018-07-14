@@ -50,9 +50,12 @@ if(!isset($_SESSION['admin'])){
 			} ?>
             
 		<form class="form-horizontal" action="" method="post">      
-        <div class="form-group">
+        		<div class="form-group">
 					<label class="col-sm-3 control-label">Importe</label>
-					<div class="col-sm-3">
+					<div class="input-group col-sm-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">$</span>
+					</div>
 						<!-- TODO: Modificar tipo de dato en importe de gastos, para que sea un float -->
 						<!-- <input type="number" name="importe" step="0.01" class="form-control" placeholder="Importe" required> -->
 						<input type="number" value="<?php echo $row ['importe']; ?>" name="importe" min="0.00" max="9999999999.99" step="0.01" class="form-control" placeholder="Ingrese el importe..." required>

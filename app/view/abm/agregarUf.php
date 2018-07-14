@@ -72,6 +72,7 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Porcentaje</label>
 					<div class="col-sm-4">
+					<!-- TODO: Agregar validación de porcentaje -->
 						<input type="text" name="porcentajeParticipacion" class="form-control" placeholder="Porcentaje" required>
 					</div>
 				</div>
