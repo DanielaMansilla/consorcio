@@ -32,7 +32,7 @@ if(!isset($_SESSION['admin'])){
 				
                 $error = array();
 				//Validaciones
-				if(!(strlen($cuit) == 11)){
+				if(!(ctype_digit($cuit) && strlen($cuit) == 11)){
 					$error[] = "Cuit debe tener 11 digitos sin guiones.";
 				  }
 				if(!(ctype_digit($codigoPostal) && strlen($codigoPostal) == 4)){

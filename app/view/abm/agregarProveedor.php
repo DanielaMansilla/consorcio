@@ -25,7 +25,13 @@ if(!isset($_SESSION['admin'])){
 			if(isset($_POST['add'])){
                 $cuit		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["cuit"],ENT_QUOTES)));//Escanpando caracteres 
                 $nombre		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
-				
+		
+				$error = array();
+				//Validaciones
+				if(!(ctype_digit($cuit) && strlen($cuit) == 11)){
+					$error[] = "Cuit debe tener 11 digitos sin guiones.";
+				  }
+				if(sizeof($error) == 0){
                 //Realiza el Insert solo si no existe otro proveedor con el mismo CUIT
 				$cek = mysqli_query($conexion, "SELECT * FROM proveedor WHERE cuit='$cuit'");
 				if(mysqli_num_rows($cek) == 0){
@@ -45,6 +51,12 @@ if(!isset($_SESSION['admin'])){
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El CUIT del proveedor ya exite!</div>';
 				}
+			}else{
+				echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
+				foreach($error as $er){
+                    echo "</br><strong>$er</strong>";
+				  }
+				}
 			}
 			?>
 
@@ -52,13 +64,13 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Cuit</label>
 					<div class="col-sm-4">
-						<input type="text" name="cuit" class="form-control" placeholder="CUIT" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
+						<input type="text" name="cuit" class="form-control" maxlength="11" placeholder="CUIT" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre</label>
 					<div class="col-sm-4">
-						<input type="text" name="nombre" class="form-control" placeholder="Nombre" required>
+						<input type="text" name="nombre" class="form-control" maxlength="50" placeholder="Nombre" required>
 					</div>
 				</div>
 

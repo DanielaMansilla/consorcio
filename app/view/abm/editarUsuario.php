@@ -49,7 +49,7 @@ if(!isset($_SESSION['admin'])){
 				if(!(ctype_alpha($apellido) && strlen($apellido) >= 3 && strlen($apellido) <= 20)){
 					$error[] = "Apellido debe tener al menos 3 caracteres, solo alfabeticos";
 				  }
-				if(!(strlen($cuil) == 11)){
+				if(!(ctype_digit($cuil) && strlen($cuil) == 11)){
 					$error[] = "Cuil debe tener 11 digitos sin guiones.";
 				  }
                 $usuario = new Usuario();
@@ -62,7 +62,7 @@ if(!isset($_SESSION['admin'])){
                         $error[] = "Cuil ya utilizado en otro usuario.";
                     }
                 
-				if(!(strlen($dni) == 8)){
+				if(!(ctype_digit($dni) && strlen($dni) == 8)){
 					$error[] = "Dni debe tener 8 digitos sin guiones.";
 				  }
 				$cek4 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE dni='$dni' and idUsuarios<>'$nik'");

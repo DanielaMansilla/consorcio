@@ -36,7 +36,12 @@ if(!isset($_SESSION['admin'])){
 				$cuit          = mysqli_real_escape_string($conexion,(strip_tags($_POST["cuit"],ENT_QUOTES)));//Escanpando caracteres 
 				$nombre			 = mysqli_real_escape_string($conexion,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
                
-                
+                $error = array();
+				//Validaciones
+				if(!(ctype_digit($cuit) && strlen($cuit) == 11)){
+					$error[] = "Cuit debe tener 11 digitos sin guiones.";
+				  }
+				if(sizeof($error) == 0){
             $proveedor = new Proveedor();
             $cuitValido = $proveedor::validarCuit($cuit);
             if($cuitValido){
@@ -54,7 +59,13 @@ if(!isset($_SESSION['admin'])){
 				    }
               }else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. El CUIT del proveedor no es valido.</div>';
-				    }
+					}
+				}else{
+					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. No se pudo guardar los datos !</div>';
+					foreach($error as $er){
+						echo "</br><strong>$er</strong>";
+					  }
+					}
 			}
 			
 			if(isset($_GET['pesan']) == 'sukses'){
