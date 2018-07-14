@@ -32,8 +32,16 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 require_once "../../lib/mercadopago.php";
 
 // Configuración de MercadoPago
+try {
+	$isMercadoPagoEnabled = true;
 $mp = new MP("426543208337217", "QvFA81UyiPK8pKl727ikvN43lraFFbmC");
 $mp->sandbox_mode(TRUE);
+	// throw new MercadoPagoException("Error");
+} catch (MercadoPagoException $e) {
+	$isMercadoPagoEnabled = false;
+	print_r($e->getMessage());
+	echo "<script>console.log( 'Debug Objects: " . json_encode($e->getMessage()) . "' );</script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +61,9 @@ $mp->sandbox_mode(TRUE);
 			<hr />
 			
 			<?php
-
+			if (!$isMercadoPagoEnabled) {
+				echo '<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Atención: Estamos teniendo problemas con los servicios de MercadoPago.<br><b>No estará disponible el pago a través de MercadoPago.</b></div>';
+			}
 			// TODO: Mejorar control de errores
 			if (!isset($_GET["id"]) || empty($_GET["id"]) ) {
 				echo '<div class="alert alert-danger alert-dismissable">Error: La expensa indicada no existe o no tiene acceso a ella.</div>';
@@ -81,31 +91,38 @@ $mp->sandbox_mode(TRUE);
 					echo '<div class="alert alert-danger alert-dismissable">Error: La expensa indicada no existe o no tiene acceso a ella.</div>';
 				} else {
 					$expensa = mysqli_fetch_assoc($sql);
+					if ($isMercadoPagoEnabled) {
+						// Configuracion para MercadoPago
+						$preference_data = array(
+							"items" => array(
+								array(
+									"id" => $idExpensa,
+									"title" => "Pago de Expensa",
+									"description" => "",
+									"category_id" => "services",
+									"currency_id" => "ARS",
+									"quantity" => 1,
+									"unit_price" => (float) $expensa["importe"]
+								)
+								),
+								"back_urls" => array(
+									// Si el pago fue exitoso:
+									"success" => "http://localhost/consorcio/app/view/abm/procesarPago.php",
+									// Si el pago falló:
+									"failure" => "http://localhost/consorcio/app/view/procesarPago.php",
+									// Si el pago esta pendiente:
+									"pending" => "http://localhost/consorcio/app/view/procesarPago.php"
+								),
+								"external_reference" => $idExpensa
+						);
 
-					// Configuracion para MercadoPago
-					$preference_data = array(
-						"items" => array(
-							array(
-								"id" => $idExpensa,
-								"title" => "Pago de Expensa",
-								"description" => "",
-								"category_id" => "services",
-								"currency_id" => "ARS",
-								"quantity" => 1,
-								"unit_price" => (float) $expensa["importe"]
-							)
-							),
-							"back_urls" => array(
-								// Si el pago fue exitoso:
-								"success" => "http://localhost/consorcio/app/view/abm/procesarPago.php",
-								// Si el pago falló:
-								"failure" => "http://localhost/consorcio/app/view/procesarPago.php",
-								// Si el pago esta pendiente:
-								"pending" => "http://localhost/consorcio/app/view/procesarPago.php"
-							),
-							"external_reference" => $idExpensa
-					);
-					$preference = $mp->create_preference($preference_data);
+						try {
+							$preference = $mp->create_preference($preference_data);
+						} catch (MercadoPagoException $e) {
+							$isMercadoPagoEnabled = false;
+							echo '<div class="alert alert-warning alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Atención: Estamos teniendo problemas con los servicios de MercadoPago.<br><b>No estará disponible el pago a través de MercadoPago.</b></div>';
+						}
+					}
 					?>
 				<?php
 				}
@@ -157,7 +174,7 @@ $mp->sandbox_mode(TRUE);
 						<div class="col-sm-4">
 							<label class="col control-label">Piso: <?php echo $expensa['piso']; ?></label>
 							<label class="col control-label">Departamento: <?php echo $expensa['departamento']; ?></label>
-							<label class="col control-label">Porcentaje de Participación: <?php echo $expensa['porcentajeParticipacion']; ?></label>
+							<label class="col control-label">Porcentaje de Participación: <?php echo $expensa['porcentajeParticipacion']; ?> %</label>
 							<label class="col control-label">Lote Unidad Funcional: <?php echo $expensa['unidadFuncionalLote']; ?></label>
 						</div>
 				</div>
@@ -211,7 +228,11 @@ $mp->sandbox_mode(TRUE);
 											if (isset($_SESSION['propietario']) && $row['descripcion'] == 'Efectivo') {
 												// No agrego esta forma de pago
 											} else {
-												echo '<option value="'.$row['idFormaPago'].'">'.$row['descripcion'].'</option>';
+												if (!$isMercadoPagoEnabled && $row['descripcion'] == 'MercadoPago') {
+													// Si MercadoPago falló al cargarse, no mostramos esa forma de pago.
+												} else {
+													echo '<option value="'.$row['idFormaPago'].'">'.$row['descripcion'].'</option>';
+												}
 											}
 										}
 										?>
@@ -287,7 +308,7 @@ $mp->sandbox_mode(TRUE);
   	<div class="corte"></div>
 	<?php include('../template/footer.php'); ?>
 
-	<!-- Cargar library JavaSCript de MercadoPago -->
+	<!-- Cargar library JavaScript de MercadoPago -->
 	<script type="text/javascript">
 	(function(){function $MPC_load(){window.$MPC_loaded !== true && (function(){var s = document.createElement("script");s.type = "text/javascript";s.async = true;s.src = document.location.protocol+"//secure.mlstatic.com/mptools/render.js";var x = document.getElementsByTagName('script')[0];x.parentNode.insertBefore(s, x);window.$MPC_loaded = true;})();}window.$MPC_loaded !== true ? (window.attachEvent ?window.attachEvent('onload', $MPC_load) : window.addEventListener('load', $MPC_load, false)) : null;})();
 	</script>
