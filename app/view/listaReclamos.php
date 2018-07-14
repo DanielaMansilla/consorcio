@@ -27,7 +27,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 				<div class="input-group">
 					<select name="filter" class="custom-select" onchange="form.submit()" id="filtro">
 						<option value="0">Filtros de reclamos</option>
-						<?php $filter = (isset($_GET['filter']) ? $_GET['filter'] : NULL);  ?>
+						<?php $filter = (isset($_GET['filter']) ? mysqli_real_escape_string($conexion, (strip_tags($_GET["filter"], ENT_QUOTES))) : NULL);  ?>
 						<option value="Activo" <?php if($filter == 'Activo'){ echo 'selected'; } ?>>Activo</option>
 						<option value="Resuelto" <?php if($filter == 'Resuelto'){ echo 'selected'; } ?>>Resuelto</option>
 					</select>

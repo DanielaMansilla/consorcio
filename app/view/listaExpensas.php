@@ -27,7 +27,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 				<div class="form-group">
 					<select name="filter" class="form-control" onchange="form.submit()" id="filtro">
 						<option value="0">Filtros de expensas</option>
-						<?php $filter = (isset($_GET['filter']) ? strtolower($_GET['filter']) : NULL);  ?>
+						<?php $filter = (isset($_GET['filter']) ? strtolower(mysqli_real_escape_string($conexion, (strip_tags($_GET["filter"], ENT_QUOTES)))) : NULL);  ?>
 						<option value="Impago" <?php if(strcasecmp($filter, 'Impago') == 0){ echo 'selected'; } ?>>Impago</option>
 						<option value="Pago" <?php if(strcasecmp($filter, 'Pago') == 0){ echo 'selected'; } ?>>Pago</option>
 					</select>

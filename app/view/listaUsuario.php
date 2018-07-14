@@ -45,7 +45,7 @@ if(!isset($_SESSION['admin'])){
 				<div class="form-group">
 					<select name="filter" class="form-control" onchange="form.submit()" id="filtro">
 						<option value="0">Filtros de datos de usuarios</option>
-						<?php $filter = (isset($_GET['filter']) ? $_GET['filter'] : NULL);  ?>
+						<?php $filter = (isset($_GET['filter']) ? mysqli_real_escape_string($conexion, (strip_tags($_GET["filter"], ENT_QUOTES))) : NULL);  ?>
 						<option value="Activo" <?php if($filter == 'Activo'){ echo 'selected'; } ?>>Activo</option>
 						<option value="Inactivo" <?php if($filter == 'Inactivo'){ echo 'selected'; } ?>>Inactivo</option>
                         <option value="Pendiente" <?php if($filter == 'Pendiente'){ echo 'selected'; } ?>>Pendiente</option>
