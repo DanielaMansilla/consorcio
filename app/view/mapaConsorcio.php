@@ -50,7 +50,39 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
                     $correo = $consorcio['correo'];
                     $cuit = $consorcio['cuit'];
                     ?>
+                    <h4 class="text-center"><?php echo $nombre?> - Mapa</h4>
+                    
+                    <div style="text-align:center;" id="loadingSpinner">
+                        <br>
+                        <i class="fa fa-spinner fa-pulse fa-2x fa-fw" ></i>
+                        <span class="sr-only">Cargando...</span>
+                        <br>
+                    </div>
+                    
+                    <div id="errors"></div>
+
+                    <div id="map" class="img-thumbnail mx-auto" style="display: none;"></div>
                     <script>
+                    function showLoadingSpinner(show) {
+                        var loadingSpinner = document.getElementById('loadingSpinner');
+                        loadingSpinner.style.display = (show === true ? '' : 'none');
+                    }
+
+                    function showMessageError(errorMessage) {
+                        var errorsDiv = document.getElementById("errors");
+                        errorsDiv.innerHTML = '<br><div class="alert alert-danger alert-dismissable">Error: ' + errorMessage + '</div>';
+                    }
+
+                    function showMap(show) {
+                        var map = document.getElementById('map');
+                        map.style.display = (show === true ? '' : 'none');
+                    }
+
+                    function onGoogleMapsLoadingError() {
+                        showLoadingSpinner(false);
+                        showMessageError('No se ha podido cargar el mapa por problemas de conexión con Google Maps.');
+                    }
+
                     function initMap() {
                         var map = new google.maps.Map(document.getElementById('map'), {
                         zoom: 15
@@ -64,6 +96,9 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
                         var address = '<?php echo $direccion?>';
                         geocoder.geocode({'address': address}, function(results, status) {
                         if (status === 'OK') {
+                            showLoadingSpinner(false);
+                            showMap(true);
+                            
                             resultsMap.setCenter(results[0].geometry.location);
                             // Datos del Consorcio
                             var contentString = '<b><?php echo $nombre?></b><br><br>' + 
@@ -87,21 +122,20 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
                                 infowindow.open(map, marker);
                             });
                         } else {
-                            alert('Ha occurrido un error al obtener las coordenadas del consorcio: ' + status);
+                            showLoadingSpinner(false);
+                            showMessageError('No se ha podido determinar la ubicación exacta del consorcio.');
                         }
                         });
                     }
 
                     </script>
-                        <script async defer
+                        <script async defer onerror="onGoogleMapsLoadingError()"
                         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcf7cJonjwmrFflzRAF6lDf09sYMMY_DQ&callback=initMap">
                         </script>
-                        <h2><?php echo $nombre?> - Mapa</h2>
                     <?php
 				}
             }
         ?>
-        <div id="map" class="img-thumbnail mx-auto"></div>
         <br>
         <a href="listaConsorcio.php" class="btn btn-sm btn-info">Volver</a>
     </div>
