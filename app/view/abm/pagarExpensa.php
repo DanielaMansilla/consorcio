@@ -56,7 +56,7 @@ $mp->sandbox_mode(TRUE);
 
 			// TODO: Mejorar control de errores
 			if (!isset($_GET["id"]) || empty($_GET["id"]) ) {
-				echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: La expensa indicada no existe o no tiene acceso a ella.</div>';
+				echo '<div class="alert alert-danger alert-dismissable">Error: La expensa indicada no existe o no tiene acceso a ella.</div>';
 			} else {
 				$idExpensa = mysqli_real_escape_string($conexion,(strip_tags($_GET["id"],ENT_QUOTES)));
 
@@ -78,7 +78,7 @@ $mp->sandbox_mode(TRUE);
 
 				// No se encontró la expensa
 				if (mysqli_num_rows($sql) == 0){
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: La expensa indicada no existe o no tiene acceso a ella.</div>';
+					echo '<div class="alert alert-danger alert-dismissable">Error: La expensa indicada no existe o no tiene acceso a ella.</div>';
 				} else {
 					$expensa = mysqli_fetch_assoc($sql);
 
