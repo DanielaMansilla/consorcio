@@ -200,8 +200,8 @@ $mp->sandbox_mode(TRUE);
 										// Lista todos los medios de pago disponibles
 										while ($row = mysqli_fetch_assoc($sql)) {
 											// Los propietarios no pueden pagar en Efectivo
-											if ($row['descripcion'] == 'Efectivo' && !isset($_SESSION['propietario'])) {
-												echo '<option value="'.$row['idFormaPago'].'">'.$row['descripcion'].'</option>';
+											if (isset($_SESSION['propietario']) && $row['descripcion'] == 'Efectivo') {
+												// No agrego esta forma de pago
 											} else {
 												echo '<option value="'.$row['idFormaPago'].'">'.$row['descripcion'].'</option>';
 											}
