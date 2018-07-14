@@ -53,7 +53,7 @@ if(!isset($_SESSION['propietario'])){
                   <p class="card-text">Aquí podrás encontrar una minuta detallada de la liquidación mensual integrada por gastos realizados por la administración y pagos de cada propietario con un resumen final.</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                        <a href="informePropietario.php" class="btn btn-primary">Ir a Informe Mensual</a>
+                        <a href="informeMensual.php" class="btn btn-primary">Ir a Informe Mensual</a>
                     </div>
                   </div>
                 </div>
