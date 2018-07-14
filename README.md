@@ -118,7 +118,6 @@ Estadísticas: deberá informar por cada consorcio, cantidad de unidades, cobran
 
 * El sistema calculara el digito verificador de los CUIL/CUIT ingresados de manera de evitar errores.
 
-
 # Usuarios a utilizar en la aplicación:
 
 ## Admin
@@ -164,3 +163,7 @@ Y no olvidarse de ingresar en donde dice Nombre y Apellido en los datos de la ta
 - EXPI : Payment declined by expiration date.
 - FORM : Payment declined due to error in form.
 - OTHE : General decline.
+
+# Diagrama de Base de Datos
+
+![Diagrama](diagramaBD.png?raw=true "Diagrama")
