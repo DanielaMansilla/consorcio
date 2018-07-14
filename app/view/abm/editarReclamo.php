@@ -54,7 +54,7 @@ if(!isset($_SESSION['admin'])){
             <label class="col-sm-3 control-label">Dpto: <?php echo $row ['departamento']; ?></label>
 		<form class="form-horizontal" action="" method="post">      
             <div class="form-group">
-				<label class="col-sm-3 control-label">Descripcion:</label>
+				<label class="col-sm-3 control-label">Descripción:</label>
 				<div class="col">
                      <textarea name="descripcion"  maxlength=100 class="form-control" placeholder="Ingrese una descripción..." required><?php echo $row ['descripcion']; ?></textarea>
 				</div>

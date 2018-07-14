@@ -125,7 +125,7 @@ if(!isset($_SESSION['admin'])){
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Cuil</label>
+							<label class="col-sm-3 control-label">CUIL</label>
 							<div class="col-sm-4">
 								<input type="text" name="cuil" value="<?php echo $row ['cuil']; ?>" class="form-control" placeholder="Cuil" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 							</div>

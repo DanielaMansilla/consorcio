@@ -62,7 +62,7 @@ if(!isset($_SESSION['admin'])){
 
 			<form class="form-horizontal" action="" method="post">
                 <div class="form-group">
-					<label class="col-sm-3 control-label">Cuit</label>
+					<label class="col-sm-3 control-label">CUIT</label>
 					<div class="col-sm-4">
 						<input type="text" name="cuit" class="form-control" maxlength="11" placeholder="CUIT" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 					</div>

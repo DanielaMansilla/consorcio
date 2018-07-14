@@ -30,7 +30,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 					<th>Id</th>
 					<th>Año</th>
 					<th>Mes</th>
-					<th>Dia</th>
+					<th>Día</th>
 					<th>Fecha Completa</th>
 					<th style="text-align:center;">Informe Mensual</th>
                   
