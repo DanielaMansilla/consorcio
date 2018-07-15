@@ -273,6 +273,7 @@ try {
 					<div class="form-group">
 						<div class="col-sm-6">
 							<button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#pagarCodigoQr">Pagar con Código QR</button>
+							<br><small class="form-text text-muted">Pago con codigo QR: La actualización del estado de pago no es automática, la actualizaran los administradores cuando lo verifiquen.</small>
 						</div>
 					</div>
 				</form>
