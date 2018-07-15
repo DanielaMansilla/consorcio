@@ -49,6 +49,12 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 						foreach ($gastosLiquidacion as $idGasto) {
 							$insertGasto = mysqli_query($conexion, "INSERT INTO liquidaciongasto(idLiquidacion, idGasto) 
 							VALUES('$idLiquidacion', '$idGasto')") or die(mysqli_error($conexion));
+							//Cambia el estado del gasto, a listado.
+							$updateEstadoGasto = mysqli_query($conexion, "UPDATE gasto SET estado='Listado' WHERE idGasto='$idGasto'") or die(mysqli_error($conexion));
+
+							if(!$updateEstadoGasto) {
+								echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido actualizar el estado del gasto.</div>';
+							}
 
 							if(!$insertGasto) {
 								echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido crear una nueva liquidación!</div>';
