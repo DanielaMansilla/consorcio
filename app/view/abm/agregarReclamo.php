@@ -34,8 +34,14 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 				// El Estado por default al iniciar reclamo es: Activo
 				$estado			= mysqli_real_escape_string($conexion, (strip_tags("Activo", ENT_QUOTES)));
 				
+				if ($idPropiedad != "NULL") {
+					$insert = mysqli_query($conexion, "INSERT INTO reclamo(idPropiedad, descripcion, estado, fecha) VALUES('$idPropiedad', '$descripcion', '$estado', now())") or die(mysqli_error($conexion));
+				} else {
+					$insert = mysqli_query($conexion, "INSERT INTO reclamo(idPropiedad, descripcion, estado, fecha) VALUES(NULL, '$descripcion', '$estado', now())") or die(mysqli_error($conexion));
+				}
+
 				// La fecha se setea desde MySQL a través de la funcion now()
-				$insert = mysqli_query($conexion, "INSERT INTO reclamo(idPropiedad, descripcion, estado, fecha) VALUES('$idPropiedad', '$descripcion', '$estado', now())") or die(mysqli_error($conexion));
+				// $insert = mysqli_query($conexion, "INSERT INTO reclamo(idPropiedad, descripcion, estado, fecha) VALUES('$idPropiedad', '$descripcion', '$estado', now())") or die(mysqli_error($conexion));
 				
 				if ($insert){
 					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Se ha enviado el reclamo satisfactoriamente.</div>';
@@ -69,6 +75,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 								// }
 
 								// Lista propiedades asociadas al usuario actual
+								echo '<option value="NULL">Sin propiedad</option>';
 								while ($row = mysqli_fetch_assoc($sql)) { ?>
 								<?php	echo '<option value="'.$row['idPropiedad'].'">Piso: '.$row['piso'].' - Deparamento: '.$row['departamento'].'</option>';
 								}

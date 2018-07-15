@@ -72,14 +72,15 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 						$sql = mysqli_query($conexion, 
 						"SELECT * 
 						FROM reclamo 
-						JOIN propiedad ON reclamo.idPropiedad = propiedad.idPropiedad
-						WHERE reclamo.estado='$filter'
+						LEFT JOIN propiedad ON reclamo.idPropiedad = propiedad.idPropiedad
+						WHERE reclamo.estado='$filter' AND reclamo.idReclamo <> 1
 						ORDER BY reclamo.idReclamo DESC") or die(mysqli_error($conexion));
 					} else {
 						$sql = mysqli_query($conexion, 
 						"SELECT * 
 						FROM reclamo
-						JOIN propiedad ON reclamo.idPropiedad = propiedad.idPropiedad
+						LEFT JOIN propiedad ON reclamo.idPropiedad = propiedad.idPropiedad
+						WHERE reclamo.idReclamo <> 1
 						ORDER BY reclamo.idReclamo DESC") or die(mysqli_error($conexion));
 					}
 				} else { // Si es propietario
@@ -87,16 +88,16 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 						$sql = mysqli_query($conexion, 
 						"SELECT * 
 						FROM reclamo
-						JOIN propiedad ON reclamo.idPropiedad = propiedad.idPropiedad
+						LEFT JOIN propiedad ON reclamo.idPropiedad = propiedad.idPropiedad
 						WHERE propiedad.idUsuarios = '$idUsuario'
-						AND reclamo.estado = '$filter'
+						AND reclamo.estado = '$filter' AND reclamo.idReclamo <> 1
 						ORDER BY reclamo.idReclamo DESC") or die(mysqli_error($conexion));
 					} else {
 						$sql = mysqli_query($conexion, 
 						"SELECT * 
 						FROM reclamo
-						JOIN propiedad ON reclamo.idPropiedad = propiedad.idPropiedad
-						WHERE propiedad.idUsuarios = '$idUsuario'
+						LEFT JOIN propiedad ON reclamo.idPropiedad = propiedad.idPropiedad
+						WHERE propiedad.idUsuarios = '$idUsuario' AND reclamo.idReclamo <> 1
 						ORDER BY reclamo.idReclamo DESC") or die(mysqli_error($conexion));
 					}
 				}
