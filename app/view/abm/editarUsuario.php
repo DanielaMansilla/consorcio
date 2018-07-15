@@ -78,7 +78,7 @@ if(!isset($_SESSION['admin'])){
 							$error[] = "Dni está utilizado en otro usuario.";
 						}
 		
-						if (!(strlen($telefono) >= 8 && strlen($telefono) <= 10)) {
+						if (!(ctype_digit($telefono) && strlen($telefono) >= 8 && strlen($telefono) <= 10)) {
 							$error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";
 						}
 		
@@ -115,37 +115,37 @@ if(!isset($_SESSION['admin'])){
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Apellido</label>
 							<div class="col-sm-4">
-								<input type="text" name="apellido" value="<?php echo $row ['apellido']; ?>" class="form-control" placeholder="Apellido" required>
+								<input type="text" name="apellido" value="<?php echo $row ['apellido']; ?>" class="form-control" maxlength="50" placeholder="Apellido" required>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Nombre</label>
 							<div class="col-sm-4">
-								<input type="text" name="nombre" value="<?php echo $row ['nombre']; ?>" class="form-control" placeholder="Nombre" required>
+								<input type="text" name="nombre" value="<?php echo $row ['nombre']; ?>" class="form-control" maxlength="50" placeholder="Nombre" required>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">CUIL</label>
 							<div class="col-sm-4">
-								<input type="text" name="cuil" value="<?php echo $row ['cuil']; ?>" class="form-control" placeholder="Cuil" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
+								<input type="text" name="cuil" value="<?php echo $row ['cuil']; ?>" class="form-control" maxlength="11" placeholder="Cuil" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Correo Electrónico</label>
 							<div class="col-sm-4">
-								<input type="text" name="email" value="<?php echo $row ['email']; ?>" class="form-control" placeholder="E-mail" required>
+								<input type="text" name="email" value="<?php echo $row ['email']; ?>" class="form-control" maxlength="50" placeholder="E-mail" required>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">DNI</label>
 							<div class="col-sm-4">
-								<input type="text" name="dni" value="<?php echo $row ['dni']; ?>" class="form-control" placeholder="Dni" required><small id="emailHelp" class="form-text text-muted">Ingresar solo números, sin guiones, barras ni puntos.</small>
+								<input type="text" name="dni" value="<?php echo $row ['dni']; ?>" class="form-control" maxlength="8" placeholder="Dni" required><small id="emailHelp" class="form-text text-muted">Ingresar solo números, sin guiones, barras ni puntos.</small>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Teléfono</label>
 							<div class="col-sm-3">
-								<input type="text" name="telefono" value="<?php echo $row ['telefono']; ?>" class="form-control" placeholder="Teléfono" required>
+								<input type="text" name="telefono" value="<?php echo $row ['telefono']; ?>" class="form-control" maxlength="11" placeholder="Teléfono" required>
 							</div>
 						</div>
 						<div class="form-group">

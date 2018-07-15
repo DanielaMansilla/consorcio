@@ -25,7 +25,7 @@ if(!isset($_SESSION['admin'])){
 			if(isset($_POST['add'])){
                 $cuit		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["cuit"],ENT_QUOTES)));//Escanpando caracteres 
                 $nombre		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
-		
+				$nombre = ucfirst($nombre);
 				$error = array();
 				//Validaciones
 				if(!(ctype_digit($cuit) && strlen($cuit) == 11)){

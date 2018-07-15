@@ -23,8 +23,10 @@ if(!isset($_SESSION['admin'])){
 
 			<?php
 			if(isset($_POST['add'])){
-                $apellido		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["apellido"],ENT_QUOTES)));//Escanpando caracteres 
-                $nombre		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
+				$apellido		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["apellido"],ENT_QUOTES)));//Escanpando caracteres 
+				$apellido = ucfirst($apellido);
+				$nombre		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["nombre"],ENT_QUOTES)));//Escanpando caracteres 
+				$nombre = ucfirst($nombre);
                 $cuil		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["cuil"],ENT_QUOTES)));//Escanpando caracteres     
                 $email		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["email"],ENT_QUOTES)));//Escanpando caracteres     
                 $dni		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["dni"],ENT_QUOTES)));//Escanpando caracteres 
@@ -45,7 +47,7 @@ if(!isset($_SESSION['admin'])){
 				if(!(ctype_alpha($apellido) && strlen($apellido) >= 3 && strlen($apellido) <= 20)){
 					$error[] = "Apellido debe tener al menos 3 caracteres, solo alfabeticos";
 				  }
-				if(!(strlen($cuil) == 11)){
+				if(!(ctype_digit($cuil) && strlen($cuil) == 11)){
 					$error[] = "Cuil debe tener 11 digitos sin guiones.";
 				  }
                 $usuario = new Usuario();
@@ -58,7 +60,7 @@ if(!isset($_SESSION['admin'])){
                         $error[] = "Cuil ya utilizado en otro usuario.";
                     }
                 
-				if(!(strlen($dni) == 8)){
+				if(!(ctype_digit($dni) && strlen($dni) == 8)){
 					$error[] = "Dni debe tener 8 digitos sin guiones.";
 				  }
 				$cek4 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE dni='$dni' and idUsuarios<>'$nik'");
@@ -66,7 +68,7 @@ if(!isset($_SESSION['admin'])){
                     $error[] = "Dni está utilizado en otro usuario.";
                 }
 
-				if(!(strlen($telefono) >= 8 && strlen($telefono) <= 10)){
+				if(!(ctype_digit($telefono) && strlen($telefono) >= 8 && strlen($telefono) <= 10)){
 					$error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";
 				  }
 
@@ -107,37 +109,37 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Apellido</label>
 					<div class="col-sm-4">
-						<input type="text" name="apellido" class="form-control" placeholder="Apellido" required>
+						<input type="text" name="apellido" class="form-control" maxlength="50" placeholder="Apellido" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Nombre</label>
 					<div class="col-sm-4">
-						<input type="text" name="nombre" class="form-control" placeholder="Nombre" required>
+						<input type="text" name="nombre" class="form-control" maxlength="50" placeholder="Nombre" required>
 					</div>
 				</div>
                 <div class="form-group">
 					<label class="col-sm-3 control-label">CUIL</label>
 					<div class="col-sm-4">
-						<input type="text" name="cuil" class="form-control" placeholder="Cuil" required><small id="emailHelp" class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales.</small>
+						<input type="text" name="cuil" class="form-control" maxlength="11" placeholder="Cuil" required><small id="emailHelp" class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales.</small>
 					</div>
 				</div>
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Correo Electrónico</label>
 					<div class="col-sm-4">
-						<input type="text" name="email" class="form-control" placeholder="E-mail" required>
+						<input type="text" name="email" class="form-control" maxlength="50" placeholder="E-mail" required>
 					</div>
 				</div>
                 <div class="form-group">
 					<label class="col-sm-3 control-label">DNI</label>
 					<div class="col-sm-4">
-						<input type="text" name="dni" class="form-control" placeholder="Dni" required><small id="emailHelp" class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales.</small>
+						<input type="text" name="dni" class="form-control" maxlength="8" placeholder="Dni" required><small id="emailHelp" class="form-text text-muted">Solo ingresar números, sin letras ni caracteres especiales.</small>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Teléfono</label>
 					<div class="col-sm-3">
-						<input type="text" name="telefono" class="form-control" placeholder="Teléfono" required>
+						<input type="text" name="telefono" class="form-control" maxlength="11" placeholder="Teléfono" required>
 					</div>
 				</div>
 				<div class="form-group">

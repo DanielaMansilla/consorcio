@@ -77,13 +77,13 @@ if(!isset($_SESSION['admin'])){
 				<label class="col-sm-3 control-label">CUIT:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="cuit" value="<?php echo $row ['cuit']; ?>" class="form-control" placeholder="cuit" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
+					<input type="text" name="cuit" value="<?php echo $row ['cuit']; ?>" class="form-control" placeholder="cuit" maxlength="11" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">Nombre:</label>
 				<div class="col-sm-3">
-                     <input type="text" name="nombre" value="<?php echo $row ['nombre']; ?>" class="form-control" placeholder="Nombre" required>
+                     <input type="text" name="nombre" value="<?php echo $row ['nombre']; ?>" class="form-control" maxlength="50" placeholder="Nombre" required>
 				</div>
 			</div>
 				

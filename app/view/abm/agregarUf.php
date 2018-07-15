@@ -73,13 +73,13 @@ if(!isset($_SESSION['admin'])){
 					<label class="col-sm-3 control-label">Porcentaje</label>
 					<div class="col-sm-4">
 					<!-- TODO: Agregar validación de porcentaje -->
-						<input type="text" name="porcentajeParticipacion" class="form-control" placeholder="Porcentaje" required>
+						<input type="number" name="porcentajeParticipacion" class="form-control" min="0.01" max="100" placeholder="Porcentaje" required>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Piso</label>
 					<div class="col-sm-4">
-						<input type="text" name="piso" class="form-control" placeholder="Piso" required>
+						<input type="number" name="piso" class="form-control" max="100" placeholder="Piso" required>
 					</div>
 				</div>
                 <div class="form-group">
@@ -91,7 +91,7 @@ if(!isset($_SESSION['admin'])){
                 <div class="form-group">
 					<label class="col-sm-3 control-label">Unidad Funcional</label>
 					<div class="col-sm-4">
-						<input type="text" name="unidadFuncionalLote" class="form-control" placeholder="Unidad Funcional" required>
+						<input type="text" name="unidadFuncionalLote" class="form-control" maxlength="1" placeholder="Unidad Funcional" required>
 					</div>
 				</div>
                 <div class="form-group">
