@@ -76,7 +76,7 @@ if(!isset($_SESSION['admin'])){
 				if(!(filter_var($email, FILTER_VALIDATE_EMAIL))){
 					$error[] = "Email incorrecto";
 				}
-				$cek5 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email='$email' and idUsuarios<>'$nik'");
+				$cek5 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE email='$email'");
                 if(!(mysqli_num_rows($cek5) == 0)){
                     $error[] = "Email está utilizado en otro usuario.";
 				}
