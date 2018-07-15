@@ -66,7 +66,7 @@ if(!isset($_SESSION['admin'])){
 					<th>Teléfono</th>
 					<th>Rol</th>
 					<th>Estado</th>
-                    <th>Acciones</th>
+                    <th style="text-align:center;">Acciones</th>
 				</tr>
 				<?php
 				if($filter){
@@ -110,7 +110,7 @@ if(!isset($_SESSION['admin'])){
 								echo '
 							</td>
 							<td>
-								<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+								
 							</td>
 						</tr>
 						';

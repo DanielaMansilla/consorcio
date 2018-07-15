@@ -52,7 +52,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 					<th>Nro Factura</th>
 					<th>Proveedor</th>
                     <th>Estado</th>
-                    <th>Acciones</th>
+                    <th style="text-align:center;">Acciones</th>
 				</tr>
 				<?php
 
@@ -143,7 +143,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 								echo '
 							</td>
 							<td>
-								<a href="abm/editarGasto.php?nik='.$row['idGasto'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+								<a href="abm/editarGasto.php?nik='.$row['idGasto'].'" title="Editar datos" class="btn btn-primary btn-sm btn-block"><span class="fas fa-edit" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';

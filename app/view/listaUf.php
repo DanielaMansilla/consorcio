@@ -52,7 +52,7 @@ if(!isset($_SESSION['admin'])){
                     <th>Departamento</th>
                     <th>Unidad Funcional</th>
 					<th>Consorcio</th>
-                    <th>Acciones</th>
+                    <th style="text-align:center;">Acciones</th>
 				</tr>
 				<?php
 					$sql = mysqli_query($conexion, "SELECT * FROM propiedad JOIN consorcio ON propiedad.idConsorcio=consorcio.idConsorcio ORDER BY idPropiedad ASC");
@@ -69,13 +69,22 @@ if(!isset($_SESSION['admin'])){
                             <td>'.$row['departamento'].'</td>
                             <td>'.$row['unidadFuncionalLote'].'</td>
 							<td>'.$row['nombre'].'</td>   
-							<td>
+							<td>';
 
-								<a href="abm/editarUf.php?nik='.$row['idPropiedad'].'" title="Editar Usuario Asignado" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
-								<a href="listaUf.php?aksi=delete&nik='.$row['idPropiedad'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos: N°UnidadFuncional: '.$row['unidadFuncionalLote'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
+							if(isset($_SESSION['admin'])){
+								echo '
+							<a href="abm/editarUf.php?nik='.$row['idPropiedad'].'" title="Editar Usuario Asignado" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+							<a href="listaUf.php?aksi=delete&nik='.$row['idPropiedad'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos: N°UnidadFuncional: '.$row['unidadFuncionalLote'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';
+							}if(isset($_SESSION['operador'])){
+								echo '
+							<a href="abm/editarUf.php?nik='.$row['idPropiedad'].'" title="Editar Usuario Asignado" class="btn btn-primary btn-sm btn-block"><span class="fas fa-edit" aria-hidden="true"></span></a>
+							</td>
+						</tr>
+						';
+							}
 					}
 				}
 				?>

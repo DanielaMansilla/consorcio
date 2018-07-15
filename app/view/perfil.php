@@ -104,7 +104,7 @@ if(!isset($_SESSION['admin'])){
 			<?php
 			if(isset($_SESSION['operador'])){	
 			?>
-				<a href="abm/editarRolyEstado.php?nik=<?php echo $row['idUsuarios']; ?>" class="btn btn-sm btn-success"><span class="fas fa-edit" aria-hidden="true"></span> Editar estado</a>
+				
 			<?php }?>
 		</div>
 	</div>

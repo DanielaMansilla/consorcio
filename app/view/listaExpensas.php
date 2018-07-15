@@ -44,7 +44,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 					<th>Propiedad</th>
                     <th>Importe</th>
                     <th>Estado</th>
-                    <th>Acciones</th>
+                    <th style="text-align:center;">Acciones</th>
 				</tr>
 				<?php
 
@@ -114,9 +114,9 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 							echo '<span class="badge badge-'.$badgeColor.'">'.$estado.'</span></td>';
 							echo '<td>';
 							if ($estado != "Pago") {
-								echo '<a href="abm/pagarExpensa.php?id='.$row['idExpensa'].'" title="Pagar" class="btn btn-primary btn-sm"><span class="fas fa-shopping-cart" aria-hidden="true"></span></a>';
+								echo '<a href="abm/pagarExpensa.php?id='.$row['idExpensa'].'" title="Pagar" class="btn btn-primary btn-sm btn-block"><span class="fas fa-shopping-cart" aria-hidden="true"></span></a>';
 							}else{
-                                echo '<a href="getPDF.php?id='.$row['idExpensa'].'" title="PDF" class="btn btn-primary btn-sm"><span class="fas fa-download" aria-hidden="true"></span></a>';
+                                echo '<a href="getPDF.php?id='.$row['idExpensa'].'" title="PDF" class="btn btn-secondary btn-sm btn-block"><span class="fas fa-download" aria-hidden="true"></span></a>';
                             }
 							echo '</td>';
 					}

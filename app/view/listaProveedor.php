@@ -48,7 +48,7 @@ if(!isset($_SESSION['admin'])){
 					<th>Id</th>
                     <th>CUIT</th>
                     <th>Nombre</th>
-                    <th>Acciones</th>
+                    <th style="text-align:center;">Acciones</th>
 				</tr>
 				<?php
 					$sql = mysqli_query($conexion, "SELECT * FROM proveedor ORDER BY idProveedor ASC");
@@ -79,7 +79,7 @@ if(!isset($_SESSION['admin'])){
 								echo '
 							</td>
 							<td>
-								<a href="abm/editarProveedor.php?nik='.$row['idProveedor'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
+								<a href="abm/editarProveedor.php?nik='.$row['idProveedor'].'" title="Editar datos" class="btn btn-primary btn-sm btn-block"><span class="fas fa-edit" aria-hidden="true"></span></a>
 							</td>
 						</tr>
 						';
