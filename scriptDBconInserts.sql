@@ -101,7 +101,7 @@ CREATE TABLE `gasto` (
 --
 
 INSERT INTO `gasto` (`idGasto`, `fecha`, `importe`, `concepto`, `estado`, `idReclamo`, `nroFactura`, `idProveedor`) VALUES
-(5, '2018-07-02', '850.00', 'Arreglo de caÃ±erÃ­a', 'Pago', 2, 1, 1);
+(5, '2018-07-02', '850.00', 'Arreglo de caÃ±erÃ­a', 'Listado', 2, 1, 1);
 
 -- --------------------------------------------------------
 

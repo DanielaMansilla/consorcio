@@ -121,11 +121,11 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 							
 							$estado = $row['estadoGasto'];
 							switch ($estado) {
-								case "Pago":
-									$badgeColor = "success";
+								case "No Listado":
+									$badgeColor = "danger";
 									break;
-								case "Impago":
-									$badgeColor = "info";
+								case "Listado":
+									$badgeColor = "success";
 									break;
 							}
 							echo '<span class="badge badge-'.$badgeColor.'">'.$estado.'</span></td>';

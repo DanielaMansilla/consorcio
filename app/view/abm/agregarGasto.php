@@ -34,7 +34,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				$fecha			= mysqli_real_escape_string($conexion, (strip_tags($_POST["fecha"], ENT_QUOTES)));
 				
 				// TODO: Ver que hacer con el estado inicial...
-				$estado			= mysqli_real_escape_string($conexion, (strip_tags("Pago", ENT_QUOTES)));
+				$estado			= 'No Listado';
 				
 				$insert = mysqli_query($conexion, 
 				"INSERT INTO gasto(idReclamo, idProveedor, nroFactura, fecha, importe, concepto, estado) 
