@@ -63,11 +63,11 @@ if(!isset($_SESSION['admin'])){
 				if(!(ctype_digit($dni) && strlen($dni) == 8)){
 					$error[] = "Dni debe tener 8 digitos sin guiones.";
 				  }
-				//Lo saco si se necesita tener mismo dni para admin o operador
-				/*$cek4 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE dni='$dni' and idUsuarios<>'$nik'");
+				
+				$cek4 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE dni='$dni'"); //and idUsuarios<>'$nik'
                 if(!(mysqli_num_rows($cek4) == 0)){
                     $error[] = "Dni está utilizado en otro usuario.";
-                }*/
+                }
 
 				if(!(ctype_digit($telefono) && strlen($telefono) >= 8 && strlen($telefono) <= 10)){
 					$error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";

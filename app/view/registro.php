@@ -50,9 +50,18 @@ if(isset($_SESSION['propietario'])){
         if(!$cuilValido){
             $error[] = "Cuil invalido.";
         }
+        $cek3 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE cuil='$cuilUsuario'");
+        if(!(mysqli_num_rows($cek3) == 0)){
+            $error[] = "Cuil: $cuilUsuario ya esta utilizado en otro usuario.";
+        }
+
         if(!(ctype_digit($dni) && strlen($dni) == 8)){
             $error[] = "Dni debe tener 8 digitos sin guiones.";
           }
+        $cek4 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE dni='$dni'");
+        if(!(mysqli_num_rows($cek4) == 0)){
+            $error[] = "Dni está utilizado en otro usuario.";
+        }
         if(!(ctype_digit($telUsuario) && strlen($telUsuario) >= 8 && strlen($telUsuario) <= 10)){
             $error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";
           }
