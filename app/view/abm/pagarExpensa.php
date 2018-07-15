@@ -34,13 +34,10 @@ require_once "../../lib/mercadopago.php";
 // Configuración de MercadoPago
 try {
 	$isMercadoPagoEnabled = true;
-$mp = new MP("426543208337217", "QvFA81UyiPK8pKl727ikvN43lraFFbmC");
-$mp->sandbox_mode(TRUE);
-	// throw new MercadoPagoException("Error");
+	$mp = new MP("426543208337217", "QvFA81UyiPK8pKl727ikvN43lraFFbmC");
+	$mp->sandbox_mode(TRUE);
 } catch (MercadoPagoException $e) {
 	$isMercadoPagoEnabled = false;
-	print_r($e->getMessage());
-	echo "<script>console.log( 'Debug Objects: " . json_encode($e->getMessage()) . "' );</script>";
 }
 ?>
 
@@ -70,7 +67,7 @@ $mp->sandbox_mode(TRUE);
 			} else {
 				$idExpensa = mysqli_real_escape_string($conexion,(strip_tags($_GET["id"],ENT_QUOTES)));
 
-				if (isset($_SESSION['admin']) || !isset($_SESSION['operador'])) {
+				if (isset($_SESSION['admin']) || isset($_SESSION['operador'])) {
 					$sql = mysqli_query($conexion, 
 					"SELECT *
 					FROM expensa 
@@ -87,7 +84,7 @@ $mp->sandbox_mode(TRUE);
 				}
 
 				// No se encontró la expensa
-				if (mysqli_num_rows($sql) == 0){
+				if (mysqli_num_rows($sql) == 0) {
 					echo '<div class="alert alert-danger alert-dismissable">Error: La expensa indicada no existe o no tiene acceso a ella.</div>';
 				} else {
 					$expensa = mysqli_fetch_assoc($sql);
@@ -268,6 +265,7 @@ $mp->sandbox_mode(TRUE);
 									echo '<input type="submit" style="visibility: collapse;" name="pagar" id="botonPagar" class="btn btn-sm btn-primary" value="Pagar">';
 								}
 							?>
+							<!-- Boton de MercadoPago -->
 							<a href="<?php echo $preference["response"]["init_point"]; ?>" style="visibility: collapse;" mp-mode="modal" name="MP-Checkout" id="botonMercadoPago" class="btn btn-sm btn-primary">Pagar</a>
 						</div>
 					</div>

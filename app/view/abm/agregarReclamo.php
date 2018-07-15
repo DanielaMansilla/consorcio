@@ -55,7 +55,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 
 								// TODO: Consultar si hay que actualizar query cuando este relacionado estos tipos de usuarios con los consorcios
 								// TODO: Por ahora tienen acceso a todas las propiedades para poder reclamar...
-								if (isset($_SESSION['admin']) || !isset($_SESSION['operador'])) {
+								if (isset($_SESSION['admin']) || isset($_SESSION['operador'])) {
 									$sql = mysqli_query($conexion, "SELECT * FROM propiedad");
 								}
 
