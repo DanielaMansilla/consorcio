@@ -26,6 +26,12 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 			
 			<?php
 			if (isset($_POST['add'])) {
+                
+                if(!isset($_POST["idReclamo"])){
+                echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No puede cargar un gasto sin seleccionar un reclamo que lo justifique!</div>';
+                }else if(!isset($_POST["idProveedor"])){
+                echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No puede cargar un gasto sin seleccionar un proveedor al que se le realice el pago!</div>';
+                }else{
 				$idReclamo		= mysqli_real_escape_string($conexion, (strip_tags($_POST["idReclamo"], ENT_QUOTES)));
 				$idProveedor 	= mysqli_real_escape_string($conexion, (strip_tags($_POST["idProveedor"], ENT_QUOTES)));
 				$nroFactura 	= mysqli_real_escape_string($conexion, (strip_tags($_POST["nroFactura"], ENT_QUOTES)));
@@ -35,10 +41,11 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				
 				// TODO: Ver que hacer con el estado inicial...
 				$estado			= 'No Listado';
-				
-				$insert = mysqli_query($conexion, 
+                $insert = mysqli_query($conexion, 
 				"INSERT INTO gasto(idReclamo, idProveedor, nroFactura, fecha, importe, concepto, estado) 
 				VALUES('$idReclamo', '$idProveedor', '$nroFactura', '$fecha', '$importe', '$concepto', '$estado')") or die(mysqli_error($conexion));
+                
+
 				
 				if ($insert) {
 					$estadoReclamo = "Resuelto";
@@ -53,6 +60,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido enviar el gasto ingresado!</div>';
 				}
 			}
+            }
 			?>
 
 			<form class="form-horizontal" action="" method="post" id="reclamoForm">
