@@ -18,12 +18,15 @@ if(!isset($_SESSION['admin'])){
 
         <div class="container">
 		<div class="content">
-			<h2>Datos del Consorcio &raquo; Editar Datos</h2>
-			<hr />
+
 
 			<?php
+            
+            $nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
+            echo '<h2>Datos del Reclamo Nro.  '.$nik.' &raquo; Editar Datos</h2>
+			<hr />';
 			// escaping, additionally removing everything that could be (html/javascript-) code
-			$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
+			
 			$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad WHERE idReclamo='$nik'");
 			if(mysqli_num_rows($sql) == 0){
 				//header("Location: ../index.php");
@@ -47,7 +50,7 @@ if(!isset($_SESSION['admin'])){
                     echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
 			} ?>
             
-            <label class="col-sm-3 control-label">ID: <?php echo $row ['idReclamo']; ?></label>
+            <label class="col-sm-3 control-label">Nro. Reclamo: <?php echo $row ['idReclamo']; ?></label>
             <label class="col-sm-3 control-label">Fecha: <?php echo $row ['fecha']; ?></label>
             <br>
             <label class="col-sm-3 control-label">Piso: <?php echo $row ['piso']; ?></label>
