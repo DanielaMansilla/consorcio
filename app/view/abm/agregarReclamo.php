@@ -26,6 +26,9 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 			
 			<?php
 			if(isset($_POST['add'])){
+                if(!isset($_POST["idPropiedad"])){
+                echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No puede iniciar un reclamo sin seleccionar una propiedad involucrada.</div>';
+                }else{
 				$idPropiedad	= mysqli_real_escape_string($conexion, (strip_tags($_POST["idPropiedad"], ENT_QUOTES)));
 				$descripcion	= mysqli_real_escape_string($conexion, (strip_tags($_POST["descripcion"], ENT_QUOTES)));
 				// El Estado por default al iniciar reclamo es: Activo
@@ -39,6 +42,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 				} else {
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No se ha podido enviar el reclamo ingresado!</div>';
 				}
+              }
 			}
 			?>
 
