@@ -1,4 +1,5 @@
 <?php
+require_once '../clases/Usuario.php';
 require_once '../config/Conexion.php'; 
 session_start();
 //Si tiene session iniciada no muestra el formulario de registro y te manda al home correspondiente.
@@ -79,8 +80,8 @@ if(isset($_SESSION['propietario'])){
             
             mysqli_close($conexion); 
             echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Te has registrado con éxito.</div>';
-
-            header("Location: index.php");
+            echo'<a href="index.php" class="btn btn-sm btn-success">Volver al Inicio</a>';
+            //header("Location: index.php");
             }else{
                 echo "Ocurrio un error en los siguientes campos: ";
                 foreach($error as $er){
