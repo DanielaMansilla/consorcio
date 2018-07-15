@@ -77,7 +77,7 @@ if(!isset($_SESSION['admin'])){
 				<label class="col-sm-3 control-label">CUIT:</label>
 				<div class="col-sm-3">
 
-					<input type="text" name="cuit" value="<?php echo $row ['cuit']; ?>" class="form-control" placeholder="cuit" maxlength="11" required><small id="emailHelp" class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
+					<input type="text" name="cuit" value="<?php echo $row ['cuit']; ?>" class="form-control" placeholder="cuit" maxlength="11" required><small class="form-text text-muted">Ingresar solo numeros, sin guiones, barras ni puntos.</small>
 				</div>
 			</div>
 			<div class="form-group">
