@@ -60,7 +60,7 @@ if(isset($_SESSION['propietario'])){
           }
         $cek4 = mysqli_query($conexion, "SELECT * FROM usuarios WHERE dni='$dni'");
         if(!(mysqli_num_rows($cek4) == 0)){
-            $error[] = "Dni está utilizado en otro usuario.";
+            $error[] = "Dni: $dni está utilizado en otro usuario.";
         }
         if(!(ctype_digit($telUsuario) && strlen($telUsuario) >= 8 && strlen($telUsuario) <= 10)){
             $error[] = "Teléfono debe tener entre 8 y 10 digitos sin guiones.";
