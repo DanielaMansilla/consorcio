@@ -17,7 +17,7 @@ if(!isset($_SESSION['operador'])){  // verificar si es operador
 
         <div class="container">
 		<div class="content">
-			<h2>Lista de Reclamos</h2>
+			<h2>Lista de Reclamos Pendientes</h2>
 			<hr />
 
 			<br/>
