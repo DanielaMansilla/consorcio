@@ -24,8 +24,8 @@ if(isset($_SESSION['propietario'])){
         $dni=$_POST["dniUsuario"];
         $telUsuario=$_POST["telUsuario"];
         $estado = "Pendiente";
-        $rol=0;
-        $primeraVez=0;
+        $rol=4;
+        $primeraVez=1;
         $pass=$_POST["passUsuario"];
         $pass2=$_POST["passUsuario2"];
         $pass_sha1 = sha1($pass); //Guarda el pass hasheado
