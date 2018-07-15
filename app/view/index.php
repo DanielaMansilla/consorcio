@@ -21,7 +21,7 @@ if(isset($_SESSION['propietario'])){
                         <div class="card-body">  
                             <div class="indexizq">
                                 <form class="form-control"  action='../config/ValidarSession.php' method='POST' ENCTYPE="application/x-www-form-urlencoded">
-                                    <p class="card-text">Dirección de Correo Electrónico: </p> <INPUT class="input-group-lg"  name="emailUsuario" type="text"  placeholder="E-mail" required><small id="emailHelp" class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie.</small>
+                                    <p class="card-text">Dirección de Correo Electrónico: </p> <INPUT class="input-group-lg"  name="emailUsuario" type="text"  placeholder="E-mail" required><small class="form-text text-muted">Nunca compartiremos su correo electrónico con nadie.</small>
                                     <br>
                                     <p class="card-text">Contraseña: </p><INPUT class="input-group-lg" name="passUsuario" type="password" placeholder="Contraseña" required>
                                     <br><br>
