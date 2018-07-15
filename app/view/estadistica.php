@@ -45,7 +45,7 @@ if(!isset($_SESSION['admin'])){
                     $sql4 = mysqli_query($conexion, "SELECT COUNT(*) AS Crealizadas FROM expensa WHERE estado like 'Pago'");
                     //Reclamos
                     $sql3 = mysqli_query($conexion, "SELECT COUNT(*) AS Rcerrados FROM reclamo WHERE estado like 'Resuelto'");
-                    $sql2 = mysqli_query($conexion, "SELECT COUNT(*) AS Rabiertos FROM reclamo WHERE estado like 'Activo'");
+                    $sql2 = mysqli_query($conexion, "SELECT COUNT(*)-1 AS Rabiertos FROM reclamo WHERE estado like 'Activo'"); // se le pone -1 por el recalmo por defecto "sin reclamo"
                     //Consorcio + Propiedad
 					$sql = mysqli_query($conexion, "SELECT C.idConsorcio,C.nombre,COUNT(*) AS Cantidad FROM consorcio AS C JOIN propiedad AS P ON P.idConsorcio = C.idConsorcio GROUP BY C.idConsorcio ORDER BY idConsorcio ASC");
                 
