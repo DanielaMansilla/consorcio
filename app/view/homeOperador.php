@@ -13,75 +13,77 @@ if(!isset($_SESSION['operador'])){  // verificar si es operador
         include('template/nav.php');  
         include('template/header.php'); ?>
     
-    <title>Consorcios del Valle - Operador</title>
+ 		<title>Consorcios del Valle - Lista de Reclamos Pendientes</title>
 
-    <div class="container">
-    <div class="content">
-    <h2>Lista de usuarios pendientes</h2>
-    <hr />
-        
-    <?php
-			if(isset($_GET['aksi']) == 'delete'){
-				// escaping, additionally removing everything that could be (html/javascript-) code
-				$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
-				$cek = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idUsuarios='$nik'");
-				if(mysqli_num_rows($cek) == 0){
-					echo '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> No se encotraron datos.</div>';
-				}else{
-					$delete = mysqli_query($conexion, "DELETE FROM usuarios WHERE idUsuarios='$nik'");
-                    var_dump($delete);
-					if($delete){
-						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Datos eliminados correctamente.</div>';
-					}else{
-						echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> Error, no se pudo eliminar la solicitud.</div>';
-					}
-				}
-			}?>
+        <div class="container">
+		<div class="content">
+			<h2>Lista de Reclamos</h2>
+			<hr />
 
-			<br />
+			<br/>
 			<div class="table-responsive">
 			<table class="table table-striped table-hover">
 				<tr>
-                    <!--<th>No</th> -->
-					<th>Apellido</th>
-                    <th>Nombre</th>
-                    <th>Cuil</th>
-                    <th>E-mail</th>
-                    <th>Dni</th>
-					<th>Teléfono</th>
-                    <th>Rol</th>
-                    <th>Acciones</th>
+					<th>Nro. Reclamo</th>
+					<th>Fecha</th>
+					<th>Propiedad</th>
+                    <th>Descripción</th>
+                    <th>Estado</th>
+                    <th style="text-align:center;">Acciones</th>
 				</tr>
 				<?php
-					$sql = mysqli_query($conexion, "SELECT * FROM usuarios JOIN roles ON usuarios.idRol=roles.idRoles WHERE estado='Pendiente' ORDER BY idUsuarios ASC");
-				if(mysqli_num_rows($sql) == 0){
-					echo '<tr><td colspan="8">No hay usuarios pendientes de habilitación.</td></tr>';
-				}else{
-					while($row = mysqli_fetch_assoc($sql)){
-                        /* Falta linkear unir las tablas idRol para que muestre nombre del rol */
+
+
+
+				
+				// Para los roles admin y operador se muestran todos los reclamos
+				if (isset($_SESSION['admin']) || isset($_SESSION['operador'])) {
+						$sql = mysqli_query($conexion, 
+						"SELECT * 
+						FROM reclamo 
+						JOIN propiedad ON reclamo.idPropiedad = propiedad.idPropiedad
+						WHERE reclamo.estado='Activo'
+						ORDER BY reclamo.idReclamo DESC") or die(mysqli_error($conexion));
+				}
+				if (mysqli_num_rows($sql) == 0) {
+					echo '<tr><td colspan="8">No hay reclamos a listar.</td></tr>';
+				} else {
+					while ($row = mysqli_fetch_assoc($sql)) {
 						echo '
 						<tr>
-                            <td><a href="perfil.php?nik='.$row['idUsuarios'].'"><span class="fas fa-user" aria-hidden="true"></span> '.$row['apellido'].'</a></td>
-                            <td>'.$row['nombre'].'</td>
-                            <td>'.$row['cuil'].'</td>
-                            <td>'.$row['email'].'</td>
-                            <td>'.$row['dni'].'</td>
-							<td>'.$row['telefono'].'</td>  
-                            <td>'.$row['descripcion'].'</td> 
-							<td>
+							<td>'.$row['idReclamo'].'</td>
+							<td>'.$row['fecha'].'</td>
+							<td>Piso: '.$row['piso'].' - Dpto: '.$row['departamento'].'</td>
+							<td>'.$row['descripcion'].'</td>
+							<td>';
+							
+							$estado = $row['estado'];
+							switch ($estado) {
+								case "Activo":
+									$badgeColor = "success";
+									break;
+								case "Resuelto":
+									$badgeColor = "info";
+									break;
+							}
+							echo '<span class="badge badge-'.$badgeColor.'">'.$estado.'</span></td>';
 
-								<a href="abm/editarRolyEstado.php?nik='.$row['idUsuarios'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
-								<a href="homeOperador.php?aksi=delete&nik='.$row['idUsuarios'].'" title="Eliminar solicitud de habilitacion" onclick="return confirm(\'Esta seguro de borrar la solicitud de: '.$row['apellido'].' '.$row['nombre'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
-							</td>
-						</tr>
-						';
+							echo '<td>';
+							 if (isset($_SESSION['admin']) || isset($_SESSION['operador'])) {
+								if ($row['estado'] == 'Activo') {
+							 		echo '<a href="abm/editarReclamo.php?nik='.$row['idReclamo'].'" title="Editar datos" class="btn btn-primary btn-sm btn-block"><span class="fas fa-edit" aria-hidden="true"></span></a>';
+								}
+							 }
+							echo '</td>
+							</tr>';
 					}
 				}
 				?>
 			</table>
 			</div>
 		</div>
-	</div>         
+	</div><center>
+        
     <div class="corte">
     </div>
     <?php include('template/footer.php'); ?>
