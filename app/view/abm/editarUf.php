@@ -49,7 +49,7 @@ if(!isset($_SESSION['admin'])){
 					<label class="col-sm-3 control-label">Propietarios:</label>
 					<div class="col-sm-3">
 						<select name="idUsuarios" class="form-control">
-                            <?php  $datos = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idRol = 3"); //id rol propietario
+                            <?php  $datos = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idRol = 1 or idRol = 2 or idRol = 3"); //Un administrador Operador u Propietario Pueden tener una Unidad Funcional.
                              while ($row2 = mysqli_fetch_assoc($datos)) { ?>
                             <option value="<?php echo $row2['idUsuarios']; ?>">
                                 <?php echo $row2['nombre']; ?>
