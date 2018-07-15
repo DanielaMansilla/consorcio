@@ -26,6 +26,11 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 
 			<?php
 			if (isset($_POST['add'])) {
+                if(!isset($_POST["yearLiquidacion"])){
+                echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No puede cargar una liquidación sin seleccionar un año!</div>';
+                }else if(!isset($_POST["mesLiquidacion"])){
+                echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: No puede cargar una liquidación sin seleccionar un mes!</div>';
+                }else{
 				// TODO: Validar que se hayan ingresado la fecha y el Mes...
 				$yearLiquidacion = mysqli_real_escape_string($conexion,(strip_tags($_POST["yearLiquidacion"],ENT_QUOTES)));
 				$mesLiquidacion = mysqli_real_escape_string($conexion,(strip_tags($_POST["mesLiquidacion"],ENT_QUOTES)));
@@ -113,6 +118,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['operador'])) {
 				} else {
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: Ya existe una liquidación para el periodo seleccionado! </div>';
 				}
+              }
 			}
 			?>
 			<form class="form-horizontal" action="" method="post" id="reclamoForm">
