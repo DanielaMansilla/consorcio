@@ -32,12 +32,16 @@ if(!isset($_SESSION['admin'])){
 			}
 			if(isset($_POST['save'])){ 
 				$nroFactura 	= mysqli_real_escape_string($conexion, (strip_tags($_POST["nroFactura"], ENT_QUOTES)));
-				$importe		= mysqli_real_escape_string($conexion, (strip_tags($_POST["importe"], ENT_QUOTES)));
 				$concepto		= mysqli_real_escape_string($conexion, (strip_tags($_POST["concepto"], ENT_QUOTES)));
 				$fecha			= mysqli_real_escape_string($conexion, (strip_tags($_POST["fecha"], ENT_QUOTES)));
 
+				if ($row['estado'] != "Listado") {
+				$importe		= mysqli_real_escape_string($conexion, (strip_tags($_POST["importe"], ENT_QUOTES)));
                    $update = mysqli_query($conexion, "UPDATE gasto SET nroFactura='$nroFactura', importe='$importe', concepto='$concepto', fecha='$fecha' WHERE idGasto='$nik'") or die(mysqli_error($conexion));
-                    if($update){
+				}else {
+					$update = mysqli_query($conexion, "UPDATE gasto SET nroFactura='$nroFactura', concepto='$concepto', fecha='$fecha' WHERE idGasto='$nik'") or die(mysqli_error($conexion));
+				}
+				   if($update){
                         //header("Location: editarConsorcio.php?nik=".$nik."&pesan=sukses");
                         echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido modificados con éxito.</div>';
                     }else{
@@ -49,8 +53,11 @@ if(!isset($_SESSION['admin'])){
                     echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
 			} ?>
             
-		<form class="form-horizontal" action="" method="post">      
-        		<div class="form-group">
+		<form class="form-horizontal" action="" method="post">
+
+			<?php if ($row['estado'] != "Listado") { ?>
+
+				<div class="form-group">
 					<label class="col-sm-3 control-label">Importe</label>
 					<div class="input-group col-sm-3">
 					<div class="input-group-prepend">
@@ -62,6 +69,20 @@ if(!isset($_SESSION['admin'])){
 					</div>
 				</div>
 
+			<?php }else{ ?>
+				<div class="form-group">
+					<label class="col-sm-3 control-label">Importe</label>
+					<div class="input-group col-sm-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text" id="basic-addon1">$</span>
+					</div>
+						<!-- TODO: Modificar tipo de dato en importe de gastos, para que sea un float -->
+						<!-- <input type="number" name="importe" step="0.01" class="form-control" placeholder="Importe" required> -->
+						<input type="number" value="<?php echo $row ['importe']; ?>" name="importe" min="0.00" max="9999999999.99" step="0.01" class="form-control" placeholder="Ingrese el importe..." disabled>
+					</div>
+				</div>
+
+			<?php }?>
 				<div class="form-group">
 					<label class="col-sm-3 control-label">Concepto</label>
 					<div class="col-sm-3">
