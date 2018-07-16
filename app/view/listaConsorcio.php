@@ -73,7 +73,7 @@ if(!isset($_SESSION['admin'])){
                             if(isset($_SESSION['admin'])){
 								echo '
 							</td>
-							<td>
+							<td style="text-align:center;">
 								<a href="abm/editarConsorcio.php?nik='.$row['idConsorcio'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
 								<a href="listaConsorcio.php?aksi=delete&nik='.$row['idConsorcio'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar el consorcio: '.$row['nombre'].' con CUIT '.$row['cuit'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 								<a href="mapaConsorcio.php?id='.$row['idConsorcio'].'" title="Ver Ubicación" class="btn btn-success btn-sm"><span class="fas fa-map-marker-alt" aria-hidden="true"></span></a>
@@ -83,7 +83,7 @@ if(!isset($_SESSION['admin'])){
 							}if(isset($_SESSION['operador'])){
 								echo '
 							</td>
-							<td>
+							<td style="text-align:center;">
 								<a href="abm/editarConsorcio.php?nik='.$row['idConsorcio'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
 								<a href="mapaConsorcio.php?id='.$row['idConsorcio'].'" title="Ver Ubicación" class="btn btn-success btn-sm"><span class="fas fa-map-marker-alt" aria-hidden="true"></span></a>
 							</td>

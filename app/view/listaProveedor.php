@@ -68,7 +68,7 @@ if(!isset($_SESSION['admin'])){
                             if(isset($_SESSION['admin'])){
 								echo '
 							</td>
-							<td>
+							<td style="text-align:center;">
 								<a href="abm/editarProveedor.php?nik='.$row['idProveedor'].'" title="Editar datos" class="btn btn-primary btn-sm"><span class="fas fa-edit" aria-hidden="true"></span></a>
 								<a href="listaProveedor.php?aksi=delete&nik='.$row['idProveedor'].'" title="Eliminar" onclick="return confirm(\'Esta seguro de borrar los datos '.$row['nombre'].' con CUIT '.$row['cuit'].'?\')" class="btn btn-danger btn-sm"><span class="fas fa-trash" aria-hidden="true"></span></a>
 							</td>

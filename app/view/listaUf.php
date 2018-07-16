@@ -69,7 +69,7 @@ if(!isset($_SESSION['admin'])){
                             <td>'.$row['departamento'].'</td>
                             <td>'.$row['unidadFuncionalLote'].'</td>
 							<td>'.$row['nombre'].'</td>   
-							<td>';
+							<td style="text-align:center;">';
 
 							if(isset($_SESSION['admin'])){
 								echo '
