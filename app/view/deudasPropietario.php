@@ -60,7 +60,7 @@ if (!isset($_SESSION['propietario'])) {
                     <th>Propiedad</th>
                     <th>Vencimiento</th>
                     <th>Importe</th>
-                    <th>Acciones</th>
+                    <th style="text-align:center;">Acciones</th>
 
                 </tr>
                 
@@ -76,7 +76,7 @@ if (!isset($_SESSION['propietario'])) {
                         </td>
                         <td><?php echo $deuda['vencimiento'] ?></td>
                         <td>$ <?php echo $deuda['importeExpensa'] ?></td>
-                        <td><a href="abm/pagarExpensa.php?id=<?php echo $deuda['idExpensa'] ?>" title="Pagar" class="btn btn-primary btn-sm"><span class="fas fa-shopping-cart" aria-hidden="true"></span></a></td>
+                        <td style="text-align:center;"><a href="abm/pagarExpensa.php?id=<?php echo $deuda['idExpensa'] ?>" title="Pagar" class="btn btn-primary btn-sm btn-block"><span class="fas fa-shopping-cart" aria-hidden="true"></span></a></td>
 
                     </tr>
 
