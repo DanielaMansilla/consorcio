@@ -27,7 +27,7 @@ if(!isset($_SESSION['admin'])){
 			<hr />';
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			
-			$sql = mysqli_query($conexion, "SELECT * FROM reclamo JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad WHERE idReclamo='$nik'");
+			$sql = mysqli_query($conexion, "SELECT * FROM reclamo LEFT JOIN propiedad ON reclamo.idPropiedad=propiedad.idPropiedad WHERE idReclamo='$nik'");
 			if(mysqli_num_rows($sql) == 0){
 				//header("Location: ../index.php");
 			}else{
