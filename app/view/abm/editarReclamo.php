@@ -33,22 +33,32 @@ if(!isset($_SESSION['admin'])){
 			}else{
 				$row = mysqli_fetch_assoc($sql);
 			}
-			if(isset($_POST['save'])){ 
-				$descripcion		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["descripcion"],ENT_QUOTES)));//Escanpando caracteres 
-                $estado		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres 
 
-                
-                $update = mysqli_query($conexion, "UPDATE reclamo SET descripcion='$descripcion', estado='$estado' WHERE idReclamo='$nik'") or die(mysqli_error($conexion));
-                    if($update){
-                        //header("Location: editarConsorcio.php?nik=".$nik."&pesan=sukses");
-                        echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido modificados con éxito.</div>';
-                    }else{
-                        echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
-                    }
-                }
-                if(isset($_GET['pesan']) == 'sukses'){
-                    echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
-			} ?>
+			if($row ['estado'] !='Resuelto'){
+
+				if(isset($_POST['save'])){ 
+					$descripcion		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["descripcion"],ENT_QUOTES)));//Escanpando caracteres 
+					$estado		     = mysqli_real_escape_string($conexion,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres 
+					
+					
+
+					$update = mysqli_query($conexion, "UPDATE reclamo SET descripcion='$descripcion', estado='$estado' WHERE idReclamo='$nik'") or die(mysqli_error($conexion));
+						if($update){
+							//header("Location: editarConsorcio.php?nik=".$nik."&pesan=sukses");
+							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido modificados con éxito.</div>';
+						}else{
+							echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
+						}
+					}
+					if(isset($_GET['pesan']) == 'sukses'){
+						echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
+				}
+			}else{
+				echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pueden editar reclamos resueltos.</div>';
+			}
+		
+		
+		?>
             
             <label class="col-sm-3 control-label">Nro. Reclamo: <?php echo $row ['idReclamo']; ?></label>
             <label class="col-sm-3 control-label">Fecha: <?php echo $row ['fecha']; ?></label>
