@@ -34,11 +34,14 @@ if(!isset($_SESSION['admin'])){
 				if(!($unidadFuncionalLote <= 100 && $unidadFuncionalLote >= 1)){
 					$error[] = "Unidad Funcional (Lote): debe ser mayor a 0 y menor a 100";
 				  }
-                
-                $totalPorcentaje = mysqli_query($conexion, "SELECT SUM(porcentajeParticipacion) as total FROM propiedad"); 
+				
+				// Obtengo el porcentaje de participación total actual del consorcio elegido
+				$totalPorcentaje = mysqli_query($conexion, 
+				"SELECT SUM(porcentajeParticipacion) as total
+				FROM propiedad
+				WHERE propiedad.idConsorcio = '$idConsorcio'"); 
                 $row3 = mysqli_fetch_assoc($totalPorcentaje);
                  
-                
                 if($row3["total"] + $porcentajeParticipacion >100){
 					$error[] = "Porcentaje: supera el limite disponible.";
 				  }
