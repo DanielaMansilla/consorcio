@@ -26,16 +26,21 @@ if(!isset($_SESSION['admin'])){
 			$nik = mysqli_real_escape_string($conexion,(strip_tags($_GET["nik"],ENT_QUOTES)));
 			$sql = mysqli_query($conexion, "SELECT * FROM propiedad WHERE idPropiedad='$nik'");
 			if(mysqli_num_rows($sql) == 0){
-				header("Location: ../index.php");
+				echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error: Unidad Funcional no encontrada.</div>';
 			}else{
 				$row = mysqli_fetch_assoc($sql);
 			}
 			if(isset($_POST['save'])){
 				$idUsuarios		 = mysqli_real_escape_string($conexion,(strip_tags($_POST["idUsuarios"],ENT_QUOTES)));//Escanpando caracteres
-				$update = mysqli_query($conexion, "UPDATE propiedad SET idUsuarios='$idUsuarios' WHERE idPropiedad='$nik'") or die(mysqli_error($conexion));
+				// Para Sin Propietario
+				if ($idUsuarios == "NULL") {
+					$update = mysqli_query($conexion, "UPDATE propiedad SET idUsuarios=NULL WHERE idPropiedad='$nik'") or die(mysqli_error($conexion));
+				} else {
+					$update = mysqli_query($conexion, "UPDATE propiedad SET idUsuarios='$idUsuarios' WHERE idPropiedad='$nik'") or die(mysqli_error($conexion));
+				}
+				
 				if($update){
 					echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Los datos han sido guardados con éxito.</div>';
-					//header("Location: editarUf.php?nik=".$nik."&pesan=sukses");
 				}else{
 					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error, no se pudo guardar los datos.</div>';
 				}
@@ -50,6 +55,7 @@ if(!isset($_SESSION['admin'])){
 					<label class="col-sm-3 control-label">Propietarios:</label>
 					<div class="col-sm-3">
 						<select name="idUsuarios" class="form-control">
+							<option value="NULL">- Sin Propietario -</option>
                             <?php  $datos = mysqli_query($conexion, "SELECT * FROM usuarios WHERE idRol = 1 or idRol = 2 or idRol = 3"); //Un administrador Operador u Propietario Pueden tener una Unidad Funcional.
                              while ($row2 = mysqli_fetch_assoc($datos)) { ?>
                             <option value="<?php echo $row2['idUsuarios']; ?>">
