@@ -25,10 +25,9 @@ if(!isset($_SESSION['admin'])){
 
                 $porcentajeParticipacion    = mysqli_real_escape_string($conexion,(strip_tags($_POST["porcentajeParticipacion"],ENT_QUOTES)));//Escanpando caracteres 
                 $piso = mysqli_real_escape_string($conexion,(strip_tags($_POST["piso"],ENT_QUOTES)));//Escanpando caracteres 
-                $departamento = mysqli_real_escape_string($conexion,(strip_tags($_POST["departamento"],ENT_QUOTES)));//Escanpando caracteres 
-                $unidadFuncionalLote = mysqli_real_escape_string($conexion,(strip_tags($_POST["unidadFuncionalLote"],ENT_QUOTES)));//Escanpando caracteres 
+                $departamento = strtoupper(mysqli_real_escape_string($conexion,(strip_tags($_POST["departamento"],ENT_QUOTES))));//Escanpando caracteres 
                 $idConsorcio = mysqli_real_escape_string($conexion,(strip_tags($_POST["idConsorcio"],ENT_QUOTES)));//Escanpando caracteres 
-
+                $unidadFuncionalLote = $piso."".$departamento."".$idConsorcio;
 				$error = array();
 				//Validacion
 				if(!($unidadFuncionalLote <= 100 && $unidadFuncionalLote >= 1)){
@@ -68,7 +67,7 @@ if(!isset($_SESSION['admin'])){
                         }
                         
 				}else{
-					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. código de Unidad Funcional existe!</div>';
+					echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Error. Ya se encuentra registrada una Unidad Funcional en el Departamento '.$departamento.' del Piso '.$piso.' del Consorcio seleccionado !</div>';
 				}
 			}else{
                 echo "Ocurrio un error en los siguientes campos: ";
@@ -97,12 +96,6 @@ if(!isset($_SESSION['admin'])){
 					<label class="col-sm-3 control-label">Departamento</label>
 					<div class="col-sm-4">
 						<input type="text" name="departamento" class="form-control" placeholder="Departamento" required>
-					</div>
-				</div>
-                <div class="form-group">
-					<label class="col-sm-3 control-label">Unidad Funcional</label>
-					<div class="col-sm-4">
-						<input type="text" name="unidadFuncionalLote" class="form-control" maxlength="1" placeholder="Unidad Funcional" required>
 					</div>
 				</div>
                 <div class="form-group">
