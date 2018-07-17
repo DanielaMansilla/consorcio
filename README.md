@@ -160,6 +160,11 @@ Y no olvidarse de ingresar en donde dice Nombre y Apellido en los datos de la ta
 - FORM : Payment declined due to error in form.
 - OTHE : General decline.
 
+## Cuil y Cuit de Prueba:
+
+  https://www.dateas.com/es/consulta_cuit_cuil?name=Gerardo+Romano&cuit=&tipo=fisicas-juridicas
+  https://www.cuitonline.com/search.php?q=valido&f2[]=monotributo%3Ano_inscripto&pn=1&&f6[]=nacionalidad:argentina
+
 # Diagrama de Base de Datos
 
 ![Diagrama](diagramaBD.png?raw=true "Diagrama")
