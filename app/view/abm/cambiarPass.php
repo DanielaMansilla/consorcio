@@ -32,8 +32,10 @@ if(!isset($_SESSION['primeraVez'])){
             $resultado=mysqli_query($conexion,$cambiarPassUsuario);
             $resultado=mysqli_query($conexion,$cambiarPassUsuario2);
             mysqli_close($conexion);
-            
-            header("Location: ../index.php");
+
+            echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Cambiaste tu password con éxito.</div>';
+            echo'<a href="../index.php" class="btn btn-sm btn-success">Volver al Inicio</a>';
+            //header("Location: ../index.php");
           }
     }?> 
 
