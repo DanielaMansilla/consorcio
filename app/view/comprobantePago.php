@@ -14,7 +14,7 @@ if(!isset($_SESSION['admin']) && !isset($_SESSION['operador']) && !isset($_SESSI
 
         <div class="container">
 		<div class="content">
-			<h2>Consorcios del Valle &raquo; Pago de Expensas</h2>
+			<h2>Administración de Consorcios del Valle &raquo; Pago de Expensas</h2>
 			<hr />
 
 
@@ -33,43 +33,36 @@ $sql = mysqli_query($conexion,
 					INNER JOIN propiedad ON expensa.idPropiedad = propiedad.idPropiedad
                     INNER JOIN liquidacion ON liquidacion.idLiquidacion = expensa.idLiquidacion 
                     INNER JOIN ordenpago ON ordenpago.idExpensa = expensa.idExpensa 
+                    INNER JOIN formasdepago ON formasdepago.idFormaPago = ordenpago.idFormaPago
 					WHERE expensa.idExpensa = '$idExpensa';") or die(mysqli_error($conexion));
  $row = mysqli_fetch_assoc($sql);           
           echo '
-<pre>EL PAGO FUE APLICADO AL PERIODO '.date("m", strtotime($row['periodo'])).'/'.date("Y", strtotime($row['periodo'])).'
+<pre>PAGO APLICADO AL PERIODO '.date("m", strtotime($row['periodo'])).'/'.date("Y", strtotime($row['periodo'])).'
 </pre>
 <div class="col-xs-6 text-right">
             <div class="col-xs-6">
                 <img alt="logo" width=160px  src="../../public/img/logo.jpg" >
             </div>
 <h1>Comprobante de Pago realizado el '.date("d", strtotime($row['fecha'])).'-'.date("m", strtotime($row['fecha'])).'-'.date("Y", strtotime($row['fecha'])).'</h1>
-<h4>Expensa nro. '.$idExpensa.'</h4>
-<div class="panel-body">Numero de Liquidacion : '.$row['idLiquidacion'].'</div>
+<h4>•Nro. de Expensa : '.$idExpensa.' •--------------------- •Nro de Liquidacion : '.$row['idLiquidacion'].'•</h4>
 </div>
-</div>
- 
-<hr />
- 
-        
+</div>  
 <div class="row">
 <div class="col-xs-5">
 <div class="panel panel-default">
 <div class="panel-heading">
-<h4>Unidad Funcional: '.$row['unidadFuncionalLote'].'</h4>
-</div>
-<div class="panel-body">Consorcio Numero: '.$row['idConsorcio'].'</div>
+<h4>•Unidad Funcional: '.$row['unidadFuncionalLote'].' •--------------------- •Nro. de Consorcio: '.$row['idConsorcio'].'•</h4>
 </div>
 </div>
-        <div class="medioindex">
-
-        </div>
+<hr />
 <div class="indexder">
 <div class="col-xs-5 col-xs-offset-2 text-right">
 <div class="panel panel-default">
 <div class="panel-heading">
 <h1><small>Por un importe de: $'.$row['importe'].'.-</small></h1>
+<small>Forma de Pago: '.$row['descripcion'].'</small>
 </div>
-<div class="panel-body"><b>Numero de Control de pago : '.$row['idOperacion'].'</b></div>
+<div class="panel-body"><b>Nro. de Control de Pago : '.$row['idOperacion'].'</b></div>
 </div>
 </div>
 </div>
