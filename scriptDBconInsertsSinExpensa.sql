@@ -54,12 +54,6 @@ CREATE TABLE `expensa` (
 -- Volcado de datos para la tabla `expensa`
 --
 
---INSERT INTO `expensa` (`idExpensa`, `idLiquidacion`, `idPropiedad`, `importe`, `fecha`, `vencimiento`, `estado`) VALUES
---(1, 2, 1, '255.00', '2018-07-03', '2018-07-04', 'Impago'),
---(2, 2, 2, '255.00', '2018-07-03', '2018-07-04', 'Impago'),
---(3, 2, 3, '255.00', '2018-07-03', '2018-07-04', 'Impago'),
---(4, 2, 4, '255.00', '2018-07-03', '2018-07-04', 'Impago');
-
 -- --------------------------------------------------------
 
 --
@@ -100,9 +94,6 @@ CREATE TABLE `gasto` (
 -- Volcado de datos para la tabla `gasto`
 --
 
---INSERT INTO `gasto` (`idGasto`, `fecha`, `importe`, `concepto`, `estado`, `idReclamo`, `nroFactura`, `idProveedor`) VALUES
---(5, '2018-07-02', '850.00', 'Arreglo de caÃ±erÃ­a', 'Listado', 2, 1, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -119,9 +110,6 @@ CREATE TABLE `liquidacion` (
 -- Volcado de datos para la tabla `liquidacion`
 --
 
---INSERT INTO `liquidacion` (`idLiquidacion`, `periodo`, `fecha`) VALUES
---(2, '2018-07-01', '2018-08-01');
-
 -- --------------------------------------------------------
 
 --
@@ -136,9 +124,6 @@ CREATE TABLE `liquidaciongasto` (
 --
 -- Volcado de datos para la tabla `liquidaciongasto`
 --
-
---INSERT INTO `liquidaciongasto` (`idLiquidacion`, `idGasto`) VALUES
---(2, 5);
 
 -- --------------------------------------------------------
 
@@ -222,8 +207,7 @@ CREATE TABLE `reclamo` (
 
 INSERT INTO `reclamo` (`idReclamo`, `fecha`, `descripcion`, `estado`, `idPropiedad`) VALUES
 (1, '2018-01-01', 'Sin Reclamo', 'Activo', NULL);
---(2, '2018-07-01', 'Rotura de caÃ±o', 'Resuelto', 1),
---(3, '2018-07-03', 'Rotura de cerradura', 'Activo', 3);
+
 
 -- --------------------------------------------------------
 
