@@ -34,7 +34,7 @@ require_once "../../lib/mercadopago.php";
 // Configuración de MercadoPago
 try {
 	$isMercadoPagoEnabled = true;
-	$mp = new MP("426543208337217", "QvFA81UyiPK8pKl727ikvN43lraFFbmC");
+	$mp = new MP("7466445635971939", "b2T9AcENUezVW34XoYyOWe4mO1Ow4M32");
 	$mp->sandbox_mode(TRUE);
 } catch (MercadoPagoException $e) {
 	$isMercadoPagoEnabled = false;

@@ -139,9 +139,16 @@ Iniciar sesión con el siguiente usuario de prueba en MercadoPago.
 Luego, al momento de hacer un pago, ingresar alguna de las tarjetas de crédito de prueba que se encuentran más abajo.
 Y no olvidarse de ingresar en donde dice Nombre y Apellido en los datos de la tarjeta el valor: APRO
 
-## Usuario de Prueba: 
+## Usuario de Prueba Comprador: 
 - usuario: test_user_48440768@testuser.com
 - contraseña: qatest1408
+
+## Usuario de Prueba Vendedor: 
+- usuario: test_user_72073954@testuser.com
+- contraseña: qatest7878
+
+- Client_id:	7466445635971939
+- Client_secret:	b2T9AcENUezVW34XoYyOWe4mO1Ow4M32
 
 ## Tarjetas de Crédito de Prueba: (Argentina)
 
