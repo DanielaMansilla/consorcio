@@ -34,6 +34,14 @@ if(!isset($_SESSION['admin'])){
 				if(!($unidadFuncionalLote <= 100 && $unidadFuncionalLote >= 1)){
 					$error[] = "Unidad Funcional (Lote): debe ser mayor a 0 y menor a 100";
 				  }
+                
+                $totalPorcentaje = mysqli_query($conexion, "SELECT SUM(porcentajeParticipacion) as total FROM propiedad"); 
+                $row3 = mysqli_fetch_assoc($totalPorcentaje);
+                 
+                
+                if($row3["total"] + $porcentajeParticipacion >100){
+					$error[] = "Porcentaje: supera el limite disponible.";
+				  }
 				  
 				  if(!(ctype_alpha($departamento) && strlen($departamento) == 1)){
 					$error[] = "Departamento: Debe contener solo 1 Letra";
