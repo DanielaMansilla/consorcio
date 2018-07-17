@@ -175,10 +175,10 @@ CREATE TABLE `propiedad` (
 --
 
 INSERT INTO `propiedad` (`idPropiedad`, `idUsuarios`, `porcentajeParticipacion`, `piso`, `departamento`, `unidadFuncionalLote`, `idConsorcio`) VALUES
-(1, 3, 25, 1, 'a', '1', 1),
-(2, 3, 25, 1, 'b', '2', 1),
-(3, 4, 25, 2, 'a', '3', 1),
-(4, 4, 25, 2, 'b', '4', 1);
+(1, 3, 25, 1, 'A', '1A1', 1),
+(2, 3, 25, 1, 'B', '1B1', 1),
+(3, 4, 25, 2, 'A', '2A1', 1),
+(4, 4, 25, 2, 'B', '2B1', 1);
 
 -- --------------------------------------------------------
 
