@@ -2,7 +2,7 @@
 
 # Info
 
-- phpMyAdmin http://localhost:8080/phpmyadmin/
+- phpMyAdmin http://localhost/phpmyadmin/
 
 - Apache y MySQL Control Xampp
 
@@ -13,6 +13,9 @@
 - Editor de texto a utilizar: cualquiera.
 
 - Herramientas de gestión de proyectos: Trello https://trello.com/b/g63JsRvS/consorcio
+
+- En caso de tener un puerto distinto al por defecto localhost. Se debera modificar el archivo pagarExpensa.php 
+y cambiar la ruta agregandole el puerto en el array de mercado pago, en "success", "failure" y "pending".
 
 # Tecnicatura en Desarrollo Web / Mobile - Universidad Nacional de La Matanza (2018)
 
@@ -109,9 +112,9 @@ Estadísticas: deberá informar por cada consorcio, cantidad de unidades, cobran
 
 * Iniciar Apache y MySQL desde XAMPP Control Panel.
 
-* Ingresar a phpMyAdmin (http://localhost:8080/phpmyadmin/) y crear una base de datos llamada: consorcio. Una vez creada, importar en ella el archivo scriptDBconInserts.sql ubicado dentro del repositorio clonado (C:\xampp\htdocs\consorcio).
+* Ingresar a phpMyAdmin (http://localhost/phpmyadmin/) y crear una base de datos llamada: consorcio. Una vez creada, importar en ella el archivo scriptDBconInserts.sql ubicado dentro del repositorio clonado (C:\xampp\htdocs\consorcio).
 
-* Ingresar a http://localhost:8080/consorcio/app/view/ y comenzar a utilizar la aplicación. Podes ingresar los datos brindados debajo (ya se encuentran cargados con los permisos correspondientes).
+* Ingresar a http://localhost/consorcio/app/view/ y comenzar a utilizar la aplicación. Podes ingresar los datos brindados debajo (ya se encuentran cargados con los permisos correspondientes).
 
 
 # Usuarios a utilizar en la aplicación:
